@@ -8,11 +8,17 @@ import {
 import reportWebVitals from './reportWebVitals';
 import Root from './routes/root';
 import ErrorPage from './error-page';
+import Login from './routes/login/login.component';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/login",
+    element: <Login />,
     errorElement: <ErrorPage />
   },
 ]);
