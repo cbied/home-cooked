@@ -1,11 +1,11 @@
-import Root from './routes/root';
+import { Fragment } from 'react';
 import './App.css';
 
 function App() {
   return (
-    <div>
-      
-    </div>
+      <Fragment>
+        <h3>hello</h3>
+      </Fragment>
   );
 }
 

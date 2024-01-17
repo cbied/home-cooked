@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
-import App from "../App";
+import { Outlet } from 'react-router-dom';
+import App from '../App';
 import logo from '../assets/logo.png'
 import './root.css'
 
@@ -32,7 +33,10 @@ return (
     <nav className="navbar">
         <ul>
         <li>
-            <a href={`/contacts/1`}>Sign up</a>
+            <a href={`/`}>Home</a>
+        </li>
+        <li>
+            <a href={`/signup`}>Sign up</a>
         </li>
         <li>
             <a href={`/login`}>Login</a>
@@ -54,11 +58,13 @@ return (
     </nav>
     </div>
     <div id="detail">
-    <App />
+    {window.location.pathname === '/' ? 
+        <App /> :
+        <Outlet />
+    }
     </div>
 </Fragment>
 );
 }
-
 
 export default Root;
