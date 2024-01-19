@@ -188,11 +188,28 @@ i {
   color: inherit;
 }
 
-#sidebar ul {
-  width: 50%;
+#sidebar .links {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+@keyframes links-text-out {
+  0% { width: 100%; }
+  100% { width: 50%;}
+}
+
+@keyframes links-text-in {
+  0% { width: 50%; }
+  100% { width: 100%;}
+}
+
+.links-closed {
+  animation: links-text-out 1.75s forwards;
+}
+
+.links-open {
+  animation: links-text-in 1.75s forwards;
 }
 
 #sidebar li {
@@ -227,8 +244,8 @@ i {
 }
 
 @keyframes fade-text-in {
-    0% { opacity: 1; }
-    100% { opacity: 1; }
+    0% { opacity: 0; }
+    100% { opacity: 1;}
 }
 
 @keyframes fade-text-out {
@@ -253,8 +270,6 @@ i {
 .name-out {
     animation: fade-text-out 1.75s forwards;
 }
-
-
 
 #detail {
   flex: 1;

@@ -31,7 +31,7 @@ return (
         </div>
     </div>
     <nav className="navbar">
-        <ul>
+        <ul className={!toggleNav ? "links links-closed" : "links links-open"}>
         <li>
             <a href={`/`}>Home</a>
         </li>
