@@ -7,6 +7,7 @@ import {
   RouterProvider,
   Route
 } from "react-router-dom";
+import "tw-elements-react/dist/css/tw-elements-react.min.css";
 import reportWebVitals from './reportWebVitals';
 import Root from './routes/root';
 import App from './App'
