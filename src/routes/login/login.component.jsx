@@ -5,7 +5,7 @@ import GoogleIcon from '../../assets/google_icon.png'
 export default function Login() {
   return (
     <section className="h-screen">
-      <div className="container h-full px-20">
+      <div className="container h-full px-10">
         <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
           {/* <!-- Left column container with background--> */}
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
