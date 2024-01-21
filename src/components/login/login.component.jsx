@@ -1,12 +1,22 @@
 import React from "react";
+import { signInUser, signUserOut } from '../../utils/firebase.utils'
 import { TEInput, TERipple } from "tw-elements-react";
 import GoogleIcon from '../../assets/google_icon.png';
 import './login.component.css';
 
 export default function Login() {
 
+  function handleSignUserIn(event) {
+    event.preventDefault();
+    const email = event.target[0].value
+    const password = event.target[1].value
+    signInUser(email, password)
+  }
+
   return ( 
-            <form className="flex flex-col items-center mt-10">
+            <form 
+            onSubmit={handleSignUserIn}
+            className="flex flex-col items-center mt-10">
               {/* <!-- Email input --> */}
               <TEInput
                 type="email"
@@ -55,7 +65,9 @@ export default function Login() {
               </div>
 
               {/* <!-- Social login buttons --> */}
-              <TERipple rippleColor="light" className="w-6/12">
+              <TERipple 
+              onClick={signUserOut}
+              rippleColor="light" className="w-6/12">
                 <a
                   className="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   href="#!"
