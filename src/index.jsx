@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,15 +10,14 @@ import "tw-elements-react/dist/css/tw-elements-react.min.css";
 import reportWebVitals from './reportWebVitals';
 import Root from './routes/root';
 import App from './App'
-import SignUp from './routes/sign-up/sign-up.component';
-import Login from './routes/login/login.component';
+import Authentication from './routes/authentication/authentication.component';
+import './index.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='*' element={<Root />}>
       <Route path='home' element={<App />}/>
-      <Route path='signup' element={<SignUp />}/>
-      <Route path='login' element={<Login />}/>
+      <Route path='authentication' element={<Authentication />}/>
     </Route>
 
   )

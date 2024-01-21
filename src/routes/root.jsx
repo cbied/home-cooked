@@ -30,16 +30,16 @@ return (
             </label>
         </div>
     </div>
-    <nav className="navbar">
+    <nav className="navbar ">
         <ul className={!toggleNav ? "links links-closed" : "links links-open"}>
         <li>
             <a href={`/`}>Home</a>
         </li>
         <li>
-            <a href={`/signup`}>Sign up</a>
+            <a href={`/signup`}>SOME LINK HERE</a>
         </li>
         <li>
-            <a href={`/login`}>Login</a>
+            <a href={`/authentication`}>Login/Sign up</a>
         </li>
         </ul>
         <div className={!toggleNav ? "name-container name-in" : "name-container name-out" }>
