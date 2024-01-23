@@ -1,164 +1,107 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react';
+import { Nav } from 'rsuite';
+import {
+  TEDropdown,
+  TEDropdownToggle,
+  TEDropdownMenu,
+  TEDropdownItem,
+  TERipple,
+} from "tw-elements-react";
 import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
-const navigation = [
-  { name: 'Dashboard', href: '/', current: true },
-  { name: 'Team', href: '/authentication', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-  
 export const Navbar = () => {
-    // const [ toggleNav, setToggleNav ] = useState(false) 
+    const [ toggleNav, setToggleNav ] = useState(false) 
 
-    // const handleToggleNav = () => {
-    //     setToggleNav(!toggleNav);
-    //     console.log(toggleNav)
-    // }
+    const handleToggleNav = () => {
+        setToggleNav(!toggleNav);
+        console.log(toggleNav)
+    }
     return(
-    <Disclosure as="nav" className="bg-primary w-screen">
-      {({ open }) => (
-        <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center hamburger">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only hidden">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6 sm:hidden sm:invisible" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6 sm:hidden sm:invisible" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
-              <div className="hidden md:flex flex-shrink-0 items-center justify-between">
-                  <img
-                    className="h-8 w-auto"
-                    src={logo}
-                    alt="Your Company"
-                  />
-                  <h3 className='px-5'>Home Cooked</h3>
+        <nav
+        className={toggleNav ? 'w-screen flex flex-col justify-center bg-primary h-1/2' : 'w-screen h-20 flex flex-col justify-center bg-primary mb-0'}>
+            <div className='flex justify-between w-screen'>
+                <div className=''>
+                    <div className="menu cross menu--1 hamburger">
+                        <label className='h-20'>
+                        <input type="checkbox" autoComplete="off"/>
+                        <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" onClick={handleToggleNav}
+                             >
+                            <circle cx="50" cy="50" r="30" />
+                            <path className="line--1" d="M0 40h62c13 0 6 28-4 18L35 35" />
+                            <path className="line--2" d="M0 50h70" />
+                            <path className="line--3" d="M0 60h62c13 0 6-28-4-18L35 65" />
+                        </svg>
+                        </label>
+                    </div>
+                    <div className='hidden md:block h-16 pl-15'>
+                        <img className='w-16 h-12' src={logo} alt="home cooked logo" />
+                    </div>
                 </div>
-              <div className="flex flex-1 items-center justify-center sm:justify-start transition duration-500 ease-in-out">
+
+                <div className='hidden md:flex md:items-center'>
+                <Nav className='flex justify-around items-center'>
+                    <Nav.Item href={'/'}>Home</Nav.Item>
+                    <Nav.Item href={'/auth'}>Login/Sign up</Nav.Item>
+                    <Nav.Item>Solutions</Nav.Item>
+                    <Nav.Item>Products</Nav.Item>
+                    <Nav.Item>About</Nav.Item>
+                </Nav>
+                </div>
                 
-                <div className="hidden sm:ml-6 md:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => {
-                    return (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    )})}
-                  </div>
+                <div className='flex self-center pr-21 h-16'>
+                <TEDropdown className="flex justify-center">
+                <TERipple rippleColor="light">
+                    <TEDropdownToggle className="flex items-center whitespace-nowrap px-5 pt-2 rounded bg-primary text-xs font-medium uppercase leading-normal text-white ">
+                    <span className="ml-2 w-12">
+                        <img
+                        src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
+                        className="w-16 rounded-full"
+                        alt="Avatar" />
+                    </span>
+                    </TEDropdownToggle>
+                </TERipple>
+
+                <TEDropdownMenu>
+                    <TEDropdownItem>
+                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
+                        Action
+                    </a>
+                    </TEDropdownItem>
+                    <TEDropdownItem>
+                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
+                        Another action
+                    </a>
+                    </TEDropdownItem>
+                    <TEDropdownItem>
+                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
+                        Something else here
+                    </a>
+                    </TEDropdownItem>
+                    <hr className="my-2 h-0 border border-t-0 border-solid border-neutral-700 opacity-25 dark:border-neutral-200" />
+                    <TEDropdownItem>
+                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
+                        Separated link
+                    </a>
+                    </TEDropdownItem>
+                </TEDropdownMenu>
+                </TEDropdown>
                 </div>
-              </div>
-              <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="-inset-1.5" />
-                  <span className="sr-only hidden">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
-                  <div>
-                    <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="-inset-1.5" />
-                      <span className="sr-only hidden">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
             </div>
-          </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="w-screen space-y-1 px-2 pb-3 pt-2 transition duration-150 ease-in-out bg-primary">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+            <div className=''>
+            {toggleNav ? 
+                <Nav className='flex flex-col'>
+                <Nav.Item href={'/'}>Home</Nav.Item>
+                <Nav.Item href={'/auth'}>Login/Sign up</Nav.Item>
+                <Nav.Item>Solutions</Nav.Item>
+                <Nav.Item>Products</Nav.Item>
+                <Nav.Item>About</Nav.Item>
+            </Nav>
+            : 
+            null
+            }
             </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+        </nav>
     )
 }
+

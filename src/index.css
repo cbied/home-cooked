@@ -18,3 +18,4 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+@import "rsuite/dist/rsuite.css";

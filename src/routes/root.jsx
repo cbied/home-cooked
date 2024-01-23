@@ -6,9 +6,9 @@ import './root.css'
 
 const Root = () => {
     return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full overflow-hidden">
         <Navbar />
-        <div id="detail">
+        <div className='z-0'>
         {window.location.pathname === '/' ? 
             <App /> :
             <Outlet />
