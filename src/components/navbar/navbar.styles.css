@@ -97,14 +97,101 @@ path {
     max-height: 150px;
   }
 
+@keyframes drop-down {
+   
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+        height: 0;
+    }
 
-.animate {
-    transition: all 1.5s ease;
+    10% {
+        height: 15px;
+    }
+
+    20% {
+        height: 30px;
+    }
+
+    30% {
+        height: 45px;
+    }
+
+    40% {
+        height: 60px;
+    }
+
+    50% {
+        height: 75px;
+    }
+
+    60% {
+        height: 90px;
+    }
+
+    70% {
+        height: 105px;
+    }
+
+    80% {
+        height: 120px;
+    }
+
+    90% {
+        height: 135px;
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+        height: 150px;
+    }
 }
 
-.animate.down {
-    bottom: 50%;
-    margin-bottom: 200px
+
+@keyframes back-up {
+   
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+        height: 80px;
+    }
+
+    25% {
+        height: 60px;
+    }
+
+    50% {
+        height: 40px;
+    }
+
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+        height: 35px;
+       
+    }
+}
+
+
+.down {
+    animation: drop-down 1000ms;
+    animation-timing-function: linear;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.up {
+    animation: back-up 1000ms;
+    animation-timing-function: linear;
+    visibility: hidden;
+    transition: visibility 0, opacity 0 linear;
+}
+
+.rs-nav {
+    
 }
 
 .pl-15 {

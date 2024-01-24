@@ -18,8 +18,7 @@ export const Navbar = () => {
         console.log(toggleNav)
     }
     return(
-        <nav
-        className={toggleNav ? 'w-screen flex flex-col justify-center bg-primary h-1/2' : 'w-screen h-20 flex flex-col justify-center bg-primary mb-0'}>
+        <nav>
             <div className='flex justify-between w-screen'>
                 <div className=''>
                     <div className="menu cross menu--1 hamburger">
@@ -88,19 +87,13 @@ export const Navbar = () => {
                 </TEDropdown>
                 </div>
             </div>
-            <div className=''>
-            {toggleNav ? 
-                <Nav className='flex flex-col'>
+            <Nav className={toggleNav ? 'down' : 'up '}>
                 <Nav.Item href={'/'}>Home</Nav.Item>
                 <Nav.Item href={'/auth'}>Login/Sign up</Nav.Item>
                 <Nav.Item>Solutions</Nav.Item>
                 <Nav.Item>Products</Nav.Item>
                 <Nav.Item>About</Nav.Item>
             </Nav>
-            : 
-            null
-            }
-            </div>
         </nav>
     )
 }
