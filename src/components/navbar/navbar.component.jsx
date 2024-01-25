@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Nav } from 'rsuite';
 import {
   TEDropdown,
@@ -7,6 +7,7 @@ import {
   TEDropdownItem,
   TERipple,
 } from "tw-elements-react";
+import { signUserOut } from '../../utils/firebase.utils';
 import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
@@ -15,8 +16,23 @@ export const Navbar = () => {
 
     const handleToggleNav = () => {
         setToggleNav(!toggleNav);
-        console.log(toggleNav)
+    
+        setTimeout(() => {
+            if(toggleNav) {
+                window.document.getElementById('navbar').className += ' hide'
+            }
+        }, 900)
     }
+
+    useEffect(() => {
+    const hasHide = window.document.getElementById('navbar').classList.contains('hide');
+    if(!hasHide) {
+        window.document.getElementById('navbar').className += ' hide'
+        }
+    }, [])
+
+    console.log(toggleNav === false)
+
     return(
         <nav>
             <div className='flex justify-between w-screen'>
@@ -51,7 +67,7 @@ export const Navbar = () => {
                 <div className='flex self-center pr-21 h-16'>
                 <TEDropdown className="flex justify-center">
                 <TERipple rippleColor="light">
-                    <TEDropdownToggle className="flex items-center whitespace-nowrap px-5 pt-2 rounded bg-primary text-xs font-medium uppercase leading-normal text-white ">
+                    <TEDropdownToggle className="flex items-center whitespace-nowrap px-5 pt-2 rounded text-xs font-medium uppercase leading-normal text-white ">
                     <span className="ml-2 w-12">
                         <img
                         src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
@@ -78,16 +94,16 @@ export const Navbar = () => {
                     </a>
                     </TEDropdownItem>
                     <hr className="my-2 h-0 border border-t-0 border-solid border-neutral-700 opacity-25 dark:border-neutral-200" />
-                    <TEDropdownItem>
+                    <TEDropdownItem onClick={signUserOut}>
                     <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
-                        Separated link
+                        Sign out
                     </a>
                     </TEDropdownItem>
                 </TEDropdownMenu>
                 </TEDropdown>
                 </div>
             </div>
-            <Nav className={toggleNav ? 'down' : 'up '}>
+            <Nav id="navbar" className={toggleNav ? 'down' : 'up'}>
                 <Nav.Item href={'/'}>Home</Nav.Item>
                 <Nav.Item href={'/auth'}>Login/Sign up</Nav.Item>
                 <Nav.Item>Solutions</Nav.Item>

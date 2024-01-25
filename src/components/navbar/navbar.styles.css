@@ -101,50 +101,48 @@ path {
    
     0% {
         opacity: 0;
-        transform: translateY(-20px);
         height: 0;
     }
 
     10% {
-        height: 15px;
+        height: 0px;
     }
 
     20% {
-        height: 30px;
+        height: 25px;
+        
     }
 
     30% {
-        height: 45px;
+        height: 50px;
     }
 
     40% {
-        height: 60px;
+        height: 75px;
+        opacity: .15;
     }
 
     50% {
-        height: 75px;
+        height: 100px;
     }
 
     60% {
-        height: 90px;
+        height: 125px;
+        opacity: .25;
     }
 
     70% {
-        height: 105px;
+        height: 150px;
     }
 
     80% {
-        height: 120px;
-    }
-
-    90% {
-        height: 135px;
+        height: 175px;
+        opacity: .50;
     }
     
     100% {
         opacity: 1;
-        transform: translateY(0px);
-        height: 150px;
+        height: auto;
     }
 }
 
@@ -153,24 +151,49 @@ path {
    
     0% {
         opacity: 1;
-        transform: translateY(0px);
-        height: 80px;
+        height: 175px;
     }
 
-    25% {
-        height: 60px;
+    10% {
+        height: 175px;
+        opacity: .50;
+    }
+
+    20% {
+        height: 150px;
+    }
+
+    30% {
+        height: 125px;
+        opacity: .25;
+    }
+
+    40% {
+        height: 100px;
     }
 
     50% {
-        height: 40px;
+        height: 75px;
+        opacity: .15;
+    }
+
+    60% {
+        height: 50px;
+    }
+
+    70% {
+        height: 25px;
+    }
+
+    80% {
+        height: 10px;
     }
 
 
     100% {
         opacity: 0;
-        transform: translateY(-20px);
-        height: 35px;
-       
+        
+        height: 0px;
     }
 }
 
@@ -186,12 +209,12 @@ path {
 .up {
     animation: back-up 1000ms;
     animation-timing-function: linear;
-    visibility: hidden;
-    transition: visibility 0, opacity 0 linear;
+    display: flex;
+    flex-direction: column;
 }
 
-.rs-nav {
-    
+.hide {
+    display:none
 }
 
 .pl-15 {

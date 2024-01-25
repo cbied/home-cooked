@@ -5,18 +5,25 @@ import GoogleIcon from '../../assets/google_icon.png';
 
 export default function SignUp() {
 
-    function handleSignupUser(event) {
-    event.preventDefault();
-    const firstname = event.target[0].value
-    const email = event.target[1].value
-    const password = event.target[2].value
+function handleSignupUser(event) {
+  event.preventDefault();
+  const firstname = event.target[0].value;
+  const email = event.target[1].value;
+  const password = event.target[2].value;
+  const password2 = event.target[3].value;
+  
+  if(password === password2) {
     const userInfo = {
-      firstname,
-      email,
-      password
+    firstname,
+    email,
+    password
     }
     addNewUser(userInfo)
+  } else {
+    alert('Passwords do not match')
   }
+
+}
 
     return ( 
         <form 
