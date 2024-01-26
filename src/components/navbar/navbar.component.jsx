@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Nav } from 'rsuite';
 import {
   TEDropdown,
@@ -13,6 +14,7 @@ import './navbar.styles.css';
 
 export const Navbar = () => {
     const [ toggleNav, setToggleNav ] = useState(false) 
+    const selectCurrentUser = useSelector(state => state.user.currentUser);
     
     const handleToggleNav = () => {
         setToggleNav(!toggleNav);
@@ -65,16 +67,22 @@ export const Navbar = () => {
                
                 <div className='flex self-center pr-21 h-16'>
                 <TEDropdown className="flex justify-center">
+                {
+                    selectCurrentUser ? 
                 <TERipple rippleColor="light">
                     <TEDropdownToggle className="flex items-center whitespace-nowrap px-5 pt-2 rounded text-xs font-medium uppercase leading-normal text-white ">
                     <span className="ml-2 w-12">
                         <img
-                        src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
+                        src={selectCurrentUser.photoURL ? selectCurrentUser.photoURL : "https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
                         className="w-16 rounded-full"
                         alt="Avatar" />
                     </span>
                     </TEDropdownToggle>
                 </TERipple>
+                :
+                <div></div>
+                }
+                
 
                 <TEDropdownMenu>
                     <TEDropdownItem>

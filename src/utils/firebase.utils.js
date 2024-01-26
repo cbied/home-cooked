@@ -32,7 +32,7 @@ export async function addNewUser(userInfo) {
 }
 
 export async function signInUserWithEmail(email, password) {
-    signInWithEmailAndPassword(auth, email, password)
+    return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
@@ -58,7 +58,7 @@ function updateUserProfile(user, firstname) {
 }
 
 export async function signInUserWithGoogle() {
-signInWithPopup(auth, googleProvider)
+  return signInWithPopup(auth, googleProvider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);

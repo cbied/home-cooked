@@ -15,12 +15,27 @@ async function handleSignUserIn(event) {
   const password = event.target[1]?.value
   if(email && password) {
     signInUserWithEmail(email, password).then(user => {
-
-      console.log(user.email)
+      const { displayName, email, phoneNumber, photoURL, uid } = user
+      const currentUser = {
+        displayName,
+        email,
+        phoneNumber,
+        photoURL,
+        uid
+      }
+      dispatch(signInUser(currentUser))
     })
   } else {
     signInUserWithGoogle().then(user => {
-      console.log(user)
+      const { displayName, email, phoneNumber, photoURL, uid } = user
+      const currentUser = {
+        displayName,
+        email,
+        phoneNumber,
+        photoURL,
+        uid
+      }
+      dispatch(signInUser(currentUser))
     })
   }
 }
