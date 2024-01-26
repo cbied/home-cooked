@@ -13,7 +13,7 @@ import './navbar.styles.css';
 
 export const Navbar = () => {
     const [ toggleNav, setToggleNav ] = useState(false) 
-
+    
     const handleToggleNav = () => {
         setToggleNav(!toggleNav);
     
@@ -30,8 +30,7 @@ export const Navbar = () => {
         window.document.getElementById('navbar').className += ' hide'
         }
     }, [])
-
-    console.log(toggleNav === false)
+    
 
     return(
         <nav>
@@ -63,7 +62,7 @@ export const Navbar = () => {
                     <Nav.Item>About</Nav.Item>
                 </Nav>
                 </div>
-                
+               
                 <div className='flex self-center pr-21 h-16'>
                 <TEDropdown className="flex justify-center">
                 <TERipple rippleColor="light">
@@ -102,6 +101,7 @@ export const Navbar = () => {
                 </TEDropdownMenu>
                 </TEDropdown>
                 </div>
+
             </div>
             <Nav id="navbar" className={toggleNav ? 'down' : 'up'}>
                 <Nav.Item href={'/'}>Home</Nav.Item>

@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, addDoc, collection } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    GoogleAuthProvider, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+    GoogleAuthProvider, signInWithPopup, signOut, updateProfile  } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA-xJ4Gv7pGnPs4cQphv_PaSr1MAt97kp8",
@@ -15,8 +15,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
-const auth = getAuth();
+export const auth = getAuth();
 const googleProvider = new GoogleAuthProvider();
+export let currentUser = null;
+
 
 export async function addNewUser(userInfo) {
     const { email, password, firstname } = userInfo
@@ -27,6 +29,19 @@ export async function addNewUser(userInfo) {
     updateUserProfile(user, firstname)
     signInUserWithEmail(email, password)
     }).catch(err => console.error(err));
+}
+
+export async function signInUserWithEmail(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user)
+        return user
+    })
+    .catch((error) => {
+        console.log(error)
+    });
 }
 
 function updateUserProfile(user, firstname) {
@@ -42,29 +57,16 @@ function updateUserProfile(user, firstname) {
       });
 }
 
-export async function signInUserWithEmail(email, password) {
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user)
-        
-    })
-    .catch((error) => {
-        console.log(error)
-    });
-}
-
 export async function signInUserWithGoogle() {
 signInWithPopup(auth, googleProvider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
-    console.log(token)
     // The signed-in user info.
     const user = result.user;
     console.log(user)
+    return user
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {
