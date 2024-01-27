@@ -11,33 +11,48 @@ const dispatch = useDispatch();
 
 async function handleSignUserIn(event) {
   event.preventDefault();
-  const email = event.target[0]?.value
-  const password = event.target[1]?.value
-  if(email && password) {
-    signInUserWithEmail(email, password).then(user => {
-      const { displayName, email, phoneNumber, photoURL, uid } = user
-      const currentUser = {
-        displayName,
-        email,
-        phoneNumber,
-        photoURL,
-        uid
-      }
-      dispatch(signInUser(currentUser))
-    })
-  } else {
-    signInUserWithGoogle().then(user => {
-      const { displayName, email, phoneNumber, photoURL, uid } = user
-      const currentUser = {
-        displayName,
-        email,
-        phoneNumber,
-        photoURL,
-        uid
-      }
-      dispatch(signInUser(currentUser))
-    })
+  let email;
+  let password;
+  for(let i = 0; i < event.target.length; i++) {
+    if(event.target[i].type === 'email') {
+      email = event.target[i].value
+    } else if (event.target[i].type === 'password') {
+      password = event.target[i].value
+    }
   }
+  if(email && password) {
+    handleSigninWithEmail(email, password)
+  } else {
+    handleSignInWithGoogle()
+  }
+}
+
+function handleSigninWithEmail(email, password) {
+  signInUserWithEmail(email, password).then(user => {
+    const { displayName, email, phoneNumber, photoURL, uid } = user
+    const currentUser = {
+      displayName,
+      email,
+      phoneNumber,
+      photoURL,
+      uid
+    }
+    dispatch(signInUser(currentUser))
+  })
+}
+
+function handleSignInWithGoogle() {
+  signInUserWithGoogle().then(user => {
+    const { displayName, email, phoneNumber, photoURL, uid } = user
+    const currentUser = {
+      displayName,
+      email,
+      phoneNumber,
+      photoURL,
+      uid
+    }
+    dispatch(signInUser(currentUser))
+  })
 }
 
 return ( 

@@ -22,7 +22,6 @@ const router = createBrowserRouter(
       <Route path='home' element={<App />}/>
       <Route path='auth' element={<Authentication />}/>
     </Route>
-
   )
 );
 

@@ -21,40 +21,37 @@ export let currentUser = null;
 
 
 export async function addNewUser(userInfo) {
-    const { email, password, firstname } = userInfo
-    createUserWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-        const user = userCredential.user;
-        alert(`Welcome ${firstname}!`)
-    updateUserProfile(user, firstname)
-    signInUserWithEmail(email, password)
-    }).catch(err => console.error(err));
+  const { email, password, firstname } = userInfo
+  createUserWithEmailAndPassword(auth, email, password)
+  .then(userCredential => {
+      const user = userCredential.user;
+      alert(`Welcome ${firstname}!`)
+  updateUserProfile(user, firstname)
+  signInUserWithEmail(email, password)
+  }).catch(err => console.error(err));
 }
 
 export async function signInUserWithEmail(email, password) {
-    return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user)
-        return user
-    })
-    .catch((error) => {
-        console.log(error)
-    });
+  return signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      return user
+  })
+  .catch((error) => {
+      console.log(error)
+  });
 }
 
 function updateUserProfile(user, firstname) {
-    updateProfile(auth.currentUser, {
-        displayName: firstname, 
-      }).then(() => {
-        user.providerData[0].uid = user.uid
-        console.log(user)
-        addDoc(collection(db, "users"), user.providerData[0])
-        
-      }).catch((error) => {
-        console.error(error)
-      });
+  updateProfile(auth.currentUser, {
+      displayName: firstname, 
+    }).then(() => {
+      user.providerData[0].uid = user.uid
+      addDoc(collection(db, "users"), user.providerData[0])
+    }).catch((error) => {
+      console.error(error)
+    });
 }
 
 export async function signInUserWithGoogle() {
@@ -65,28 +62,20 @@ export async function signInUserWithGoogle() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    console.log(user)
     return user
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    console.error(error)
+    alert(errorCode + ": " + errorMessage)
   });
 }
 
-export async function signUserOut() {
-    signOut(auth).then(() => {
-    // Sign-out successful.
-    alert("Sign out successful");
-    }).catch((error) => {
-    // An error happened.
-    });
+export async function signOutUser() {
+  signOut(auth).then(() => {
+  // Sign-out successful.
+  alert("Sign out successful");
+  }).catch((error) => {
+  console.log(error)
+  });
 }
