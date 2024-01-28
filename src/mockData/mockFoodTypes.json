@@ -1,0 +1,44 @@
+[ 
+    { 
+    "label": "Asian", 
+    "value": 1, 
+    "children": [ 
+        { 
+        "label": "Thai", 
+        "value": 2
+        }, 
+        { 
+        "label": "Vietnamese", 
+        "value": 3
+        }
+        ] 
+    },
+    { 
+    "label": "South American", 
+    "value": 4, 
+    "children": [ 
+        { 
+        "label": "Mexican", 
+        "value": 5
+        }, 
+        { 
+        "label": "Colombian",  
+        "value": 6
+        }
+        ]
+    },  
+    { 
+    "label": "European", 
+    "value": 7, 
+    "children": [ 
+        { 
+        "label": "Spanish", 
+        "value": 8
+        }, 
+        { 
+        "label": "French",  
+        "value": 9
+        }
+        ] 
+    }
+] 
