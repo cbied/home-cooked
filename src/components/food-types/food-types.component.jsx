@@ -1,14 +1,14 @@
-import { Fragment } from "react"
+import { Fragment } from "react";
 import { MultiCascader, Button } from 'rsuite';
-import mockFoodData from '../../mockData/mockFoodTypes.json'
+import mockFoodData from '../../mockData/mockFoodTypes.json';
 
-const styles = { width: 250, display: 'block', marginBottom: 10 };
+const styles = { width: 250, display: 'block' };
 
 const FoodTypes = () => {
 
     return (
-        <Fragment>
-            <MultiCascader toggleAs={Button} size="lg"  placeholder="Type of Food" data={mockFoodData} style={styles} />
+        <Fragment> 
+            <MultiCascader toggleAs={Button} size="lg" placeholder="Type of Food" data={mockFoodData} style={styles} />
         </Fragment>
     )
 }

@@ -1,15 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUserOut } from '../../store/user-slice/user-slice';
-import { Nav } from 'rsuite';
-import {
-  TEDropdown,
-  TEDropdownToggle,
-  TEDropdownMenu,
-  TEDropdownItem,
-  TERipple,
-} from "tw-elements-react";
-import FoodTypes from '../food-types/food-types.component'
+import { Nav, AvatarGroup, Avatar, Dropdown } from 'rsuite';
+import ExperienceFinder from '../experience-finder/experience-finder.component';
 import { signOutUser } from '../../utils/firebase.utils';
 import logo from '../../assets/logo.png'
 import './navbar.styles.css';
@@ -22,15 +15,24 @@ export const Navbar = () => {
         return signOutUser().then(() => {
             dispatch(signUserOut())
         })
-      
     }
+
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+        function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
     
 return(
     <nav>
         <div className='flex justify-between w-screen'>
             <div>
                 
-                <a className='block h-16 pl-15 my-5' href={'/'}>
+                <a className='block h-16 pl-15 my-5 px-10' href={'/'}>
                     <img className='w-16 h-12' src={logo} alt="home cooked logo" />
                 </a>
             </div>
@@ -43,57 +45,52 @@ return(
                 </Nav>
             </div>
 
-            <div className='flex self-center pr-21 h-16'>
-                <TEDropdown className="flex justify-center">
-                
-                <TERipple rippleColor="light">
-                    <TEDropdownToggle className="flex items-center whitespace-nowrap px-5 pt-2 rounded text-xs font-medium uppercase leading-normal text-white ">
-                    <span className="ml-2 w-12">
-                        <img
-                        src={selectCurrentUser && selectCurrentUser.photoURL ? selectCurrentUser.photoURL : "https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
-                        className="w-16 rounded-full"
-                        alt="Avatar" />
-                    </span>
-                    </TEDropdownToggle>
-                </TERipple>
-
-                <TEDropdownMenu>
-                    <TEDropdownItem>
-                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
-                        Dashboard
-                    </a>
-                    </TEDropdownItem>
-                    <TEDropdownItem>
-                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
-                        Another action
-                    </a>
-                    </TEDropdownItem>
-                    <TEDropdownItem>
-                    <a href="/" className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
-                        Settings
-                    </a>
-                    </TEDropdownItem>
-                    <hr className="my-2 h-0 border border-t-0 border-solid border-neutral-700 opacity-25 dark:border-neutral-200" />
-                    <TEDropdownItem >
-                    <div  className="block w-full min-w-[160px] cursor-pointer whitespace-nowrap bg-transparent px-4 py-2 text-sm text-left font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600">
-                        {selectCurrentUser ?
-                            <a href="/" onClick={handleSignUserOut} alt="sign out"
-                            className='font-normal pointer-events-auto text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:bg-neutral-100 focus:bg-neutral-100 focus:text-neutral-800 focus:outline-none active:no-underline dark:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600 dark:active:bg-neutral-600'>Sign Out</a>
-                            : 
-                            <a href={"/auth"}>
-                            Login
-                            </a>
-                        }
+            <div className='flex self-center h-16 px-10'>
+            <Dropdown placement='bottomEnd' noCaret={true} title={<span className="mr-3">
+                                <AvatarGroup spacing={6}>
+                                    <Avatar
+                                    size="lg"
+                                    circle
+                                    src={selectCurrentUser && selectCurrentUser.photoURL ? selectCurrentUser.photoURL : "https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+                                    alt="Avatar"
+                                    />
+                                </AvatarGroup>
+                            </span>}>
+            
+                <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
+                {
+                selectCurrentUser ?
+                    <div>
+                        <p>Signed in as</p>
+                        <strong>{selectCurrentUser.displayName}</strong>
                     </div>
-                    </TEDropdownItem>
-                </TEDropdownMenu>
-                </TEDropdown>
+                    :
+                    null
+                }
+                </Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item>Your profile</Dropdown.Item>
+                <Dropdown.Item>Your dinners</Dropdown.Item>
+                <Dropdown.Item>Your friends</Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item>Help</Dropdown.Item>
+                <Dropdown.Item>Settings</Dropdown.Item>
+                <Dropdown.Item>{selectCurrentUser ?
+                    <a href="/" onClick={handleSignUserOut} alt="sign out">
+                    Sign Out
+                    </a>
+                    : 
+                    <a href={"/auth"}>
+                    Login
+                    </a>
+                }</Dropdown.Item>
+            </Dropdown>
+
+
+               
             </div>
         </div>
-        <div className='flex justify-center'>
-            <FoodTypes />
-            
-        </div>
+        <ExperienceFinder />
 
     </nav>
 )
