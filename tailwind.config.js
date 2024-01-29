@@ -5,8 +5,7 @@ module.exports = {
   content: [
       "./index.html",
       "./src/**/*.{js,ts,jsx,tsx}",
-      "./src/**/**/*.{js,ts,jsx,tsx}",
-      "./node_modules/tw-elements-react/dist/js/**/*.js"
+      "./src/**/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
       extend: {
@@ -29,6 +28,5 @@ module.exports = {
     'leading-9',
     'shadow-lg'
   ],
-  darkMode: "class",
-  plugins: [require("tw-elements-react/dist/plugin.cjs")]
+  darkMode: "class"
   }

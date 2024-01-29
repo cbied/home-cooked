@@ -1,13 +1,20 @@
-import React from "react";
+import { useState } from "react";
 import { signInUserWithEmail, signInUserWithGoogle } from '../../utils/firebase.utils';
 import { useDispatch } from 'react-redux';
 import { signInUser } from "../../store/user-slice/user-slice";
-import { TEInput, TERipple } from "tw-elements-react";
+import { Input, InputGroup, Grid, Row, Col, Button, ButtonGroup } from 'rsuite';
+import EyeIcon from '@rsuite/icons/legacy/Eye';
+import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 import GoogleIcon from '../../assets/google_icon.png';
 import './login.component.css';
 
 export default function Login() {
+const [visible, setVisible] = useState(false);
 const dispatch = useDispatch();
+const styles = {
+  width: 350
+};
+const CustomInput = ({ ...props }) => <Input {...props} style={styles} />;
 
 async function handleSignUserIn(event) {
   event.preventDefault();
@@ -16,7 +23,7 @@ async function handleSignUserIn(event) {
   for(let i = 0; i < event.target.length; i++) {
     if(event.target[i].type === 'email') {
       email = event.target[i].value
-    } else if (event.target[i].type === 'password') {
+    } else if (event.target[i].type === 'password' || event.target[i].type === 'text') {
       password = event.target[i].value
     }
   }
@@ -55,26 +62,31 @@ function handleSignInWithGoogle() {
   })
 }
 
+
+
+const handleChange = () => {
+  setVisible(!visible);
+};
+
 return ( 
     <form 
     onSubmit={handleSignUserIn}
-    className="flex flex-col items-center mt-10">
+    >
+      <Grid fluid>
+        <Row>
+          <Col xs={24} sm={12} md={8}>
       {/* <!-- Email input --> */}
-      <TEInput
-        type="email"
-        label="Email address"
-        size="lg"
-        className="mb-6"
-      ></TEInput>
+      <CustomInput size="lg" placeholder="Email address" type='email' className="mb-6"/>
 
+      <InputGroup inside style={styles} className="mb-3">
       {/* <!--Password input--> */}
-      <TEInput
-        type="password"
-        label="Password"
-        className="mb-3"
-        size="lg"
-      ></TEInput>
+        <Input type={visible ? 'text' : 'password'} placeholder="Password" size="md" />
+        <InputGroup.Button onClick={handleChange}>
+          {visible ? <EyeIcon /> : <EyeSlashIcon />}
+        </InputGroup.Button>
 
+      </InputGroup>
+          
       {/* <!-- Remember me checkbox --> */}
       <div className="mb-6 flex items-center justify-end">
 
@@ -89,15 +101,18 @@ return (
 
       {/* <!-- Submit button --> */}
 
-      <TERipple rippleColor="light" className="w-6/12">
-        <button
-          
+      <ButtonGroup size="lg" style={styles}> 
+        <Button
+          color="blue"
+          appearance="primary"
+          size="lg"
           type="submit"
-          className="inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+          onClick={handleSignUserIn}
+          className="flex w-full bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
         >
           Sign in
-        </button>
-      </TERipple>
+        </Button>
+      </ButtonGroup>
 
       {/* <!-- Divider --> */}
       <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
@@ -107,20 +122,29 @@ return (
       </div>
 
       {/* <!-- Social login buttons --> */}
-      <TERipple 
-      onClick={handleSignUserIn}
-      rippleColor="light" className="w-6/12">
-        <button
-          className="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
-        >
+      <ButtonGroup size="lg" style={styles}>    
+      <Button
+          color="blue"
+          appearance="primary"
+          size="lg"
+          onClick={handleSignUserIn}
+          className="flex w-full rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
+          startIcon={
+            <img
+            className="w-7 mr-2" 
+            src={GoogleIcon} 
+            alt="Google login"/>
+          }
+          >
           {/* <!-- Google --> */}
-          <img
-          className="w-7 mr-2" 
-          src={GoogleIcon} 
-          alt="Google login"/>
+          
           Google Login
-        </button>
-      </TERipple>
+        </Button>
+        </ButtonGroup>
+
+          </Col>
+        </Row>
+      </Grid>
     </form>      
   );
 }
