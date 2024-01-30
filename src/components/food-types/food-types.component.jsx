@@ -8,7 +8,12 @@ const FoodTypes = () => {
 
     return (
         <Fragment> 
-            <MultiCascader toggleAs={Button} size="lg" placeholder="Type of Food" data={mockFoodData} style={styles} />
+            <MultiCascader 
+            toggleAs={Button} 
+            size="lg" 
+            placeholder="Type of Food" 
+            data={mockFoodData} 
+            style={styles} />
         </Fragment>
     )
 }
