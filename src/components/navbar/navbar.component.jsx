@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUserOut } from '../../store/user-slice/user-slice';
 import { Nav, AvatarGroup, Avatar, Dropdown } from 'rsuite';
@@ -17,6 +17,18 @@ export const Navbar = () => {
         })
     }
 
+    useEffect(() => {
+        const userAvatar = document.getElementById('userAvatar')
+        if(selectCurrentUser && selectCurrentUser.photoURL) {
+            userAvatar.src = selectCurrentUser.photoURL
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              })
+        }
+    }, [selectCurrentUser])
+
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
         function updateSize() {
@@ -28,10 +40,9 @@ export const Navbar = () => {
     }, []);
     
 return(
-    <nav>
+    <nav className=''>
         <div className='flex justify-between w-screen'>
             <div>
-                
                 <a className='block h-16 pl-15 my-5 px-10' href={'/'}>
                     <img className='w-16 h-12' src={logo} alt="home cooked logo" />
                 </a>
@@ -45,10 +56,11 @@ return(
                 </Nav>
             </div>
 
-            <div className='flex self-center h-16 px-10'>
-            <Dropdown placement='bottomEnd' noCaret={true} title={<span className="mr-3">
-                                <AvatarGroup spacing={6}>
+            <div className='flex self-center h-10 px-10'>
+            <Dropdown placement='bottomEnd' noCaret={true}  title={<span>
+                                <AvatarGroup >
                                     <Avatar
+                                    id='userAvatar'
                                     size="lg"
                                     circle
                                     src={selectCurrentUser && selectCurrentUser.photoURL ? selectCurrentUser.photoURL : "https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
@@ -90,7 +102,9 @@ return(
                
             </div>
         </div>
-        <ExperienceFinder />
+        <div className='flex justify-center'>
+            <ExperienceFinder />
+        </div>
 
     </nav>
 )

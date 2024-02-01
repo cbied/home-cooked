@@ -1,15 +1,6 @@
+@import "rsuite/dist/rsuite.css";
+
 @tailwind base;
-
-@layer base {
-  html {
-    @apply text-neutral-800;
-  }
-  html.dark {
-    @apply text-neutral-50;
-    @apply bg-neutral-800;
-  }
-}
-
 @tailwind components;
 @tailwind utilities;
 
@@ -18,4 +9,3 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
-@import "rsuite/dist/rsuite.css";

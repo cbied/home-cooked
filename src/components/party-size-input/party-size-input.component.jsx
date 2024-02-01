@@ -11,7 +11,6 @@ const PartySizeInput = () => {
     const handlePlus = (event) => {
         console.log(event)
         event.stopPropagation()
-console.log(document.getElementById('dropdown'))
 
       setValue(parseInt(value, 10) + 1);
     };
