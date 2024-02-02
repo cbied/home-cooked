@@ -11,7 +11,7 @@ const ExperienceFinder = () => {
 
 
     return (
-        <div className="w-fit flex self-center outline outline-2 outline-offset-2 rounded mb-3">
+        <div className="w-fit flex self-center outline outline-orange-300 outline-1 rounded-full mb-3 overflow-hidden">
             <FoodTypes />
             <DatePicker />
             <PartySizeInput />

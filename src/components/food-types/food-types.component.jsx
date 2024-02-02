@@ -6,7 +6,7 @@ const styles = { width: 250, display: 'block' };
 const FoodTypes = () => {
 
     return (
-        <Stack spacing={6}>
+        <Stack spacing={6} className='rounded-full z-0'>
             <MultiCascader 
             toggleAs={Button} 
             size="lg" 

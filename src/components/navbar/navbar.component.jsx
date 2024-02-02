@@ -56,7 +56,7 @@ return(
                 </Nav>
             </div>
 
-            <div className='flex self-center h-10 px-10'>
+            <div className='flex self-center h-10 px-10' id='avatarDropdown'>
             <Dropdown placement='bottomEnd' noCaret={true}  title={<span>
                                 <AvatarGroup >
                                     <Avatar

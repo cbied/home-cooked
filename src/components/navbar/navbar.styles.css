@@ -1,7 +1,7 @@
-.rs-btn {
+#avatarDropdown .rs-btn {
     background-color: #FFFFFF !important;
 }
 
-.rs-btn:hover {
+#avatarDropdown .rs-btn:hover {
     background-color: #f7f7fa !important;
 }
