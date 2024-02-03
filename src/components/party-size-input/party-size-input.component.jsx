@@ -1,5 +1,5 @@
 import { useState, forwardRef } from 'react';
-import { ButtonToolbar, InputNumber, InputGroup, Popover, Whisper, Button } from 'rsuite';
+import { InputNumber, InputGroup, Stack } from 'rsuite';
 
 const styles = {
     height: 'auto'
@@ -25,15 +25,16 @@ const PartySizeInput = () => {
     return (
     
      
-        <div className='flex self-center' style={styles}>
+        <Stack className='flex self-center' style={styles}>
             <InputGroup title='How many people?'>
                 <InputNumber className={'custom-input-number'} 
                              value={value} onChange={setValue} 
                              size="lg"
                              min={1}
-                             defaultValue={1}/>
+                             defaultValue={1}
+                             placeholder="How many people?"/>
             </InputGroup>
-          </div>
+          </Stack>
     
     )
 }
