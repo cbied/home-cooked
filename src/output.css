@@ -19623,10 +19623,6 @@ video {
   border-bottom-right-radius: 0.5rem;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -19772,6 +19768,14 @@ video {
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rs-picker-toggle {
+  border: none !important;
+}
+
+.rs-input-group {
+  border: none !important;
 }
 
 .before\:mt-0::before {

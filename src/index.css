@@ -9,3 +9,11 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+.rs-picker-toggle {
+    border: none !important;
+}
+
+.rs-input-group {
+    border: none !important;
+}
