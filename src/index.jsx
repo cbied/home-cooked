@@ -14,7 +14,9 @@ import Authentication from './routes/authentication/authentication.component';
 import { store, persistor } from './store/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import './index.css';
+import { CustomProvider } from 'rsuite'
+import 'rsuite/styles/index.less';
+import './index.less';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,11 +30,13 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
+    <CustomProvider theme="dark">
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
+    </CustomProvider>
   </React.StrictMode>
 );
 
