@@ -62,6 +62,7 @@ export async function signInUserWithGoogle() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
+    updateUserProfile(user)
     return user
   }).catch((error) => {
     // Handle Errors here.
