@@ -1,49 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
+import { Button, ButtonGroup, Animation } from 'rsuite';
 import Login from "../../components/login/login.component";
 import SignUp from "../../components/sign-up/sign-up.component";
 
 export default function Authentication() {
-    const [ toggleShowComponent, setToggleShowComponent ] = useState('login');  
+    const [showSignup, setShowSignup] = React.useState(true);
+    const [showLogin, setShowLogin] = React.useState(false);
+  
+    const onChange = () => {
+      setShowSignup(!showSignup)
+      setShowLogin(!showLogin)
+    };
 
-    function toggleLoginSignup(componentString) {
-        if(componentString === "login") {
-            setToggleShowComponent("login")
-        } else if (componentString === "signup") {
-            setToggleShowComponent("signup")
-        } else {
-            return
-        }
-        
-    }
+
+    const CustomButtonGroup = ({ appearance }) => (
+        <ButtonGroup style={{ marginTop: 12 }} justified>
+            <Button appearance={appearance} onClick={() => onChange()} active={showSignup}>Sign Up</Button>
+            <Button appearance={appearance} onClick={() => onChange()} active={showLogin}>Login</Button>
+        </ButtonGroup>
+      );
+
+      const SignupAnimation = React.forwardRef((props, ref) => (
+        <div
+          {...props}
+          ref={ref}
+        >
+            <SignUp /> :
+        </div>
+      ));
+
+      const LoginAnimation = React.forwardRef((props, ref) => (
+        <div
+          {...props}
+          ref={ref}
+        >
+            <Login />
+        </div>
+      ));
+      
+
 
     return ( 
         // !!!! Change to grid
-    <section className="h-screen flex flex-col items-center md:flex-row ">
+    <section className="h-screen flex flex-col justify-center md:flex-row ">
         {/* <!-- Left column container with background--> */}
-        <div className="w-full mb-10">
+        <div className="w-half mb-10">
             <div className="w-full flex justify-around mb-10 pb-3 text-xl ">
-                <button 
-                onClick={() => toggleLoginSignup('login')}
-                className="w-1/2 inline-block rounded px-7 pb-2.5 pt-3 p-4 text-lg font-medium uppercase leading-normal 
-                text-black hover:text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-500 ease-in-out 
-                hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                    Login
-                </button>
-                <button
-                onClick={() => toggleLoginSignup('signup')}
-                className="w-1/2 inline-block rounded px-7 pb-2.5 pt-3 p-4 text-lg font-medium uppercase leading-normal 
-                text-black hover:text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-500 ease-in-out 
-                hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                    Sign Up
-                </button>
+            <CustomButtonGroup />
             </div>
-            {
-            toggleShowComponent === 'login' ?
-            <Login /> :
-            toggleShowComponent === 'signup' ?
-            <SignUp /> :
-            false
-            }
+            <Animation.Collapse in={showSignup}>
+                {(props, ref) => <SignupAnimation {...props} ref={ref} />}
+            </Animation.Collapse>
+            <Animation.Collapse in={showLogin}>
+                {(props, ref) => <LoginAnimation {...props} ref={ref} />}
+            </Animation.Collapse>
+            
         </div>
         {/* <!-- Right column container with Login or Sign up--> */}
         <div className="hidden mb-12 max-w-md lg:block">
