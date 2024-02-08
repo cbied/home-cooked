@@ -11,6 +11,10 @@ export default function SignUp() {
   };
   const CustomInput = ({ ...props }) => <Input {...props} style={styles} />;
 
+/**
+ * Handles the signup process for a user.
+ * @param {Event} event - The event object.
+ */
 function handleSignupUser(event) {
   event.preventDefault();
   const firstname = event.target[0].value;
@@ -19,12 +23,7 @@ function handleSignupUser(event) {
   const password2 = event.target[3].value;
   
   if(password === password2) {
-    const userInfo = {
-    firstname,
-    email,
-    password
-    }
-    addNewUser(userInfo)
+    addNewUser({firstname, email, password});
   } else {
     alert('Passwords do not match')
   }
@@ -70,6 +69,7 @@ const handleChange = () => {
       <ButtonGroup size="lg" style={styles}>
         {/* <!-- Submit button --> */}
           <Button
+            color="blue"
             appearance="primary"
             size="lg"
             type="submit"
