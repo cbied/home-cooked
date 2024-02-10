@@ -15,15 +15,15 @@ export default function SignUp() {
  * Handles the signup process for a user.
  * @param {Event} event - The event object.
  */
-function handleSignupUser(event) {
+async function handleSignupUser(event) {
   event.preventDefault();
-  const firstname = event.target[0].value;
+  const displayName = event.target[0].value;
   const email = event.target[1].value;
   const password = event.target[2].value;
-  const password2 = event.target[3].value;
-  
+  const password2 = event.target[4].value;
+  console.log(event)
   if(password === password2) {
-    addNewUser({firstname, email, password});
+    addNewUser({displayName, email, password})
   } else {
     alert('Passwords do not match')
   }
@@ -41,7 +41,7 @@ const handleChange = () => {
             <Row>
             <Col xs={24} sm={12} md={8}>
         {/* <!-- first name input --> */}
-        <CustomInput size="lg" placeholder="First Name" type='text' label="First name" className="mb-6"/>
+        <CustomInput size="lg" placeholder="Display Name" type='text' label="Display name" className="mb-6"/>
 
         {/* <!-- Email input --> */}
         <CustomInput size="lg" placeholder="Email" type='email' label="Email address" className="mb-6"/>
@@ -58,7 +58,7 @@ const handleChange = () => {
       </InputGroup>
 
         {/* <!--Password input--> */}
-        <InputGroup inside style={styles} className="mb-3">
+      <InputGroup inside style={styles} className="mb-3">
 
         <Input type={visible ? 'text' : 'password'} placeholder="Confirm Password" size="md" />
         <InputGroup.Button onClick={handleChange}>

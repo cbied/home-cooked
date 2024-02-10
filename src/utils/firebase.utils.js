@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { getFirestore, doc, addDoc, setDoc, updateDoc, collection } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
     GoogleAuthProvider, signInWithPopup, signOut, updateProfile  } from "firebase/auth";
 
@@ -15,18 +15,21 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+
 export const auth = getAuth();
 const googleProvider = new GoogleAuthProvider();
 export let currentUser = null;
 
 
 export async function addNewUser(userInfo) {
-  const { email, password, firstname } = userInfo
+  const { email, password, displayName } = userInfo
   createUserWithEmailAndPassword(auth, email, password)
   .then(userCredential => {
-      const user = userCredential.user;
-      alert(`Welcome ${firstname}!`)
-  updateUserProfile(user, firstname)
+      const userInfo = userCredential.user;
+      console.log(userInfo)
+      alert(`Welcome ${displayName}!`)
+  updateUserProfile(userInfo, displayName)
+  // FIX user does not automatically login after adding new user profile - may need to add redux thunk
   signInUserWithEmail(email, password)
   }).catch(err => console.error(err));
 }
@@ -47,8 +50,8 @@ function updateUserProfile(user, firstname) {
   updateProfile(auth.currentUser, {
       displayName: firstname, 
     }).then(() => {
-      user.providerData[0].uid = user.uid
-      addDoc(collection(db, "users"), user.providerData[0])
+      user.providerData[0].uid = auth.currentUser.uid
+      setDoc(doc(db, 'users', user.uid), user.providerData[0])
     }).catch((error) => {
       console.error(error)
     });
@@ -79,4 +82,19 @@ export async function signOutUser() {
   }).catch((error) => {
   console.log(error)
   });
+}
+
+export async function updateUserInfo(userInfo) {
+  const { firstName, lastName, displayName, email, phoneNumber, photoURL } = userInfo;
+  console.log(auth.currentUser.uid)
+  const userDocRef = doc(db, "users", auth.currentUser.uid)
+
+  await updateDoc(userDocRef, {
+    firstName,
+    lastName,
+    displayName,
+    email,
+    phoneNumber,
+    photoURL
+});
 }
