@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Button, ButtonGroup, Animation } from 'rsuite';
 import Login from "../../components/login/login.component";
 import SignUp from "../../components/sign-up/sign-up.component";
+import Navbar from "../../components/navbar/navbar.component";
 
 export default function Authentication() {
     const [showSignup, setShowSignup] = React.useState(true);
@@ -41,8 +42,9 @@ export default function Authentication() {
 
 
     return ( 
-        // !!!! Change to grid
-    <section className="h-screen flex flex-col justify-center md:flex-row ">
+    <Fragment>
+      <Navbar />
+      <section className="h-screen flex flex-col justify-center md:flex-row ">
         {/* <!-- Left column container with background--> */}
         <div className="w-half mb-10">
             <div className="w-full flex justify-around mb-10 pb-3 text-xl ">
@@ -65,6 +67,8 @@ export default function Authentication() {
             />
         </div>
     </section>
+    </Fragment>
+    
     );
 
 }

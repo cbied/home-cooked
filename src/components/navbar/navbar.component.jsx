@@ -2,12 +2,13 @@ import { useLayoutEffect, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUserOut } from '../../store/user-slice/user-slice';
 import { Nav, AvatarGroup, Avatar, Dropdown } from 'rsuite';
+import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 import ExperienceFinder from '../experience-finder/experience-finder.component';
 import { signOutUser } from '../../utils/firebase.utils';
 import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
-export const Navbar = () => {
+const Navbar = () => {
     const dispatch = useDispatch()
     const selectCurrentUser = useSelector(state => state.user.currentUser);
 
@@ -57,16 +58,24 @@ return(
             </div>
 
             <div className='flex self-center h-10 px-10' id='avatarDropdown'>
-            <Dropdown placement='bottomEnd' noCaret={true}  title={<span>
-                                <AvatarGroup >
+            <Dropdown placement='bottomEnd' noCaret={true}  title={
+                            <span>
+                            {
+                                selectCurrentUser && selectCurrentUser.photoURL ?
+                                <AvatarGroup>
                                     <Avatar
                                     id='userAvatar'
                                     size="lg"
                                     circle
-                                    src={selectCurrentUser && selectCurrentUser.photoURL ? selectCurrentUser.photoURL : "https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+                                    src={selectCurrentUser.photoURL}
                                     alt="Avatar"
                                     />
                                 </AvatarGroup>
+                                :
+                                <AvatarGroup>
+                                    <AvatarIcon style={{ fontSize: 60 }}/>
+                                </AvatarGroup>
+                            }
                             </span>}>
             
                 <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
@@ -81,7 +90,10 @@ return(
                 }
                 </Dropdown.Item>
                 <Dropdown.Separator />
-                <Dropdown.Item>Your profile</Dropdown.Item>
+                <Dropdown.Item>
+                    <a href="/userProfile" alt="User Profile page">
+                    Your profile
+                    </a></Dropdown.Item>
                 <Dropdown.Item>Your dinners</Dropdown.Item>
                 <Dropdown.Item>Your friends</Dropdown.Item>
                 <Dropdown.Separator />
@@ -105,8 +117,9 @@ return(
         <div className='flex justify-center'>
             <ExperienceFinder />
         </div>
-
     </nav>
 )
 }
 
+
+export default Navbar;
