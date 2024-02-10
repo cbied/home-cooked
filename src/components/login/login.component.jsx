@@ -18,15 +18,9 @@ const CustomInput = ({ ...props }) => <Input {...props} style={styles} />;
 
 async function handleSignUserIn(event) {
   event.preventDefault();
-  let email;
-  let password;
-  for(let i = 0; i < event.target.length; i++) {
-    if(event.target[i].type === 'email') {
-      email = event.target[i].value
-    } else if (event.target[i].type === 'password' || event.target[i].type === 'text') {
-      password = event.target[i].value
-    }
-  }
+  let email = event.target[0].value;
+  let password = event.target[1].value;
+
   if(email && password) {
     handleSigninWithEmail(email, password)
   } else {
@@ -73,14 +67,14 @@ return (
     onSubmit={handleSignUserIn}
     >
       <Grid fluid>
-        <Row>
-          <Col xs={24} sm={12} md={8}>
+      <Row>
+      <Col xs={24} sm={12} md={8}>
       {/* <!-- Email input --> */}
-      <CustomInput size="lg" placeholder="Email address" type='email' className="mb-6"/>
+      <CustomInput size="lg" placeholder="Email address" type='email' label="email" className="mb-6"/>
 
       <InputGroup inside style={styles} className="mb-3">
       {/* <!--Password input--> */}
-        <Input type={visible ? 'text' : 'password'} placeholder="Password" size="md" />
+        <Input type={visible ? 'text' : 'password'} label="password" placeholder="Password" size="md" />
         <InputGroup.Button onClick={handleChange}>
           {visible ? <EyeIcon /> : <EyeSlashIcon />}
         </InputGroup.Button>
@@ -107,7 +101,6 @@ return (
           appearance="primary"
           size="lg"
           type="submit"
-          onClick={handleSignUserIn}
           className="flex w-full bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0"
         >
           Sign in
@@ -141,10 +134,10 @@ return (
           Google Login
         </Button>
         </ButtonGroup>
-
-          </Col>
-        </Row>
-      </Grid>
+        
+            </Col>
+          </Row>
+        </Grid>
     </form>      
   );
 }
