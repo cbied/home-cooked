@@ -26,7 +26,7 @@ export async function addNewUser(userInfo) {
   createUserWithEmailAndPassword(auth, email, password)
   .then(userCredential => {
       const userInfo = userCredential.user;
-      console.log(userInfo)
+
       alert(`Welcome ${displayName}!`)
   updateUserProfile(userInfo, displayName)
   // FIX user does not automatically login after adding new user profile - may need to add redux thunk
@@ -86,7 +86,7 @@ export async function signOutUser() {
 
 export async function updateUserInfo(userInfo) {
   const { firstName, lastName, displayName, email, phoneNumber, photoURL } = userInfo;
-  console.log(auth.currentUser.uid)
+
   const userDocRef = doc(db, "users", auth.currentUser.uid)
 
   await updateDoc(userDocRef, {

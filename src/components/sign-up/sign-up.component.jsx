@@ -1,74 +1,106 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { addNewUser } from '../../utils/firebase.utils';
-import { Input, InputGroup, Grid, Row, Col, Button, ButtonGroup } from 'rsuite';
+import { Form, Schema, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 
 export default function SignUp() {
   const [visible, setVisible] = useState(false);
+  const formRef = useRef();
+  const [formValue, setFormValue] = useState({
+    displayName: '',
+    email: '',
+    password: '',
+    verifyPassword: '',
+  });
   const styles = {
     width: 350
   };
-  const CustomInput = ({ ...props }) => <Input {...props} style={styles} />;
+
+  const { StringType } = Schema.Types;
+
+const model = Schema.Model({
+  name: StringType().isRequired('This field is required.'),
+  email: StringType()
+    .isEmail('Please enter a valid email address.')
+    .isRequired('This field is required.'),
+  password: StringType().isRequired('This field is required.'),
+  verifyPassword: StringType()
+    .addRule((value, data) => {
+
+      if (value !== data.password) {
+        return false;
+      }
+
+      return true;
+    }, 'The two passwords do not match')
+    .isRequired('This field is required.')
+});
+  
 
 /**
  * Handles the signup process for a user.
  * @param {Event} event - The event object.
  */
-async function handleSignupUser(event) {
-  event.preventDefault();
-  const displayName = event.target[0].value;
-  const email = event.target[1].value;
-  const password = event.target[2].value;
-  const password2 = event.target[4].value;
-  console.log(event)
-  if(password === password2) {
-    addNewUser({displayName, email, password})
-  } else {
-    alert('Passwords do not match')
-  }
+async function handleSignupUser() {
+  const { displayName, email, password } = formValue 
+  if (formRef.current.check()) {
+    console.error('Form Error');
+    formRef.current.resetErrors()
+    return;
+  } 
+  addNewUser({displayName, email, password})
 }
 
 const handleChange = () => {
   setVisible(!visible);
 };
 
+
     return ( 
-        <form 
-        onSubmit={handleSignupUser}
-        className="flex flex-col items-center mt-10">
-          <Grid fluid>
-            <Row>
-            <Col xs={24} sm={12} md={8}>
-        {/* <!-- first name input --> */}
-        <CustomInput size="lg" placeholder="Display Name" type='text' label="Display name" className="mb-6"/>
+      <Form 
+      ref={formRef}
+      onChange={setFormValue}
+      formValue={formValue}
+      model={model}
+      className="flex flex-col items-center mt-10">
+      {/* <!-- display name input --> */}
+      <Form.Group controlId="displayName">
+        <Form.Control name="displayName" placeholder="Display Name"/>
+      </Form.Group>
+      
 
-        {/* <!-- Email input --> */}
-        <CustomInput size="lg" placeholder="Email" type='email' label="Email address" className="mb-6"/>
+      {/* <!-- Email input --> */}
+      <Form.Group controlId="email">
+        <Form.Control name="email" placeholder="Email"/>
+      </Form.Group>
 
-        {/* ADD PASSWORD MATCHING */}
-        {/* <!--Password input--> */}
-        <InputGroup inside style={styles} className="mb-3">
-  
-        <Input type={visible ? 'text' : 'password'} placeholder="Password" size="md" />
-        <InputGroup.Button onClick={handleChange}>
+
+      {/* <!--Password input--> */}
+      <div className="flex mb-5">
+        <Form.Group controlId='password' className="flex">
+        <Form.Control name='password' type={visible ? 'text' : 'password'} placeholder="Password" className="pr-0"/>
+          <InputGroup.Button onClick={handleChange}>
+            {visible ? <EyeIcon /> : <EyeSlashIcon />}
+          </InputGroup.Button>
+        </Form.Group>
+      </div>
+      
+
+      {/* <!--Password input--> */}
+      <div className="flex mb-10">
+        <Form.Group controlId="verifyPassword" className="flex">
+        <Form.Control name="verifyPassword" type={visible ? 'text' : 'password'} placeholder="Comfirm Password"/>
+        <InputGroup.Button onClick={handleChange} className="block">
           {visible ? <EyeIcon /> : <EyeSlashIcon />}
         </InputGroup.Button>
+        </Form.Group>
+      </div>
 
-      </InputGroup>
-
-        {/* <!--Password input--> */}
-      <InputGroup inside style={styles} className="mb-3">
-
-        <Input type={visible ? 'text' : 'password'} placeholder="Confirm Password" size="md" />
-        <InputGroup.Button onClick={handleChange}>
-          {visible ? <EyeIcon /> : <EyeSlashIcon />}
-        </InputGroup.Button>
-
-      </InputGroup>
       <ButtonGroup size="lg" style={styles}>
         {/* <!-- Submit button --> */}
           <Button
+            onClick={handleSignupUser}
             color="blue"
             appearance="primary"
             size="lg"
@@ -79,10 +111,7 @@ const handleChange = () => {
           </Button>
 
           </ButtonGroup>
-            </Col>
-          </Row>
-        </Grid>
-      </form> 
+      </Form> 
     );
 
 }

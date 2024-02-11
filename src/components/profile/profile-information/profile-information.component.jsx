@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, useRef } from 'react';
 import { updateUserInfo } from '../../../utils/firebase.utils';
 import { useSelector } from 'react-redux'
 import { Container, Content, Footer, Form, Button, Uploader, Message, Loader, useToaster } from 'rsuite';
@@ -18,7 +18,6 @@ const ProfileInformation = () => {
     const [uploading, setUploading] = useState(false);
     const [fileInfo, setFileInfo] = useState(null);
     const formRef = useRef();
-    const [formError, setFormError] = useState({});
     const [formValue, setFormValue] = useState({
       firstName: selectCurrentUser && selectCurrentUser.firstname ? selectCurrentUser.firstname : '',
       lastName: selectCurrentUser && selectCurrentUser.lastname ? selectCurrentUser.lastname : '',
@@ -27,6 +26,7 @@ const ProfileInformation = () => {
       phoneNumber: selectCurrentUser && selectCurrentUser.phoneNumber ? selectCurrentUser.phoneNumber : '',
       photoURL: selectCurrentUser && selectCurrentUser.photoURL ? selectCurrentUser.photoURL : ''
     });
+
     function handleUpdateUserInfo() {
         if (!formRef.current.check()) {
             console.error('Form Error');
@@ -34,20 +34,7 @@ const ProfileInformation = () => {
           } else {
             updateUserInfo(formValue)
           }
-       
-        
-        
     }
-
-    const TextField = forwardRef((props, ref) => {
-        const { name, label, accepter, ...rest } = props;
-        return (
-          <Form.Group ref={ref}>
-            <Form.ControlLabel>{label} </Form.ControlLabel>
-            <Form.Control name={name} accepter={accepter} {...rest} />
-          </Form.Group>
-        );
-      });
 
         return (
             <Container>
@@ -55,7 +42,6 @@ const ProfileInformation = () => {
                     <Form
                     ref={formRef}
                     onChange={setFormValue}
-                    onCheck={setFormError}
                     formValue={formValue}>
                         <Form.Group controlId="firstName">
                             <Form.ControlLabel>first Name</Form.ControlLabel>

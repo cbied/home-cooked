@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Button, ButtonGroup, Animation } from 'rsuite';
+import { Button, ButtonGroup, Animation, Grid, Row, Col } from 'rsuite';
 import Login from "../../components/login/login.component";
 import SignUp from "../../components/sign-up/sign-up.component";
 import Navbar from "../../components/navbar/navbar.component";
@@ -44,7 +44,10 @@ export default function Authentication() {
     return ( 
     <Fragment>
       <Navbar />
-      <section className="h-screen flex flex-col justify-center md:flex-row ">
+      <Grid fluid>
+      <Row>
+      <Col md={24} lg={11}>
+      
         {/* <!-- Left column container with background--> */}
         <div className="w-half mb-10">
             <div className="w-full flex justify-around mb-10 pb-3 text-xl ">
@@ -58,15 +61,21 @@ export default function Authentication() {
             </Animation.Collapse>
             
         </div>
+        </Col>
+       
+  
         {/* <!-- Right column container with Login or Sign up--> */}
-        <div className="hidden mb-12 max-w-md lg:block">
+      <Col mdHidden lg={12}>
+        <div className=" mb-12 max-w-md block">
             <img
             className="px-10"
             src="https://svgsilh.com/svg/307076.svg"
             alt="Chef"
             />
         </div>
-    </section>
+        </Col>
+        </Row>
+        </Grid>
     </Fragment>
     
     );
