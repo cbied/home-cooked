@@ -2,11 +2,10 @@ import { useState } from "react";
 import { signInUserWithEmail, signInUserWithGoogle } from '../../utils/firebase.utils';
 import { useDispatch } from 'react-redux';
 import { signInUser } from "../../store/user-slice/user-slice";
-import { Input, InputGroup, Grid, Row, Col, Button, ButtonGroup } from 'rsuite';
+import { Input, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 import GoogleIcon from '../../assets/google_icon.png';
-import './login.component.css';
 
 export default function Login() {
 const [visible, setVisible] = useState(false);
@@ -56,19 +55,14 @@ function handleSignInWithGoogle() {
   })
 }
 
-
-
 const handleChange = () => {
   setVisible(!visible);
 };
 
 return ( 
-    <form 
-    onSubmit={handleSignUserIn}
-    >
-      <Grid fluid>
-      <Row>
-      <Col xs={24} sm={12} md={8}>
+      <form 
+        onSubmit={handleSignUserIn}
+        >
       {/* <!-- Email input --> */}
       <CustomInput size="lg" placeholder="Email address" type='email' label="email" className="mb-6"/>
 
@@ -134,10 +128,6 @@ return (
           Google Login
         </Button>
         </ButtonGroup>
-        
-            </Col>
-          </Row>
-        </Grid>
-    </form>      
+      </form>    
   );
 }
