@@ -41,7 +41,7 @@ const Navbar = () => {
     }, []);
     
 return(
-    <nav className=''>
+    <nav>
         <div className='flex justify-between w-screen'>
             <div>
                 <a className='block h-16 pl-15 my-5 px-10' href={'/'}>
@@ -89,25 +89,48 @@ return(
                     null
                 }
                 </Dropdown.Item>
-                <Dropdown.Separator />
-                <Dropdown.Item>
-                    <a href="/userProfile" alt="User Profile page">
-                    Your profile
-                    </a></Dropdown.Item>
-                <Dropdown.Item>Your dinners</Dropdown.Item>
-                <Dropdown.Item>Your friends</Dropdown.Item>
+                {
+                    selectCurrentUser ? 
+                    <div>
+                    <Dropdown.Separator />
+                    <a
+                    className="links"
+                    href="/userProfile" 
+                    alt="User Profile page">
+                        <Dropdown.Item>
+                        Your profile
+                        </Dropdown.Item>
+                    </a>
+                    <Dropdown.Item>Your dinners</Dropdown.Item>
+                    <Dropdown.Item>Your friends</Dropdown.Item>
+                    </div>
+                    :
+                    null
+                }
+                
                 <Dropdown.Separator />
                 <Dropdown.Item>Help</Dropdown.Item>
                 <Dropdown.Item>Settings</Dropdown.Item>
-                <Dropdown.Item>{selectCurrentUser ?
-                    <a href="/" onClick={handleSignUserOut} alt="sign out">
-                    Sign Out
+                {selectCurrentUser ?
+                    <a 
+                    href="/" 
+                    onClick={handleSignUserOut} 
+                    alt="Sign out"
+                    className="links">
+                        <Dropdown.Item>
+                        Sign Out
+                        </Dropdown.Item>
                     </a>
-                    : 
-                    <a href={"/auth"}>
-                    Login
+                        : 
+                    <a
+                    className='links' 
+                    href={"/auth"}
+                    alt="Login in page">
+                        <Dropdown.Item>
+                        Login
+                        </Dropdown.Item>
                     </a>
-                }</Dropdown.Item>
+                }
             </Dropdown>
 
 

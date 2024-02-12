@@ -5,3 +5,7 @@
 #avatarDropdown .rs-btn:hover {
     background-color: #f7f7fa !important;
 }
+
+.links {
+    text-decoration: none !important;
+}
