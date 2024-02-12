@@ -1,25 +1,31 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { signInUserWithEmail, signInUserWithGoogle } from '../../utils/firebase.utils';
 import { useDispatch } from 'react-redux';
 import { signInUser } from "../../store/user-slice/user-slice";
-import { Input, InputGroup, Button, ButtonGroup } from 'rsuite';
+import { Form, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 import GoogleIcon from '../../assets/google_icon.png';
 
 export default function Login() {
 const [visible, setVisible] = useState(false);
+const formRef = useRef();
+const [formValue, setFormValue] = useState({
+  email: '',
+  password: '',
+});
 const dispatch = useDispatch();
 const styles = {
   width: 350
 };
-const CustomInput = ({ ...props }) => <Input {...props} style={styles} />;
 
-async function handleSignUserIn(event) {
-  event.preventDefault();
-  let email = event.target[0].value;
-  let password = event.target[1].value;
-
+async function handleSignUserIn() {
+  const { email, password } = formValue 
+  if (!formRef.current.check()) {
+    console.error('Form Error');
+    formRef.current.resetErrors()
+    return;
+  } 
   if(email && password) {
     handleSigninWithEmail(email, password)
   } else {
@@ -60,20 +66,24 @@ const handleChange = () => {
 };
 
 return ( 
-      <form 
-        onSubmit={handleSignUserIn}
-        >
+      <Form 
+      ref={formRef}
+      onChange={setFormValue}
+      formValue={formValue}>
       {/* <!-- Email input --> */}
-      <CustomInput size="lg" placeholder="Email address" type='email' label="email" className="mb-6"/>
+      <Form.Group controlId="email">
+        <Form.Control name="email" placeholder="Email"/>
+      </Form.Group>
 
-      <InputGroup inside style={styles} className="mb-3">
       {/* <!--Password input--> */}
-        <Input type={visible ? 'text' : 'password'} label="password" placeholder="Password" size="md" />
-        <InputGroup.Button onClick={handleChange}>
-          {visible ? <EyeIcon /> : <EyeSlashIcon />}
-        </InputGroup.Button>
-
-      </InputGroup>
+      <div className="flex mb-5">
+        <Form.Group controlId='password' className="flex">
+        <Form.Control name='password' type={visible ? 'text' : 'password'} placeholder="Password" className="pr-0"/>
+          <InputGroup.Button onClick={handleChange}>
+            {visible ? <EyeIcon /> : <EyeSlashIcon />}
+          </InputGroup.Button>
+        </Form.Group>
+      </div>
           
       {/* <!-- Remember me checkbox --> */}
       <div className="mb-6 flex items-center justify-end">
@@ -91,6 +101,7 @@ return (
 
       <ButtonGroup size="lg" style={styles}> 
         <Button
+          onClick={handleSignUserIn}
           color="blue"
           appearance="primary"
           size="lg"
@@ -128,6 +139,6 @@ return (
           Google Login
         </Button>
         </ButtonGroup>
-      </form>    
+      </Form>    
   );
 }

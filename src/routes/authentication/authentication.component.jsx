@@ -1,23 +1,28 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Button, ButtonGroup, Animation, Grid, Row, Col } from 'rsuite';
 import Login from "../../components/login/login.component";
 import SignUp from "../../components/sign-up/sign-up.component";
 import Navbar from "../../components/navbar/navbar.component";
 
 export default function Authentication() {
-    const [showSignup, setShowSignup] = React.useState(true);
-    const [showLogin, setShowLogin] = React.useState(false);
+    const [showSignup, setShowSignup] = useState(false);
+    const [showLogin, setShowLogin] = useState(true);
   
-    const onChange = () => {
-      setShowSignup(!showSignup)
-      setShowLogin(!showLogin)
+    const onChangeSignUp = () => {
+      setShowSignup(true)
+      setShowLogin(false)
     };
+
+    const onChangeLogin = () => {
+      setShowSignup(false)
+      setShowLogin(true)
+    }
 
 
     const CustomButtonGroup = ({ appearance }) => (
         <ButtonGroup style={{ marginTop: 12 }} justified>
-            <Button appearance={appearance} onClick={() => onChange()} active={showSignup}>Sign Up</Button>
-            <Button appearance={appearance} onClick={() => onChange()} active={showLogin}>Login</Button>
+            <Button appearance={appearance} onClick={() => onChangeSignUp()} active={showSignup}>Sign Up</Button>
+            <Button appearance={appearance} onClick={() => onChangeLogin()} active={showLogin}>Login</Button>
         </ButtonGroup>
       );
 
