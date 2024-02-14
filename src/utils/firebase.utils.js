@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, addDoc, setDoc, updateDoc, collection } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
     GoogleAuthProvider, signInWithPopup, signOut, updateProfile  } from "firebase/auth";
 
@@ -61,8 +61,8 @@ export async function signInUserWithGoogle() {
   return signInWithPopup(auth, googleProvider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+    // const credential = GoogleAuthProvider.credentialFromResult(result);
+    // const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
     updateUserProfile(user)
@@ -84,7 +84,7 @@ export async function signOutUser() {
   });
 }
 
-export async function updateUserInfo(userInfo) {
+export async function updateUserInfoInFirebase(userInfo) {
   const { firstName, lastName, displayName, email, phoneNumber, photoURL } = userInfo;
 
   const userDocRef = doc(db, "users", auth.currentUser.uid)
@@ -97,4 +97,15 @@ export async function updateUserInfo(userInfo) {
     phoneNumber,
     photoURL
 });
+}
+
+export async function getUserInfoFromFirebase(currentUserUid) {
+    const docRef = await doc(db, "users", currentUserUid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+    return docSnap.data();
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
 }

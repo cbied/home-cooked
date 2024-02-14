@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { signInUserWithEmail, signInUserWithGoogle } from '../../utils/firebase.utils';
+import { signInUserWithEmail, signInUserWithGoogle, getUserInfoFromFirebase } from '../../utils/firebase.utils';
 import { useDispatch } from 'react-redux';
 import { signInUser } from "../../store/user-slice/user-slice";
 import { Form, InputGroup, Button, ButtonGroup } from 'rsuite';
@@ -35,22 +35,28 @@ async function handleSignUserIn() {
 
 function handleSigninWithEmail(email, password) {
   signInUserWithEmail(email, password).then(user => {
-    const { displayName, email, phoneNumber, photoURL, uid } = user
-    const currentUser = {
-      displayName,
-      email,
-      phoneNumber,
-      photoURL,
-      uid
-    }
-    dispatch(signInUser(currentUser))
+    return getUserInfoFromFirebase(user.uid).then((userInfo) => {
+      const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = userInfo
+      const currentUser = {
+        firstName,
+        lastName,
+        displayName,
+        email,
+        phoneNumber,
+        photoURL,
+        uid
+      }
+      dispatch(signInUser(currentUser))
+    })
   })
 }
 
 function handleSignInWithGoogle() {
   signInUserWithGoogle().then(user => {
-    const { displayName, email, phoneNumber, photoURL, uid } = user
+    const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = user
     const currentUser = {
+      firstName,
+      lastName,
       displayName,
       email,
       phoneNumber,

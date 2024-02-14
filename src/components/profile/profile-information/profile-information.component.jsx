@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
-import { updateUserInfo } from '../../../utils/firebase.utils';
-import { useSelector } from 'react-redux'
+import { updateUserInfoInFirebase } from '../../../utils/firebase.utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserStart } from '../../../store/user-slice/user-slice';
 import { Container, Content, Footer, Form, Button, Uploader, Message, Loader, useToaster } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 
@@ -13,38 +14,46 @@ function previewFile(file, callback) {
   }
 
 const ProfileInformation = () => {
+    const dispatch = useDispatch()
     const selectCurrentUser = useSelector(state => state.user.currentUser);
     const toaster = useToaster();
     const [uploading, setUploading] = useState(false);
     const [fileInfo, setFileInfo] = useState(null);
     const formRef = useRef();
     const [formValue, setFormValue] = useState({
-      firstName: selectCurrentUser && selectCurrentUser.firstname ? selectCurrentUser.firstname : '',
-      lastName: selectCurrentUser && selectCurrentUser.lastname ? selectCurrentUser.lastname : '',
-      displayName: selectCurrentUser && selectCurrentUser.displayName,
-      email: selectCurrentUser && selectCurrentUser.email,
-      phoneNumber: selectCurrentUser && selectCurrentUser.phoneNumber ? selectCurrentUser.phoneNumber : '',
-      photoURL: selectCurrentUser && selectCurrentUser.photoURL ? selectCurrentUser.photoURL : ''
+        firstName: selectCurrentUser ? selectCurrentUser.firstName : '',
+        lastName: selectCurrentUser ? selectCurrentUser.lastName : '',
+        displayName: selectCurrentUser ? selectCurrentUser.displayName : '',
+        email: selectCurrentUser ? selectCurrentUser.email :'',
+        phoneNumber: selectCurrentUser ? selectCurrentUser.phoneNumber : '',
+        photoURL: selectCurrentUser ? selectCurrentUser.photoURL : ''
     });
+
+    const updateUserInfoStart = (currentUserUid) => {
+            dispatch(updateUserStart({currentUserUid}))
+    }
 
     function handleUpdateUserInfo() {
         if (!formRef.current.check()) {
             console.error('Form Error');
             return;
           } else {
-            updateUserInfo(formValue)
+            updateUserInfoInFirebase(formValue)
+            updateUserInfoStart(selectCurrentUser.uid)
+            alert('Your Information has been updated')
           }
     }
 
         return (
             <Container>
                 <Content className='flex justify-center mt-10'>
+                { formValue && 
                     <Form
                     ref={formRef}
                     onChange={setFormValue}
                     formValue={formValue}>
                         <Form.Group controlId="firstName">
-                            <Form.ControlLabel>first Name</Form.ControlLabel>
+                            <Form.ControlLabel>First Name</Form.ControlLabel>
                             <Form.Control name="firstName" />
                         </Form.Group>        
                             <Form.Group controlId="lastName">
@@ -63,8 +72,7 @@ const ProfileInformation = () => {
                         </Form.Group>
                         <Form.Group controlId="phoneNumber">
                             <Form.ControlLabel>Phone Number</Form.ControlLabel>
-                            <Form.Control name="phoneNumber" type="tel" />
-                            <Form.HelpText tooltip>Phone number is required</Form.HelpText>
+                            <Form.Control name="phoneNumber" />
                         </Form.Group>
                         <Form.Group controlId="photoURL">
                             <Form.ControlLabel>Photo URL</Form.ControlLabel>
@@ -92,7 +100,7 @@ const ProfileInformation = () => {
                             <button style={{ width: 150, height: 150 }}>
                                 {uploading && <Loader backdrop center />}
                                 {fileInfo ? (
-                                <img src={fileInfo} width="100%" height="100%" />
+                                <img src={fileInfo} width="100%" height="100%" alt="file info"/>
                                 ) : (
                                 <AvatarIcon style={{ fontSize: 80 }} />
                                 )}
@@ -102,6 +110,7 @@ const ProfileInformation = () => {
                         <Button appearance="primary" onClick={handleUpdateUserInfo}>Save</Button>
                         <Button appearance="default">Edit</Button>
                     </Form>
+                }
                 </Content>
                 <Footer>Footer</Footer>
             </Container>
