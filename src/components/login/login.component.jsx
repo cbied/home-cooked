@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { signInUserWithEmail, signInUserWithGoogle, getUserInfoFromFirebase } from '../../utils/firebase.utils';
 import { useDispatch } from 'react-redux';
 import { signInUser } from "../../store/user-slice/user-slice";
@@ -15,11 +16,12 @@ const [formValue, setFormValue] = useState({
   password: '',
 });
 const dispatch = useDispatch();
+const navigate = useNavigate();
 const styles = {
   width: 350
 };
 
-async function handleSignUserIn() {
+function handleSignUserIn() {
   const { email, password } = formValue 
   if (!formRef.current.check()) {
     console.error('Form Error');
@@ -35,25 +37,35 @@ async function handleSignUserIn() {
 
 function handleSigninWithEmail(email, password) {
   signInUserWithEmail(email, password).then(user => {
-    return getUserInfoFromFirebase(user.uid).then((userInfo) => {
-      const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = userInfo
-      const currentUser = {
-        firstName,
-        lastName,
-        displayName,
-        email,
-        phoneNumber,
-        photoURL,
-        uid
-      }
-      dispatch(signInUser(currentUser))
-    })
+    if(user) {
+        return getUserInfoFromFirebase(user.uid).then((userInfo) => {
+        const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = userInfo
+        const currentUser = {
+          firstName,
+          lastName,
+          displayName,
+          email,
+          phoneNumber,
+          photoURL,
+          uid
+        }
+        dispatch(signInUser(currentUser))
+        if(userInfo) {
+          setFormValue({
+          email: '',
+          password: ''
+        })
+          navigate("/home");
+        }
+      })
+    }
+    
   })
 }
 
 function handleSignInWithGoogle() {
-  signInUserWithGoogle().then(user => {
-    const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = user
+  signInUserWithGoogle().then(userInfo => {
+    const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = userInfo
     const currentUser = {
       firstName,
       lastName,
@@ -64,6 +76,9 @@ function handleSignInWithGoogle() {
       uid
     }
     dispatch(signInUser(currentUser))
+    if(userInfo) {
+      navigate("/home");
+    }
   })
 }
 
