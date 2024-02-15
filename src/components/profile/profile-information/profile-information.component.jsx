@@ -2,7 +2,8 @@ import { useState, useRef } from 'react';
 import { updateUserInfoInFirebase } from '../../../utils/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserStart } from '../../../store/user-slice/user-slice';
-import { Container, Content, Footer, Form, Button, Uploader, Message, Loader, useToaster } from 'rsuite';
+import { Container, Content, Footer, Form, Button, Uploader,
+         Message, Schema, Loader, useToaster } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 
 function previewFile(file, callback) {
@@ -19,6 +20,7 @@ const ProfileInformation = () => {
     const toaster = useToaster();
     const [uploading, setUploading] = useState(false);
     const [fileInfo, setFileInfo] = useState(null);
+    const { StringType } = Schema.Types;
     const formRef = useRef();
     const [formValue, setFormValue] = useState({
         firstName: selectCurrentUser ? selectCurrentUser.firstName : '',
@@ -44,6 +46,13 @@ const ProfileInformation = () => {
           }
     }
 
+    const model = Schema.Model({
+        displayName: StringType().isRequired('This field is required.'),
+        email: StringType()
+            .isEmail('Please enter a valid email address.')
+            .isRequired('This field is required.'),
+        });
+
         return (
             <Container>
                 <Content className='flex justify-center mt-10'>
@@ -51,7 +60,8 @@ const ProfileInformation = () => {
                     <Form
                     ref={formRef}
                     onChange={setFormValue}
-                    formValue={formValue}>
+                    formValue={formValue}
+                    model={model}>
                         <Form.Group controlId="firstName">
                             <Form.ControlLabel>First Name</Form.ControlLabel>
                             <Form.Control name="firstName" />

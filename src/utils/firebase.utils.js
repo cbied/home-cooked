@@ -39,9 +39,25 @@ export async function signInUserWithEmail(email, password) {
   .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      return user
+      if(user) {
+        alert('Welcome back ' + user.displayName)
+        return user
+      }
   })
   .catch((error) => {
+    console.log(error.code)
+    if(error.code === "auth/invalid-login-credentials" || 
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/invalid-credential") {
+        console.error(error.message)
+        alert("Email or password is invalid")
+        // user not found in db
+        } else if (error.code === "auth/user-not-found") {
+            console.error(error.message)
+            alert("No user was found")
+        } else {
+            console.log('createAuthUserWithEmailAndPassword error: ', error)
+        }
       console.log(error)
   });
 }
