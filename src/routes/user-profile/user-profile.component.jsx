@@ -7,7 +7,7 @@ const UserProfile = () => {
     return (
     <Container>
         <Header>
-            <Navbar />
+            <Navbar showSearch={false} />
         </Header>
         <Content className="mt-5">
             <Tabs defaultActiveKey="1">

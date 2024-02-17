@@ -1,18 +1,22 @@
 import { MultiCascader, Button, Stack } from 'rsuite';
 import mockFoodData from '../../mockData/mockFoodTypes.json';
 
-const styles = { 'min-width': 200 };
 
-const FoodTypes = () => {
+
+const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
 
     return (
-        <Stack spacing={6} className='rounded-full'>
-            <MultiCascader 
-            toggleAs={Button} 
-            size="lg" 
-            placeholder="Type of Food" 
-            data={mockFoodData} 
-            style={styles} />
+        <Stack className='rounded-full'>
+            <Stack.Item>
+                <MultiCascader 
+                toggleAs={Button} 
+                size="lg" 
+                placeholder="Type of Food" 
+                data={mockFoodData} 
+                style={largeStyles === undefined ? smallStyles : largeStyles}
+                inline={isInline}
+                className='w-fit' />
+            </Stack.Item>
         </Stack>
     )
 }

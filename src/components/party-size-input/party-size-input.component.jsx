@@ -2,11 +2,8 @@ import { useState } from 'react';
 import { InputNumber, InputGroup, Stack } from 'rsuite';
 import './party-size-input.styles.less';
 
-const styles = {
-    height: 'auto'
-}
 
-const PartySizeInput = () => {
+const PartySizeInput = ({ largeStyles }) => {
     const [value, setValue] = useState('');
     const handleMinus = (event) => {
       event.stopPropagation()
@@ -28,7 +25,7 @@ const PartySizeInput = () => {
     return (
     
      
-        <Stack spacing={6} className='flex self-center' style={styles}>
+        <Stack spacing={6} className='flex self-center' style={largeStyles}>
           <InputGroup title='How many people?'>
             <InputGroup.Button onClick={handleMinus}>-</InputGroup.Button>
             <InputNumber 
@@ -41,7 +38,6 @@ const PartySizeInput = () => {
                         />
             <InputGroup.Button onClick={handlePlus}>+</InputGroup.Button>
           </InputGroup>
-          <p>{console.log(value)}</p>
         </Stack>
     
     )

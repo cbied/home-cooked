@@ -48,38 +48,37 @@ export default function Authentication() {
 
     return ( 
     <Fragment>
-      <Navbar />
-      <Grid fluid>
-      <Row>
-      <Col md={24} lg={11}>
+      <Navbar showSearch={false} />
+        <Grid fluid>
+          <Row>
+            <Col md={24} lg={11}>
+              {/* <!-- Left column container with background--> */}
+                <div className="w-half mb-10">
+                    <div className="w-full flex justify-around mb-10 pb-3 text-xl ">
+                    <CustomButtonGroup />
+                    </div>
+                    <Animation.Collapse in={showSignup}>
+                        {(props, ref) => <SignupAnimation {...props} ref={ref} />}
+                    </Animation.Collapse>
+                    <Animation.Collapse in={showLogin}>
+                        {(props, ref) => <LoginAnimation {...props} ref={ref} />}
+                    </Animation.Collapse>
+                    
+                </div>
+              </Col>
+          
       
-        {/* <!-- Left column container with background--> */}
-        <div className="w-half mb-10">
-            <div className="w-full flex justify-around mb-10 pb-3 text-xl ">
-            <CustomButtonGroup />
-            </div>
-            <Animation.Collapse in={showSignup}>
-                {(props, ref) => <SignupAnimation {...props} ref={ref} />}
-            </Animation.Collapse>
-            <Animation.Collapse in={showLogin}>
-                {(props, ref) => <LoginAnimation {...props} ref={ref} />}
-            </Animation.Collapse>
-            
-        </div>
-        </Col>
-       
-  
-        {/* <!-- Right column container with Login or Sign up--> */}
-      <Col mdHidden lg={12}>
-        <div className=" mb-12 max-w-md block">
-            <img
-            className="px-10"
-            src="https://svgsilh.com/svg/307076.svg"
-            alt="Chef"
-            />
-        </div>
-        </Col>
-        </Row>
+              {/* <!-- Right column container with Login or Sign up--> */}
+                <Col mdHidden lg={12}>
+                  <div className=" mb-12 max-w-md block">
+                      <img
+                      className="px-10"
+                      src="https://svgsilh.com/svg/307076.svg"
+                      alt="Chef"
+                      />
+                  </div>
+                </Col>
+          </Row>
         </Grid>
     </Fragment>
     
