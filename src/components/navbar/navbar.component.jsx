@@ -1,31 +1,25 @@
 import { useLayoutEffect, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUserOut } from '../../store/user-slice/user-slice';
-import { Nav, AvatarGroup, Avatar, Dropdown, 
-         IconButton, Drawer, Button, Placeholder } from 'rsuite';
-import SearchIcon from '@rsuite/icons/Search';
+import { Nav, AvatarGroup, Avatar, Dropdown } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 import ExperienceFinder from '../experience-finder/experience-finder.component';
+import DrawerExperienceFinder from '../drawer-experience-finder/drawer-experience-finder.component';
 import { signOutUser } from '../../utils/firebase.utils';
 import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
-const Navbar = () => {
-    const [open, setOpen] = useState(false);
-    const [placement, setPlacement] = useState();
+const Navbar = ({ showSearch = true }) => {
     const dispatch = useDispatch()
     const selectCurrentUser = useSelector(state => state.user.currentUser);
+    const largeStyles = { 'min-width': 200 };
+    
 
     const handleSignUserOut = async () => {
         return signOutUser().then(() => {
             dispatch(signUserOut())
         })
     }
-
-    const handleOpenDrawer = key => {
-        setOpen(true);
-        setPlacement(key);
-  };
 
     useEffect(() => {
         const userAvatar = document.getElementById('userAvatar')
@@ -59,7 +53,7 @@ return(
             </div>
             {
 
-            size[0] > 950 ?
+            size[0] > 950 && showSearch  ?
             
             <div className='flex items-center'>
                 <Nav className='flex justify-around items-center'>
@@ -71,31 +65,9 @@ return(
 
             :
 
-            size[0] < 950 && size[0] > 700 ?
+            size[0] < 950 && size[0] > 700 && showSearch ?
 
-            <div className='grow h-28 px-10 flex items-center rounded-full'>
-                <IconButton 
-                appearance="default" 
-                block
-                icon={<SearchIcon style={{'height': '48', 'width': '48'}} />} 
-                onClick={() => handleOpenDrawer('top')} 
-                className='h-12 px-10 rounded-full'>
-                    Find an experience
-                </IconButton>
-                <Drawer placement={placement} open={open} onClose={() => setOpen(false)}>
-                  
-                    <Drawer.Body>
-                    <Placeholder.Paragraph rows={8} />
-                        <Drawer.Actions>
-                            <Button onClick={() => setOpen(false)}>Cancel</Button>
-                            <Button onClick={() => setOpen(false)} appearance="primary">
-                            Confirm
-                            </Button>
-                        </Drawer.Actions>
-                    </Drawer.Body>
-                    
-                </Drawer>
-            </div>
+            <DrawerExperienceFinder />
 
             :
 
@@ -106,24 +78,25 @@ return(
             <Dropdown placement='bottomEnd' noCaret={true}  
             className='self-center'
             title={
-                            <span>
-                            {
-                                selectCurrentUser && selectCurrentUser.photoURL ?
-                                <AvatarGroup>
-                                    <Avatar
-                                    id='userAvatar'
-                                    size="lg"
-                                    circle
-                                    src={selectCurrentUser.photoURL}
-                                    alt="Avatar"
-                                    />
-                                </AvatarGroup>
-                                :
-                                <AvatarGroup>
-                                    <AvatarIcon style={{ fontSize: 60 }}/>
-                                </AvatarGroup>
-                            }
-                            </span>}>
+                    <span>
+                    {
+                        selectCurrentUser && selectCurrentUser.photoURL ?
+                        <AvatarGroup>
+                            <Avatar
+                            id='userAvatar'
+                            size="lg"
+                            circle
+                            src={selectCurrentUser.photoURL}
+                            alt="Avatar"
+                            />
+                        </AvatarGroup>
+                        :
+                        <AvatarGroup>
+                            <AvatarIcon style={{ fontSize: 60 }}/>
+                        </AvatarGroup>
+                    }
+                    </span>
+                }>
             
                 <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
                 {
@@ -186,39 +159,17 @@ return(
         </div>
         {
 
-        size[0] > 950 ?
+        size[0] > 950 && showSearch ?
 
-        <div className='w-3/5 flex justify-center self-center'>
-            <ExperienceFinder />
+        <div className='w-4/5 flex justify-center self-center'>
+            <ExperienceFinder largeStyles={largeStyles} />
         </div>
 
         : 
         
-        size[0] < 700 ?
+        size[0] < 700 && showSearch ?
 
-        <div className='grow h-28 px-10 flex items-center rounded-full'>
-                <IconButton 
-                appearance="default" 
-                block
-                icon={<SearchIcon style={{'height': '48', 'width': '48'}} />} 
-                onClick={() => handleOpenDrawer('top')} 
-                className='h-12 px-10 rounded-full'>
-                    Find an experience
-                </IconButton>
-                <Drawer placement={placement} open={open} onClose={() => setOpen(false)}>
-                  
-                    <Drawer.Body>
-                    <Placeholder.Paragraph rows={8} />
-                        <Drawer.Actions>
-                            <Button onClick={() => setOpen(false)}>Cancel</Button>
-                            <Button onClick={() => setOpen(false)} appearance="primary">
-                            Confirm
-                            </Button>
-                        </Drawer.Actions>
-                    </Drawer.Body>
-                    
-                </Drawer>
-            </div>
+        <DrawerExperienceFinder size={size[0]} />
 
             : 
 
