@@ -1,10 +1,15 @@
 import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { addNewUser } from '../../utils/firebase.utils';
+import { signInUser } from "../../store/user-slice/user-slice"; 
 import { Form, Schema, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 
 export default function SignUp() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const formRef = useRef();
   const [formValue, setFormValue] = useState({
@@ -49,7 +54,10 @@ async function handleSignupUser() {
     formRef.current.resetErrors()
     return;
   } 
-  addNewUser({displayName, email, password})
+  addNewUser({displayName, email, password}).then(user => {
+    dispatch(signInUser(user))
+    navigate("/home");
+  })
 }
 
 const handleChange = () => {

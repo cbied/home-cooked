@@ -16,19 +16,19 @@ function previewFile(file, callback) {
 
 const ProfileInformation = () => {
     const dispatch = useDispatch()
-    const selectCurrentUser = useSelector(state => state.user.currentUser);
+    const selectUserSlice = useSelector(state => state.user);
     const toaster = useToaster();
     const [uploading, setUploading] = useState(false);
     const [fileInfo, setFileInfo] = useState(null);
     const { StringType } = Schema.Types;
     const formRef = useRef();
     const [formValue, setFormValue] = useState({
-        firstName: selectCurrentUser ? selectCurrentUser.firstName : '',
-        lastName: selectCurrentUser ? selectCurrentUser.lastName : '',
-        displayName: selectCurrentUser ? selectCurrentUser.displayName : '',
-        email: selectCurrentUser ? selectCurrentUser.email :'',
-        phoneNumber: selectCurrentUser ? selectCurrentUser.phoneNumber : '',
-        photoURL: selectCurrentUser ? selectCurrentUser.photoURL : ''
+        firstName: selectUserSlice.currentUser?.firstName ? selectUserSlice.currentUser.firstName : '',
+        lastName: selectUserSlice.currentUser?.lastName ?  selectUserSlice.currentUser.lastName : '',
+        displayName: selectUserSlice.currentUser ? selectUserSlice.currentUser.displayName : '',
+        email: selectUserSlice.currentUser ? selectUserSlice.currentUser.email :'',
+        phoneNumber: selectUserSlice.currentUser ? selectUserSlice.currentUser.phoneNumber : '',
+        photoURL: selectUserSlice.currentUser?.photoURL ? selectUserSlice.currentUser.photoURL : ''
     });
 
     const updateUserInfoStart = (currentUserUid) => {
@@ -41,8 +41,7 @@ const ProfileInformation = () => {
             return;
           } else {
             updateUserInfoInFirebase(formValue)
-            updateUserInfoStart(selectCurrentUser.uid)
-            alert('Your Information has been updated')
+            updateUserInfoStart(selectUserSlice.currentUser.uid)
           }
     }
 
@@ -56,7 +55,7 @@ const ProfileInformation = () => {
         return (
             <Container>
                 <Content className='flex justify-center mt-10'>
-                { formValue && 
+                { formValue && !selectUserSlice.isLoading ?
                     <Form
                     ref={formRef}
                     onChange={setFormValue}
@@ -120,6 +119,10 @@ const ProfileInformation = () => {
                         <Button appearance="primary" onClick={handleUpdateUserInfo}>Save</Button>
                         <Button appearance="default">Edit</Button>
                     </Form>
+
+                    :
+
+                    <Loader size="lg" />
                 }
                 </Content>
                 <Footer>Footer</Footer>

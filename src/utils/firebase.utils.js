@@ -23,14 +23,12 @@ export let currentUser = null;
 
 export async function addNewUser(userInfo) {
   const { email, password, displayName } = userInfo
-  createUserWithEmailAndPassword(auth, email, password)
+  return createUserWithEmailAndPassword(auth, email, password)
   .then(userCredential => {
       const userInfo = userCredential.user;
-
-      alert(`Welcome ${displayName}!`)
-  updateUserProfile(userInfo, displayName)
-  // FIX user does not automatically login after adding new user profile - may need to add redux thunk
-  signInUserWithEmail(email, password)
+    updateUserProfile(userInfo, displayName)
+    const user = signInUserWithEmail(email, password)
+    return user
   }).catch(err => console.error(err));
 }
 
@@ -38,14 +36,16 @@ export async function signInUserWithEmail(email, password) {
   return signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      if(user) {
-        alert('Welcome back ' + user.displayName)
-        return user
-      }
+    const user = userCredential.user;
+
+    return getUserInfoFromFirebase(user.uid).then(userInfo => {
+      alert(`Welcome ${userInfo.displayName}!`)
+      updateUserProfile(userInfo)
+      return userInfo
+    })
+      
   })
   .catch((error) => {
-    console.log(error.code)
     if(error.code === "auth/invalid-login-credentials" || 
         error.code === "auth/wrong-password" ||
         error.code === "auth/invalid-credential") {
@@ -62,12 +62,14 @@ export async function signInUserWithEmail(email, password) {
   });
 }
 
-function updateUserProfile(user, firstname) {
+function updateUserProfile(user, displayName) {
   updateProfile(auth.currentUser, {
-      displayName: firstname, 
+      displayName: displayName, 
     }).then(() => {
-      user.providerData[0].uid = auth.currentUser.uid
-      setDoc(doc(db, 'users', user.uid), user.providerData[0])
+      if(user.providerData) {
+        user.providerData[0].uid = auth.currentUser.uid
+        setDoc(doc(db, 'users', user.uid), user.providerData[0])
+      }
     }).catch((error) => {
       console.error(error)
     });
@@ -76,13 +78,16 @@ function updateUserProfile(user, firstname) {
 export async function signInUserWithGoogle() {
   return signInWithPopup(auth, googleProvider)
   .then((result) => {
+    return getUserInfoFromFirebase(result.user.uid).then(userInfo => {
+      console.log(userInfo)
+      alert('Welcome ' + userInfo.displayName)
+      updateUserProfile(userInfo)
+      return userInfo
+    })
     // This gives you a Google Access Token. You can use it to access the Google API.
     // const credential = GoogleAuthProvider.credentialFromResult(result);
     // const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    updateUserProfile(user)
-    return user
+    
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -101,17 +106,15 @@ export async function signOutUser() {
 }
 
 export async function updateUserInfoInFirebase(userInfo) {
-  const { firstName, lastName, displayName, email, phoneNumber, photoURL } = userInfo;
-
   const userDocRef = doc(db, "users", auth.currentUser.uid)
 
   await updateDoc(userDocRef, {
-    firstName,
-    lastName,
-    displayName,
-    email,
-    phoneNumber,
-    photoURL
+    firstName: userInfo.firstName ? userInfo.firstName : '',
+    lastName: userInfo.lastName ? userInfo.lastName : '',
+    displayName: userInfo.displayName ? userInfo.displayName : '',
+    email: userInfo.email ? userInfo.email : '',
+    phoneNumber: userInfo.phoneNumber ? userInfo.phoneNumber : '',
+    photoURL: userInfo?.photoURL ? userInfo.photoURL : ''
 });
 }
 
