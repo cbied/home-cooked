@@ -9,10 +9,9 @@ export function* onGetCurrentUserInfoStart() {
 export function* getCurrentUserInfo(data) {
     try {
         if(data) {
-            console.log(data)
             const userInfo = yield call(getUserInfoFromFirebase, data.payload.currentUserUid)
             yield put(updateUserSuccess(userInfo))
-
+            alert('Your Information has been updated')
         }
     } catch (error) {
         console.log(error)

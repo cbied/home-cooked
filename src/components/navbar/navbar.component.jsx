@@ -10,7 +10,7 @@ import './navbar.styles.css';
 const Navbar = ({ showSearch = true }) => {
     const [size, setSize] = useState([0, 0]);
     const selectCurrentUser = useSelector(state => state.user.currentUser);
-    const largeStyles = { 'min-width': 200 };
+    const largeStyles = { 'minWidth': 200 };
     
     useEffect(() => {
         const userAvatar = document.getElementById('userAvatar')
