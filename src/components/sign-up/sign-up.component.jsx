@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { addNewUser } from '../../utils/firebase.utils';
-import { signInUser } from "../../store/user-slice/user-slice"; 
+import { signInUserWithEmailStart } from "../../store/user-slice/user-slice"; 
 import { Form, Schema, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
@@ -54,8 +54,10 @@ async function handleSignupUser() {
     formRef.current.resetErrors()
     return;
   } 
+  // stop gap so user can create profile
+  // replace below lines with addNewUser saga
   addNewUser({displayName, email, password}).then(user => {
-    dispatch(signInUser(user))
+    dispatch(signInUserWithEmailStart({email, password}))
     navigate("/home");
   })
 }
