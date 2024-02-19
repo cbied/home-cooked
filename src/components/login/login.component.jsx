@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInUserWithEmail, signInUserWithGoogle, getUserInfoFromFirebase } from '../../utils/firebase.utils';
 import { useDispatch } from 'react-redux';
-import { signInUser } from "../../store/user-slice/user-slice";
+import { signInUserWithEmailStart, signInUserWithGoogleStart } from "../../store/user-slice/user-slice";
 import { Form, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
@@ -36,50 +35,18 @@ function handleSignUserIn() {
 }
 
 function handleSigninWithEmail(email, password) {
-  signInUserWithEmail(email, password).then(user => {
-    if(user) {
-        return getUserInfoFromFirebase(user.uid).then((userInfo) => {
-        const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = userInfo
-        const currentUser = {
-          firstName,
-          lastName,
-          displayName,
-          email,
-          phoneNumber,
-          photoURL,
-          uid
-        }
-        dispatch(signInUser(currentUser))
-        if(userInfo) {
-          setFormValue({
-          email: '',
-          password: ''
-        })
-          navigate("/home");
-        }
+      dispatch(signInUserWithEmailStart({email, password}))
+      setFormValue({
+        email: '',
+        password: ''
       })
-    }
-    
-  })
+        navigate("/home");
 }
 
 function handleSignInWithGoogle() {
-  signInUserWithGoogle().then(userInfo => {
-    const { firstName, lastName, displayName, email, phoneNumber, photoURL, uid } = userInfo
-    const currentUser = {
-      firstName,
-      lastName,
-      displayName,
-      email,
-      phoneNumber,
-      photoURL,
-      uid
-    }
-    dispatch(signInUser(currentUser))
-    if(userInfo) {
-      navigate("/home");
-    }
-  })
+    dispatch(signInUserWithGoogleStart())
+    navigate("/home");
+  
 }
 
 const handleChange = () => {

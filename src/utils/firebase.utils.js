@@ -39,7 +39,6 @@ export async function signInUserWithEmail(email, password) {
     const user = userCredential.user;
 
     return getUserInfoFromFirebase(user.uid).then(userInfo => {
-      alert(`Welcome ${userInfo.displayName}!`)
       updateUserProfile(userInfo)
       return userInfo
     })
@@ -79,8 +78,6 @@ export async function signInUserWithGoogle() {
   return signInWithPopup(auth, googleProvider)
   .then((result) => {
     return getUserInfoFromFirebase(result.user.uid).then(userInfo => {
-      console.log(userInfo)
-      alert('Welcome ' + userInfo.displayName)
       updateUserProfile(userInfo)
       return userInfo
     })
