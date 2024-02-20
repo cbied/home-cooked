@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signInUserWithEmailStart, signInUserWithGoogleStart } from "../../store/user-slice/user-slice";
 import { Form, InputGroup, Button, ButtonGroup } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
@@ -8,6 +8,7 @@ import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 import GoogleIcon from '../../assets/google_icon.png';
 
 export default function Login() {
+const selectUserSlice = useSelector(state => state.user)
 const [visible, setVisible] = useState(false);
 const formRef = useRef();
 const [formValue, setFormValue] = useState({
@@ -34,24 +35,27 @@ function handleSignUserIn() {
   }
 }
 
-function handleSigninWithEmail(email, password) {
+const handleSigninWithEmail = (email, password) => {
       dispatch(signInUserWithEmailStart({email, password}))
       setFormValue({
         email: '',
         password: ''
       })
-        navigate("/home");
 }
 
-function handleSignInWithGoogle() {
+const handleSignInWithGoogle = () => {
     dispatch(signInUserWithGoogleStart())
-    navigate("/home");
-  
 }
 
 const handleChange = () => {
   setVisible(!visible);
 };
+
+useEffect(() => {
+  if(selectUserSlice.currentUser) {
+    navigate("/home");
+  }
+}, [selectUserSlice.currentUser, navigate])
 
 return ( 
       <Form 
