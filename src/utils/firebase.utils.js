@@ -22,13 +22,11 @@ export let currentUser = null;
 
 
 export async function addNewUser(userInfo) {
-  const { email, password, displayName } = userInfo
+  const { email, password } = userInfo
   return createUserWithEmailAndPassword(auth, email, password)
   .then(userCredential => {
-      const userInfo = userCredential.user;
-    updateUserProfile(userInfo, displayName)
-    const user = signInUserWithEmail(email, password)
-    return user
+      const user = userCredential.user;
+      return user
   }).catch(err => console.error(err));
 }
 
@@ -37,12 +35,7 @@ export async function signInUserWithEmail(email, password) {
   .then((userCredential) => {
       // Signed in 
     const user = userCredential.user;
-
-    return getUserInfoFromFirebase(user.uid).then(userInfo => {
-      updateUserProfile(userInfo)
-      return userInfo
-    })
-      
+    return user      
   })
   .catch((error) => {
     if(error.code === "auth/invalid-login-credentials" || 
@@ -61,7 +54,7 @@ export async function signInUserWithEmail(email, password) {
   });
 }
 
-function updateUserProfile(user, displayName) {
+export function updateUserProfile(user, displayName) {
   updateProfile(auth.currentUser, {
       displayName: displayName, 
     }).then(() => {
@@ -77,15 +70,11 @@ function updateUserProfile(user, displayName) {
 export async function signInUserWithGoogle() {
   return signInWithPopup(auth, googleProvider)
   .then((result) => {
-    return getUserInfoFromFirebase(result.user.uid).then(userInfo => {
-      updateUserProfile(userInfo)
-      return userInfo
-    })
     // This gives you a Google Access Token. You can use it to access the Google API.
     // const credential = GoogleAuthProvider.credentialFromResult(result);
     // const token = credential.accessToken;
-    
-  }).catch((error) => {
+    return result
+    }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;

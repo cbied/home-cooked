@@ -7,7 +7,8 @@ const initialState = {
             displayName: '',
             email: '',
             phoneNumber: '',
-            photoURL: ''
+            photoURL: '',
+            providerId: ''
         },
         isLoading: false,
         error: null
@@ -17,6 +18,16 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        signupUserStart: state => {
+            state.isLoading = true;
+        },
+        signupUserSuccess: state => {
+            state.isLoading = false;
+        },
+        signupUserFailed: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload
+        },
         signInUserWithEmailStart: state => {
             state.isLoading = true
         },
@@ -46,7 +57,6 @@ export const userSlice = createSlice({
             state.isLoading = true
         },
         updateUserSuccess: (state, action) => {
-            console.log(action)
             state.isLoading = false
             state.currentUser = action.payload
         },
@@ -57,7 +67,8 @@ export const userSlice = createSlice({
     }
 })
 
-export const { signInUserWithEmailStart, signInUserWithEmailSuccess, signInUserWithEmailFailed,
+export const { signupUserStart, signupUserSuccess, signupUserFailed,
+               signInUserWithEmailStart, signInUserWithEmailSuccess, signInUserWithEmailFailed,
                updateUserStart, updateUserSuccess, updateUserFailed,
                signInUserWithGoogleStart, signInUserWithGoogleSuccess, signInUserWithGoogleFailed,
                signUserOut, } = userSlice.actions;
