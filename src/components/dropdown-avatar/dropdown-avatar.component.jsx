@@ -16,87 +16,87 @@ const DropdownAvatar = ({ selectCurrentUser }) => {
 
   return (
     <div className='flex h-28 px-10' id='avatarDropdown'>
-            <Dropdown placement='bottomEnd' noCaret={true}  
-            className='self-center'
-            title={
-                    <span>
-                    {
-                        selectCurrentUser && selectCurrentUser.photoURL ?
-                        <AvatarGroup>
-                            <Avatar
-                            id='userAvatar'
-                            size="lg"
-                            circle
-                            src={selectCurrentUser.photoURL}
-                            alt="Avatar"
-                            />
-                        </AvatarGroup>
-                        :
-                        <AvatarGroup>
-                            <AvatarIcon style={{ fontSize: 60 }}/>
-                        </AvatarGroup>
-                    }
-                    </span>
-                }>
-            
-                <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
+        <Dropdown placement='bottomEnd' noCaret={true}  
+        className='self-center'
+        title={
+                <span>
                 {
-                selectCurrentUser ?
-                    <div>
-                        <p>Signed in as</p>
-                        <strong>{selectCurrentUser.displayName}</strong>
-                    </div>
+                    selectCurrentUser && selectCurrentUser.photoURL ?
+                    <AvatarGroup>
+                        <Avatar
+                        id='userAvatar'
+                        size="lg"
+                        circle
+                        src={selectCurrentUser.photoURL}
+                        alt="Avatar"
+                        />
+                    </AvatarGroup>
                     :
-                    null
+                    <AvatarGroup>
+                        <AvatarIcon style={{ fontSize: 60 }}/>
+                    </AvatarGroup>
                 }
-                </Dropdown.Item>
-                {
-                    selectCurrentUser ? 
-                    <div>
-                    <Dropdown.Separator />
-                    <a
-                    className="links"
-                    href="/userProfile" 
-                    alt="User Profile page">
-                        <Dropdown.Item>
-                        Your profile
-                        </Dropdown.Item>
-                    </a>
-                    <Dropdown.Item>Your dinners</Dropdown.Item>
-                    <Dropdown.Item>Your friends</Dropdown.Item>
-                    </div>
-                    :
-                    null
-                }
-                
+                </span>
+            }>
+        
+            <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
+            {
+            selectCurrentUser ?
+                <div>
+                    <p>Signed in as</p>
+                    <strong>{selectCurrentUser.displayName}</strong>
+                </div>
+                :
+                null
+            }
+            </Dropdown.Item>
+            {
+                selectCurrentUser ? 
+                <div>
                 <Dropdown.Separator />
-                <Dropdown.Item>Help</Dropdown.Item>
-                <Dropdown.Item>Settings</Dropdown.Item>
-                {selectCurrentUser ?
-                    <a 
-                    href="/" 
-                    onClick={handleSignUserOut} 
-                    alt="Sign out"
-                    className="links">
-                        <Dropdown.Item>
-                        Sign Out
-                        </Dropdown.Item>
-                    </a>
-                        : 
-                    <a
-                    className='links' 
-                    href={"/auth"}
-                    alt="Login in page">
-                        <Dropdown.Item>
-                        Login
-                        </Dropdown.Item>
-                    </a>
-                }
-            </Dropdown>
+                <a
+                className="links"
+                href="/userProfile" 
+                alt="User Profile page">
+                    <Dropdown.Item>
+                    Your profile
+                    </Dropdown.Item>
+                </a>
+                <Dropdown.Item>Your dinners</Dropdown.Item>
+                <Dropdown.Item>Your friends</Dropdown.Item>
+                </div>
+                :
+                null
+            }
+            
+            <Dropdown.Separator />
+            <Dropdown.Item>Help</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            {selectCurrentUser ?
+                <a 
+                href="/" 
+                onClick={handleSignUserOut} 
+                alt="Sign out"
+                className="links">
+                    <Dropdown.Item>
+                    Sign Out
+                    </Dropdown.Item>
+                </a>
+                    : 
+                <a
+                className='links' 
+                href={"/auth"}
+                alt="Login in page">
+                    <Dropdown.Item>
+                    Login
+                    </Dropdown.Item>
+                </a>
+            }
+        </Dropdown>
 
 
-               
-            </div>
+            
+    </div>
   );
 };
 
