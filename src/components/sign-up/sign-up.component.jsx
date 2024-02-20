@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { signupUserStart } from "../../store/user-slice/user-slice"; 
 import { Form, Schema, InputGroup, Button, ButtonGroup } from 'rsuite';
@@ -9,6 +9,7 @@ import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 export default function SignUp() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const selectUserSlice = useSelector(state => state.user)
   const [visible, setVisible] = useState(false);
   const formRef = useRef();
   const [formValue, setFormValue] = useState({
@@ -23,45 +24,47 @@ export default function SignUp() {
 
   const { StringType } = Schema.Types;
 
-const model = Schema.Model({
-  name: StringType().isRequired('This field is required.'),
-  email: StringType()
-    .isEmail('Please enter a valid email address.')
-    .isRequired('This field is required.'),
-  password: StringType().isRequired('This field is required.'),
-  verifyPassword: StringType()
-    .addRule((value, data) => {
+  const model = Schema.Model({
+    name: StringType().isRequired('This field is required.'),
+    email: StringType()
+      .isEmail('Please enter a valid email address.')
+      .isRequired('This field is required.'),
+    password: StringType().isRequired('This field is required.'),
+    verifyPassword: StringType()
+      .addRule((value, data) => {
 
-      if (value !== data.password) {
-        return false;
-      }
+        if (value !== data.password) {
+          return false;
+        }
 
-      return true;
-    }, 'The two passwords do not match')
-    .isRequired('This field is required.')
-});
+        return true;
+      }, 'The two passwords do not match')
+      .isRequired('This field is required.')
+  });
   
 
-/**
- * Handles the signup process for a user.
- * @param {Event} event - The event object.
- */
-async function handleSignupUser() {
-  if (formRef.current.check()) {
-    console.error('Form Error');
-    formRef.current.resetErrors()
-    return;
-  } 
-  // stop gap so user can create profile
-  // replace below lines with addNewUser saga
+  /**
+   * Handles the signup process for a user.
+   * @param {Event} event - The event object.
+   */
+  const handleSignupUser = () => {
+    if (formRef.current.check()) {
+      console.error('Form Error');
+      formRef.current.resetErrors()
+      return;
+    } 
     dispatch(signupUserStart(formValue))
-    navigate("/home");
-}
+  }
 
-const handleChange = () => {
-  setVisible(!visible);
-};
+  const handleChange = () => {
+    setVisible(!visible);
+  };
 
+  useEffect(() => {
+    if(selectUserSlice.currentUser) {
+      navigate("/home");
+    }
+  }, [selectUserSlice.currentUser, navigate])
 
     return ( 
       <Form 
