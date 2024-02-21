@@ -8,57 +8,57 @@ import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 import GoogleIcon from '../../assets/google_icon.png';
 
 export default function Login() {
-const selectUserSlice = useSelector(state => state.user)
-const [visible, setVisible] = useState(false);
-const formRef = useRef();
-const [formValue, setFormValue] = useState({
-  email: '',
-  password: '',
-});
-const dispatch = useDispatch();
-const navigate = useNavigate();
-const styles = {
-  width: 350
-};
+  const selectUserSlice = useSelector(state => state.user)
+  const [visible, setVisible] = useState(false);
+  const formRef = useRef();
+  const [formValue, setFormValue] = useState({
+    email: '',
+    password: '',
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const styles = {
+    width: 350
+  };
 
-function handleSignUserIn(signinType) {
-  const { email, password } = formValue 
-  if (!formRef.current.check()) {
-    console.error('Form Error');
-    formRef.current.resetErrors()
-    return;
-  } 
-  if(signinType === 'email') {
-    handleSigninWithEmail(email, password)
-  } else {
-    handleSignInWithGoogle()
+  const handleSignUserIn = (signinType) => {
+    const { email, password } = formValue 
+    if (!formRef.current.check()) {
+      console.error('Form Error');
+      formRef.current.resetErrors()
+      return;
+    } 
+    if(signinType === 'email') {
+      handleSigninWithEmail(email, password)
+    } else {
+      handleSignInWithGoogle()
+    }
   }
-}
 
-const handleSigninWithEmail = (email, password) => {
-      dispatch(signInUserWithEmailStart({email, password}))
-      setFormValue({
-        email: '',
-        password: ''
-      })
-}
-
-const handleSignInWithGoogle = () => {
-    dispatch(signInUserWithGoogleStart())
-}
-
-const handleChange = () => {
-  setVisible(!visible);
-};
-
-useEffect(() => {
-  if(selectUserSlice.currentUser) {
-    navigate("/home");
+  const handleSigninWithEmail = (email, password) => {
+        dispatch(signInUserWithEmailStart({email, password}))
+        setFormValue({
+          email: '',
+          password: ''
+        })
   }
-}, [selectUserSlice.currentUser, navigate])
+
+  const handleSignInWithGoogle = () => {
+      dispatch(signInUserWithGoogleStart())
+  }
+
+  const handleChange = () => {
+    setVisible(!visible);
+  };
+
+  useEffect(() => {
+    if(selectUserSlice.currentUser) {
+      navigate("/home");
+    }
+  }, [selectUserSlice.currentUser, navigate])
 
 return ( 
-      <Form 
+    <Form 
       ref={formRef}
       onChange={setFormValue}
       formValue={formValue}>
@@ -131,6 +131,6 @@ return (
           Google Login
         </Button>
         </ButtonGroup>
-      </Form>    
+      </Form>  
   );
 }

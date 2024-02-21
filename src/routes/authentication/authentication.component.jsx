@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
-import { Button, ButtonGroup, Animation, Grid, Row, Col } from 'rsuite';
+import { useSelector } from 'react-redux'
+import { Button, ButtonGroup, Animation, Grid, Row, Col, Loader } from 'rsuite';
 import Login from "../../components/login/login.component";
 import SignUp from "../../components/sign-up/sign-up.component";
 import Navbar from "../../components/navbar/navbar.component";
@@ -7,6 +8,7 @@ import Navbar from "../../components/navbar/navbar.component";
 export default function Authentication() {
     const [showSignup, setShowSignup] = useState(false);
     const [showLogin, setShowLogin] = useState(true);
+    const selectUserSlice = useSelector(state => state.user)
   
     const onChangeSignUp = () => {
       setShowSignup(true)
@@ -49,7 +51,9 @@ export default function Authentication() {
     return ( 
     <Fragment>
       <Navbar showSearch={false} />
-        <Grid fluid>
+      <Grid fluid>
+      {
+        !selectUserSlice.isLoading ?
           <Row>
             <Col md={24} lg={11}>
               {/* <!-- Left column container with background--> */}
@@ -79,7 +83,15 @@ export default function Authentication() {
                   </div>
                 </Col>
           </Row>
+
+          :
+
+          <div className='h-screen flex justify-center items-center'>
+            <Loader size="lg" />
+          </div>
+        }
         </Grid>
+        
     </Fragment>
     
     );
