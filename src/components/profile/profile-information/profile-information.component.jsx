@@ -35,7 +35,7 @@ const ProfileInformation = () => {
             dispatch(updateUserStart({currentUserUid}))
     }
 
-    function handleUpdateUserInfo() {
+    const handleUpdateUserInfo = () => {
         if (!formRef.current.check()) {
             console.error('Form Error');
             return;
