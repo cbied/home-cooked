@@ -35,7 +35,7 @@ const Navbar = ({ showSearch = true }) => {
     }, []);
     
 return(
-    <nav className='flex flex-col h-28'>
+    <nav className='flex flex-col h-auto'>
         <div className='flex justify-between w-screen'>
             <div className='flex h-28 px-10'>
                 <a className='block self-center' href={'/'}>
