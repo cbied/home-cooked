@@ -1,0 +1,102 @@
+[
+    {
+        "lat": -41.2865,
+        "lng": 174.7662,
+        "foodType": "Thai",
+        "address": "123 Cuba Street, Wellington",
+        "maxGuestSpots": 5,
+        "guestSpotsLeft": 3,
+        "description": "Delicious and aromatic Thai cuisine prepared with authentic ingredients and traditional recipes.",
+        "price": 60
+    },
+    {
+        "lat": -41.2889,
+        "lng": 174.7602,
+        "foodType": "French",
+        "address": "456 Lambton Quay, Wellington",
+        "maxGuestSpots": 4,
+        "guestSpotsLeft": 2,
+        "description": "Exquisite French dishes crafted with finesse and elegance, showcasing the rich culinary heritage of France.",
+        "price": 75
+    },
+    {
+        "lat": -41.2897,
+        "lng": 174.7786,
+        "foodType": "Vietnamese",
+        "address": "789 Courtenay Place, Wellington",
+        "maxGuestSpots": 6,
+        "guestSpotsLeft": 6,
+        "description": "Authentic Vietnamese delicacies bursting with flavors, combining fresh herbs, spices, and vibrant ingredients.",
+        "price": 40
+    },
+    {
+        "lat": -41.2905,
+        "lng": 174.7729,
+        "foodType": "Colombian",
+        "address": "321 Willis Street, Wellington",
+        "maxGuestSpots": 3,
+        "guestSpotsLeft": 1,
+        "description": "Savor the taste of Colombian cuisine, featuring hearty dishes influenced by diverse regional flavors.",
+        "price": 80
+    },
+    {
+        "lat": -41.2973,
+        "lng": 174.7812,
+        "foodType": "Thai",
+        "address": "654 Featherston Street, Wellington",
+        "maxGuestSpots": 8,
+        "guestSpotsLeft": 4,
+        "description": "Indulge in the vibrant and spicy flavors of Thai cuisine, prepared with a perfect balance of sweet, sour, and savory.",
+        "price": 50
+    },
+    {
+        "lat": -41.2921,
+        "lng": 174.7825,
+        "foodType": "French",
+        "address": "987 Victoria Street, Wellington",
+        "maxGuestSpots": 7,
+        "guestSpotsLeft": 7,
+        "description": "Experience the artistry of French gastronomy, with refined dishes that showcase culinary mastery and sophistication.",
+        "price": 40
+    },
+    {
+        "lat": -41.2929,
+        "lng": 174.7838,
+        "foodType": "Vietnamese",
+        "address": "654 Taranaki Street, Wellington",
+        "maxGuestSpots": 2,
+        "guestSpotsLeft": 2,
+        "description": "Discover the fresh and vibrant flavors of Vietnamese cuisine, featuring a harmonious blend of herbs, spices, and textures.",
+        "price": 100
+    },
+    {
+        "lat": -41.2937,
+        "lng": 174.7901,
+        "foodType": "Colombian",
+        "address": "321 Ghuznee Street, Wellington",
+        "maxGuestSpots": 5,
+        "guestSpotsLeft": 0,
+        "description": "Taste the authentic flavors of Colombian cuisine, with dishes that reflect the country's diverse cultural influences.",
+        "price": 60
+    },
+    {
+        "lat": -41.2945,
+        "lng": 174.7864,
+        "foodType": "Thai",
+        "address": "789 Lambton Quay, Wellington",
+        "maxGuestSpots": 6,
+        "guestSpotsLeft": 3,
+        "description": "Experience the bold and aromatic flavors of Thai cuisine, featuring a harmonious blend of spices and fresh ingredients.",
+        "price": 70
+    },
+    {
+        "lat": -41.2953,
+        "lng": 174.7837,
+        "foodType": "French",
+        "address": "456 Cuba Street, Wellington",
+        "maxGuestSpots": 4,
+        "guestSpotsLeft": 1,
+        "description": "Indulge in the elegance of French cuisine, with dishes that showcase culinary finesse and timeless flavors.",
+        "price": 90
+    }
+]
