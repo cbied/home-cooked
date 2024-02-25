@@ -1,5 +1,6 @@
 [
     {
+        "uid": "1a2b3c4d",
         "lat": -41.2865,
         "lng": 174.7662,
         "foodType": "Thai",
@@ -10,6 +11,7 @@
         "price": 60
     },
     {
+        "uid": "5e6f7g8h",
         "lat": -41.2889,
         "lng": 174.7602,
         "foodType": "French",
@@ -20,6 +22,7 @@
         "price": 75
     },
     {
+        "uid": "9i0j1k2l",
         "lat": -41.2897,
         "lng": 174.7786,
         "foodType": "Vietnamese",
@@ -30,6 +33,7 @@
         "price": 40
     },
     {
+        "uid": "3m4n5o6p",
         "lat": -41.2905,
         "lng": 174.7729,
         "foodType": "Colombian",
@@ -40,6 +44,7 @@
         "price": 80
     },
     {
+        "uid": "7q8r9s0t",
         "lat": -41.2973,
         "lng": 174.7812,
         "foodType": "Thai",
@@ -50,6 +55,7 @@
         "price": 50
     },
     {
+        "uid": "1u2v3w4x",
         "lat": -41.2921,
         "lng": 174.7825,
         "foodType": "French",
@@ -60,6 +66,7 @@
         "price": 40
     },
     {
+        "uid": "5y6z7a8b",
         "lat": -41.2929,
         "lng": 174.7838,
         "foodType": "Vietnamese",
@@ -70,6 +77,7 @@
         "price": 100
     },
     {
+        "uid": "9c0d1e2f",
         "lat": -41.2937,
         "lng": 174.7901,
         "foodType": "Colombian",
@@ -80,6 +88,7 @@
         "price": 60
     },
     {
+        "uid": "3g4h5i6j",
         "lat": -41.2945,
         "lng": 174.7864,
         "foodType": "Thai",
@@ -90,6 +99,7 @@
         "price": 70
     },
     {
+        "uid": "7k8l9m0n",
         "lat": -41.2953,
         "lng": 174.7837,
         "foodType": "French",

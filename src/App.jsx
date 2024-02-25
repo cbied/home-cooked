@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import Navbar from './components/navbar/navbar.component';
-import {APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
-import { getUserLocationInfo, buildContent, toggleHighlight } from './utils/google-maps/google-maps.utils';
+import HostMapMarkers from './components/host-map-markers/host-map-markers.component';
+import {APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
+import { getUserLocationInfo } from './utils/google-maps/google-maps.utils';
 import hostMarkers from './mockData/mockHostMakers.json'
 import './App.css';
 
 const App = () => {
   const [ geoPosition, setGeoPosition ] = useState(null)
-
-
 
   const findUserPositionSuccess = (position) => {
     setGeoPosition({
@@ -21,28 +20,11 @@ const App = () => {
     console.log("Unable to retrieve your location.");
   }
 
-  const buildAdvancedMarker = (host, index) => {
-    // AdvancedMarker.addListener("click", () => {
-    //   toggleHighlight(AdvancedMarker, host);
-    // });
-    return (
-      <AdvancedMarker
-        key={index}
-        position={{lat: host.lat, lng: host.lng}}
-        title={host.foodType}
-        content={host.description}
-      />
-    )
-  
-  }
 
   useEffect(() => {
     getUserLocationInfo(findUserPositionSuccess, findUserPositionFailed)
-    
   }, [])
   
-
-
   return (
       <div className="h-screen">
         <Navbar />
@@ -54,11 +36,12 @@ const App = () => {
               defaultZoom={14}
               gestureHandling={'greedy'}
               disableDefaultUI={true}
-              mapId={'4504f8b37365c3d0'}>
+              mapId={'4504f8b37365c3d0'}
+              >
               {
-                hostMarkers.map((host, index) => {
-                  return buildAdvancedMarker(host, index)
-                })
+                hostMarkers.map((host) => (
+                  <HostMapMarkers key={host.uid} host={host} />
+                ))
               }
             </Map>
           </APIProvider>
