@@ -1,36 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Marker, useAdvancedMarkerRef, InfoWindow } from '@vis.gl/react-google-maps';
+import { Button } from 'rsuite'
+const google = window.google;
 
-const HostMapMarkers = ({ host }) => {
+const HostMapMarkers = ({ host, map }) => {
   const [infowindowShown, setInfowindowShown] = useState(false);
   const [currentHostMarker, setCurrentHostMarker] = useState(null);
   const [markerRef, marker] = useAdvancedMarkerRef();
+  let infoWindow = new google.maps.InfoWindow();
 
   const showInfoWindow = (uid) => {
+    
       setInfowindowShown(true);
   };
 
+  const keepInfoWindowOpen = (uid) => {
+    setCurrentHostMarker(uid)
+    setInfowindowShown(prevState => !prevState);
+  }
+
   const hideInfoWindow = (uid) => {
+    if(currentHostMarker) {
+      setCurrentHostMarker(null)
+    } else {
       setInfowindowShown(false);
+      
+    }
   };
   
   const closeInfoWindow = () => {
-    
+    setInfowindowShown(false);
   };
 
-  return (
-    <div>
-      <Marker
-        ref={markerRef}
-        key={host.uid}
-        position={{ lat: host.lat, lng: host.lng }}
-        title={host.foodType}
-        id={host.uid}
-        onMouseOver={() => showInfoWindow(host.uid)}
-        onMouseOut={() => hideInfoWindow(host.uid)}
-      />
-      {infowindowShown && (
-        <InfoWindow 
+
+  const createInfoWindow = (host) => {
+
+    return (
+      <InfoWindow 
           onCloseClick={closeInfoWindow} 
           anchor={marker || null}
         >
@@ -50,8 +56,28 @@ const HostMapMarkers = ({ host }) => {
                 <div className="font-bold">${host.price} per person</div>
               </div>
             </div>
+            <div className='flex justify-end'>
+              <Button appearance="primary">Register</Button>
+            </div>
           </div>
         </InfoWindow>
+    )
+  }
+
+  return (
+    <div>
+      <Marker
+        ref={markerRef}
+        key={host.uid}
+        position={{ lat: host.lat, lng: host.lng }}
+        title={host.foodType}
+        id={host.uid}
+        onClick={() => keepInfoWindowOpen(host.uid)}
+        onMouseOver={() => showInfoWindow()}
+        onMouseOut={() => hideInfoWindow()}
+      />
+      {infowindowShown && (
+          createInfoWindow(host)
       )}
     </div>
   );

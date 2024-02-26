@@ -1,18 +1,18 @@
+'use strict';
 import { useEffect, useState } from 'react';
 import Navbar from './components/navbar/navbar.component';
 import HostMapMarkers from './components/host-map-markers/host-map-markers.component';
-import {APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
-import { getUserLocationInfo } from './utils/google-maps/google-maps.utils';
+import { APIProvider } from '@vis.gl/react-google-maps';
+import { getUserLocationInfo, initMap } from './utils/google-maps/google-maps.utils';
 import hostMarkers from './mockData/mockHostMakers.json'
 import './App.css';
 
 const App = () => {
-  const [ geoPosition, setGeoPosition ] = useState(null)
-
+  const [ geoPosition, setGeoPosition ] = useState({lat: 41.0895249, lng: -73.8419063})
   const findUserPositionSuccess = (position) => {
     setGeoPosition({
       lat: position.coords.latitude, 
-      long: position.coords.longitude});
+      lng: position.coords.longitude});
       console.log(geoPosition)
   }
 
@@ -20,35 +20,21 @@ const App = () => {
     console.log("Unable to retrieve your location.");
   }
 
-
   useEffect(() => {
     getUserLocationInfo(findUserPositionSuccess, findUserPositionFailed)
+    initMap(hostMarkers, geoPosition);
   }, [])
   
   return (
       <div className="h-screen">
         <Navbar />
         {
-          geoPosition && geoPosition.lat && geoPosition.long ? 
+          
           <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-            <Map
-              defaultCenter={{lat: geoPosition.lat, lng: geoPosition.long} }
-              defaultZoom={14}
-              gestureHandling={'greedy'}
-              disableDefaultUI={true}
-              mapId={'4504f8b37365c3d0'}
-              >
-              {
-                hostMarkers.map((host) => (
-                  <HostMapMarkers key={host.uid} host={host} />
-                ))
-              }
-            </Map>
+            <div id='map' className='h-full w-full'></div>
           </APIProvider>
 
-          :
-        
-         null
+         
          
         }
         
