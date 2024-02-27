@@ -1,7 +1,5 @@
-'use strict';
 import { useEffect, useState } from 'react';
 import Navbar from './components/navbar/navbar.component';
-import HostMapMarkers from './components/host-map-markers/host-map-markers.component';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { getUserLocationInfo, initMap } from './utils/google-maps/google-maps.utils';
 import hostMarkers from './mockData/mockHostMakers.json'
@@ -13,7 +11,6 @@ const App = () => {
     setGeoPosition({
       lat: position.coords.latitude, 
       lng: position.coords.longitude});
-      console.log(geoPosition)
   }
 
   const findUserPositionFailed = () => {
@@ -29,13 +26,9 @@ const App = () => {
       <div className="h-screen">
         <Navbar />
         {
-          
           <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
             <div id='map' className='h-full w-full'></div>
           </APIProvider>
-
-         
-         
         }
         
       </div>
