@@ -30,8 +30,7 @@ export const initMap = async (hostsInfo, position) => {
   const infowindow = new google.maps.InfoWindow();
   let marker;
 
-  hostsInfo.forEach((host,i) => {
-    console.log(host)
+  hostsInfo.forEach((host) => {
     const markerPosition = { lat: host.lat, lng: host.lng };
     marker = new AdvancedMarkerElement({
       map: map,
