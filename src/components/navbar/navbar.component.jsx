@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Nav } from 'rsuite';
 import DropdownAvatar from '../dropdown-avatar/dropdown-avatar.component';
@@ -7,8 +7,7 @@ import DrawerExperienceFinder from '../drawer-experience-finder/drawer-experienc
 import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
-const Navbar = ({ showSearch = true }) => {
-    const [size, setSize] = useState([0, 0]);
+const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
     const selectCurrentUser = useSelector(state => state.user.currentUser);
     const largeStyles = { 'minWidth': 200 };
     
@@ -23,20 +22,10 @@ const Navbar = ({ showSearch = true }) => {
               })
         }
     }, [selectCurrentUser])
-
-    
-    useLayoutEffect(() => {
-        function updateSize() {
-        setSize([window.innerWidth, window.innerHeight]);
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => window.removeEventListener('resize', updateSize);
-    }, []);
     
 return(
     <nav className='flex flex-col h-auto'>
-        <div className='flex justify-between w-screen'>
+        <div className='flex justify-between w-auto'>
             <div className='flex h-28 px-10'>
                 <a className='block self-center' href={'/'}>
                     <img className='w-16 h-12' src={logo} alt="home cooked logo" />
@@ -79,13 +68,10 @@ return(
 
         : 
         
-        size[0] < 700 && showSearch ?
+        size[0] < 700 && showSearch &&
 
         <DrawerExperienceFinder size={size[0]} />
 
-            : 
-
-            null
 
         }
     </nav>
