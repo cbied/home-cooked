@@ -5,7 +5,55 @@ let map;
 
 const google = window.google;
 
-export const initMap = async (hostsInfo, position) => {
+class CenterControl {
+  map_;
+  drawer_;
+  constructor(controlDiv, map, handleOpenFn) {
+    this.map_ = map;
+    // Set the center property upon construction
+    this.drawer_ = false
+   
+    // Set CSS for the setCenter control border
+    const setDrawerButtonUI = document.createElement("button");
+
+    setDrawerButtonUI.id = "setDrawerUI";
+    setDrawerButtonUI.type = "button";
+    setDrawerButtonUI.title = "Open Drawer for list of Host info";
+    setDrawerButtonUI.style.backgroundColor = "#eb3626";
+    setDrawerButtonUI.style.border = "2px solid #eb3626";
+    setDrawerButtonUI.style.borderRadius = "999px";
+    setDrawerButtonUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+    setDrawerButtonUI.style.color = "#fff";
+    setDrawerButtonUI.style.cursor = "pointer";
+    setDrawerButtonUI.style.fontFamily = "Roboto,Arial,sans-serif";
+    setDrawerButtonUI.style.fontSize = "16px";
+    setDrawerButtonUI.style.lineHeight = "38px";
+    setDrawerButtonUI.style.margin = "8px 0 22px";
+    setDrawerButtonUI.style.padding = "0 5px";
+    setDrawerButtonUI.style.textAlign = "center";
+    setDrawerButtonUI.style.width = "140px";
+    setDrawerButtonUI.style.height = "60px";
+    setDrawerButtonUI.textContent = "List";
+    setDrawerButtonUI.title = "Click to recenter the map";
+    
+    controlDiv.appendChild(setDrawerButtonUI);
+
+    // Set CSS for the control interior
+    const setCenterText = document.createElement("div");
+
+    setCenterText.id = "setCenterText";
+    setDrawerButtonUI.appendChild(setCenterText);
+
+    // Set up the click event listener for 'Set Center': Set the center of
+    // the control to the current center of the map.
+    setDrawerButtonUI.addEventListener("click", () => {
+      
+      handleOpenFn()
+    }, {capture: true});
+  }
+}
+
+export const initMap = async (hostsInfo, position, handleOpenFn) => {
   
   // The location of Uluru
   let geoPosition
@@ -26,6 +74,16 @@ export const initMap = async (hostsInfo, position) => {
     disableDefaultUI: true,
     mapId: "7e95a8887ec6de55",
   });
+
+  // Create the DIV to hold the control and call the CenterControl()
+  // constructor passing in this DIV.
+  const centerControlDiv = document.createElement("div");
+  const control = new CenterControl(centerControlDiv, map, handleOpenFn);
+
+  // @ts-ignore
+  centerControlDiv.index = 1;
+  centerControlDiv.style.paddingTop = "10px";
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
   const infowindow = new google.maps.InfoWindow();
   let marker;

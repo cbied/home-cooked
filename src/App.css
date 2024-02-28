@@ -1,0 +1,12 @@
+.host-list-drawer .host-list-header {
+    padding: 10px 40px 10px 60px;
+}
+
+.host-list-body .rs-drawer-actions {
+    margin-left: initial;
+}
+
+.host-list > .rs-btn {
+    border-radius: 9999px;
+}
+
