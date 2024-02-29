@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUserOut } from '../../store/user-slice/user-slice';
 import { signOutUser } from '../../utils/firebase.utils';
 import { AvatarGroup, Avatar, Dropdown } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 
-const DropdownAvatar = ({ selectCurrentUser }) => {
+const DropdownAvatar = () => {
+    const selectCurrentUser = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch()
 
     const handleSignUserOut = async () => {
@@ -21,6 +22,7 @@ const DropdownAvatar = ({ selectCurrentUser }) => {
         }
     }, [])
 
+console.log(selectCurrentUser)
     return (
     <div className='flex h-28 px-10' id='avatarDropdown'>
         <Dropdown placement='bottomEnd' noCaret={true}  
@@ -34,7 +36,7 @@ const DropdownAvatar = ({ selectCurrentUser }) => {
                         id='userAvatar'
                         size="lg"
                         circle
-                        src={`${selectCurrentUser.photoURL}`}
+                        src={selectCurrentUser.photoURL}
                         alt="Avatar"
                         />
                     </AvatarGroup>

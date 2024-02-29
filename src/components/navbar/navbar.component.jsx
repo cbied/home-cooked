@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { Nav } from 'rsuite';
 import DropdownAvatar from '../dropdown-avatar/dropdown-avatar.component';
 import ExperienceFinder from '../experience-finder/experience-finder.component';
@@ -7,7 +6,6 @@ import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
 const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
-    const selectCurrentUser = useSelector(state => state.user.currentUser);
     const largeStyles = { 'minWidth': 200 };
     
 return(
@@ -42,7 +40,7 @@ return(
 
             }
 
-            <DropdownAvatar selectCurrentUser={selectCurrentUser} />
+            <DropdownAvatar />
             
         </div>
         {
