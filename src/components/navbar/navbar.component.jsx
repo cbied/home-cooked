@@ -11,9 +11,9 @@ const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
 return(
     <nav className='flex flex-col h-auto'>
         <div className='flex justify-between w-auto'>
-            <div className='flex h-28 px-10'>
-                <a className='block self-center' href={'/'}>
-                    <img className='w-16 h-12' src={logo} alt="home cooked logo" />
+            <div className='flex h-28 pl-10 pr-14 min-w-12'>
+                <a className='block self-center min-w-12' href={'/'}>
+                    <img className='min-w-12 h-12' src={logo} alt="home cooked logo" />
                 </a>
             </div>
             {
@@ -30,7 +30,7 @@ return(
 
             :
 
-            size[0] < 950 && size[0] > 700 && showSearch ?
+            size[0] < 950 && size[0] >= 500 && showSearch ?
 
             <DrawerExperienceFinder />
 
@@ -48,15 +48,16 @@ return(
         size[0] > 950 && showSearch ?
 
         <div className='w-4/5 flex justify-center self-center'>
-            <ExperienceFinder largeStyles={largeStyles} />
+            <ExperienceFinder largeStyles={largeStyles} showUserProfile={false} showLogo={false} />
         </div>
 
         : 
         
-        size[0] < 700 && showSearch &&
+        size[0] < 500 && showSearch &&
 
-        <DrawerExperienceFinder size={size[0]} />
-
+        <div className='w-4/5 self-center'>
+            <DrawerExperienceFinder size={size[0]} />
+        </div>
 
         }
     </nav>
