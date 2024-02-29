@@ -55,6 +55,8 @@ export function* onGoogleSigninStart() {
 export function* signInUserGoogle() {
     try {
         const result = yield call(signInUserWithGoogle) 
+        const userResults = result.user
+        yield call(updateUserProfile, userResults, userResults.providerData[0].displayName)
         const userInfo = yield call(getUserInfoFromFirebase, result.user.uid)
         yield put(signInUserWithGoogleSuccess(userInfo))
         alert('Welcome ' + userInfo.displayName)

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { signUserOut } from '../../store/user-slice/user-slice';
 import { signOutUser } from '../../utils/firebase.utils';
@@ -14,7 +14,14 @@ const DropdownAvatar = ({ selectCurrentUser }) => {
         })
     }
 
-  return (
+    useEffect(() => {
+        const userAvatar = document.getElementById('userAvatar')
+        if(selectCurrentUser && selectCurrentUser.photoURL) {
+            userAvatar.src = selectCurrentUser.photoURL
+        }
+    }, [])
+
+    return (
     <div className='flex h-28 px-10' id='avatarDropdown'>
         <Dropdown placement='bottomEnd' noCaret={true}  
         className='self-center'
@@ -27,7 +34,7 @@ const DropdownAvatar = ({ selectCurrentUser }) => {
                         id='userAvatar'
                         size="lg"
                         circle
-                        src={selectCurrentUser.photoURL}
+                        src={`${selectCurrentUser.photoURL}`}
                         alt="Avatar"
                         />
                     </AvatarGroup>

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Nav } from 'rsuite';
 import DropdownAvatar from '../dropdown-avatar/dropdown-avatar.component';
@@ -10,18 +9,6 @@ import './navbar.styles.css';
 const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
     const selectCurrentUser = useSelector(state => state.user.currentUser);
     const largeStyles = { 'minWidth': 200 };
-    
-    useEffect(() => {
-        const userAvatar = document.getElementById('userAvatar')
-        if(selectCurrentUser && selectCurrentUser.photoURL) {
-            userAvatar.src = selectCurrentUser.photoURL
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-              })
-        }
-    }, [selectCurrentUser])
     
 return(
     <nav className='flex flex-col h-auto'>
