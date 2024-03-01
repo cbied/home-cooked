@@ -5,6 +5,12 @@ import mockFoodData from '../../mockData/mockFoodTypes.json';
 
 const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
 
+    const handleFoodTypes = (foodTypeItem, selectedItemPaths, event) => {
+        console.log(foodTypeItem)
+        // console.log(selectedItemPaths)
+        console.log(event)
+    }
+
     return (
         <Stack className='rounded-full'>
             <Stack.Item>
@@ -15,7 +21,8 @@ const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
                 data={mockFoodData} 
                 style={largeStyles === undefined ? smallStyles : largeStyles}
                 inline={isInline}
-                className='w-fit' />
+                className='w-fit'
+                onSelect={(item, selectedItemPaths, event) => handleFoodTypes(item, selectedItemPaths, event)} />
             </Stack.Item>
         </Stack>
     )
