@@ -22,7 +22,6 @@ const DropdownAvatar = () => {
         }
     }, [])
 
-console.log(selectCurrentUser)
     return (
     <div className='flex h-28 px-10' id='avatarDropdown'>
         <Dropdown placement='bottomEnd' noCaret={true}  

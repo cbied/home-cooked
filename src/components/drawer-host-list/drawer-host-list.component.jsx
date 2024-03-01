@@ -1,5 +1,4 @@
 import ExperienceFinder from '../experience-finder/experience-finder.component';
-import DropdownAvatar from '../dropdown-avatar/dropdown-avatar.component';
 import DrawerExperienceFinder from '../drawer-experience-finder/drawer-experience-finder.component';
 import HostListContainer from '../host-list-container/host-list-container.component';
 import { Drawer, Button } from 'rsuite';
