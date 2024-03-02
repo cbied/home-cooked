@@ -13,22 +13,21 @@ const largeStyles = { 'minWidth': 200 };
     open={drawerOpen} onClose={() => setOpen(false)}
     className='host-list-drawer'
     >
-    <Drawer.Header className='host-list-header'>
+    <Drawer.Header className='host-list-header flex justify-center'>
 
-      <Drawer.Title className='w-4/5 flex justify-center self-center'>
+      <Drawer.Title className='w-screen flex justify-around self-center'>
         {screenSize[0] > 950 ?
 
-        <div className='w-4/5 flex justify-center self-center p-10'>
-            <ExperienceFinder largeStyles={largeStyles} />
-        </div>
+        
+          <ExperienceFinder largeStyles={largeStyles} showUserProfile={true} showLogo={true} />
+      
 
         : 
 
         screenSize[0] <= 950 &&
 
-        <DrawerExperienceFinder size={screenSize[0]} />
-
-
+          <DrawerExperienceFinder size={screenSize[0]} showLogo={true} showUserProfile={true} />
+          
         } 
       </Drawer.Title>
       
