@@ -23,20 +23,12 @@ const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
                 for(let i = 0; i < itemDataType.children.length; i++) {
                     removeChildrenArr.push(itemDataType.children[i].value)
                 }
-                itemChildrenArr = foodTypesArr.filter((item) => {
-                    if(!removeChildrenArr.includes(item)) {
-                        return item !== itemDataType.value
-                    }
-                })
+                itemChildrenArr = foodTypesArr.filter(item => !removeChildrenArr.includes(item))      
             }
             setFoodTypesArr(itemChildrenArr)
             dispatch(setFoodTypes(itemChildrenArr))
         } else {
-            const values = foodTypesValue.filter(value => {
-                if(typeof(value) !== 'number') {
-                    return value
-                }
-            })
+            const values = foodTypesValue.filter(value => typeof(value) !== 'number')
             setFoodTypesArr(values)
             dispatch(setFoodTypes(values))
         }

@@ -8,7 +8,7 @@ import './App.css';
 
 const App = () => {
   const [screenSize, setScreenSize] = useState([0, 0]);
-  const [ geoPosition, setGeoPosition ] = useState({lat: 41.0895249, lng: -73.8419063})
+  const [ geoPosition, setGeoPosition ] = useState({lat: -41.288, lng: 174.788})
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
 
