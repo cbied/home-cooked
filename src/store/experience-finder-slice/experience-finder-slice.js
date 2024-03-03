@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     foodTypes: [],
-    dateRange: null,
-    partySize: null,
+    dateRange: [],
+    partySize: 1,
     location: {
         lat: null,
         lng: null
