@@ -1,23 +1,31 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPartySize } from '../../store/experience-finder-slice/experience-finder-slice';
 import { InputNumber, InputGroup, Stack } from 'rsuite';
 import './party-size-input.styles.less';
 
 
 const PartySizeInput = ({ largeStyles }) => {
-    const [value, setValue] = useState('');
+    const dispatch = useDispatch();
+    const partySizeValue = useSelector(state => state.experienceFinder.partySize)
+    const [value, setValue] = useState(partySizeValue);
     
     const handleMinus = (event) => {
       event.stopPropagation()
       if(value > 1) {
         setValue(parseInt(value, 10) - 1);
+        dispatch(setPartySize(parseInt(value, 10) - 1))
       }
     };
+    
     const handlePlus = (event) => {
         event.stopPropagation()
       if(isNaN(value) || value === '') {
         setValue(1)
+        dispatch(setPartySize(1))
       } else {
         setValue(parseInt(value, 10) + 1);
+        dispatch(setPartySize(parseInt(value, 10) + 1))
       }
     };
     
@@ -28,7 +36,7 @@ const PartySizeInput = ({ largeStyles }) => {
             <InputGroup.Button onClick={handleMinus}>-</InputGroup.Button>
             <InputNumber 
                         className={'custom-input-number'} 
-                        value={value} 
+                        value={partySizeValue} 
                         onChange={setValue} 
                         size="lg"
                         placeholder="How many people?"
