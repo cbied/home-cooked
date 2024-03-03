@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import userReducer from './user-slice/user-slice';
+import experienceFinderReducer from './experience-finder-slice/experience-finder-slice';
 import rootSaga from './root-saga'; 
 
 const persistConfig = {
@@ -14,7 +15,8 @@ const persistConfig = {
 const sagaMiddleware = createSagaMiddleware()
 
 const rootReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    experienceFinder: experienceFinderReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -4,8 +4,8 @@ import HostListContainer from '../host-list-container/host-list-container.compon
 import { Drawer, Button } from 'rsuite';
 
 const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
-const largeStyles = { 'minWidth': 200 };
-
+  const largeStyles = { 'minWidth': 200, 'maxWidth': 250 };
+ 
   return (
     <Drawer 
     size={drawerSize} 

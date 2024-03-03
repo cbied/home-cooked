@@ -6,7 +6,7 @@ import logo from '../../assets/logo.png'
 import './navbar.styles.css';
 
 const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
-    const largeStyles = { 'minWidth': 200 };
+    const largeStyles = { 'minWidth': 200, 'maxWidth': 250 };
     
 return(
     <nav className='flex flex-col h-auto'>
