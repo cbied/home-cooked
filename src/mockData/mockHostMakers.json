@@ -8,7 +8,8 @@
         "maxGuestSpots": 5,
         "guestSpotsLeft": 3,
         "description": "Delicious and aromatic Thai cuisine prepared with authentic ingredients and traditional recipes.",
-        "price": 60
+        "price": 60,
+        "DateTime": "Sat Mar 30 2024 12:00:00 GMT+1300"
     },
     {
         "uid": "5e6f7g8h",
@@ -19,7 +20,8 @@
         "maxGuestSpots": 4,
         "guestSpotsLeft": 2,
         "description": "Exquisite French dishes crafted with finesse and elegance, showcasing the rich culinary heritage of France.",
-        "price": 75
+        "price": 75,
+        "DateTime": "Mon Apr 01 2024 13:30:00 GMT+1300"
     },
     {
         "uid": "9i0j1k2l",
@@ -30,7 +32,8 @@
         "maxGuestSpots": 6,
         "guestSpotsLeft": 6,
         "description": "Authentic Vietnamese delicacies bursting with flavors, combining fresh herbs, spices, and vibrant ingredients.",
-        "price": 40
+        "price": 40,
+        "DateTime": "Wed May 01 2024 20:30:00 GMT+1300"
     },
     {
         "uid": "3m4n5o6p",
@@ -41,7 +44,8 @@
         "maxGuestSpots": 3,
         "guestSpotsLeft": 1,
         "description": "Savor the taste of Colombian cuisine, featuring hearty dishes influenced by diverse regional flavors.",
-        "price": 80
+        "price": 80,
+        "DateTime": "Tue Apr 02 2024 19:30:00 GMT+1300"
     },
     {
         "uid": "7q8r9s0t",
@@ -52,7 +56,8 @@
         "maxGuestSpots": 8,
         "guestSpotsLeft": 4,
         "description": "Indulge in the vibrant and spicy flavors of Thai cuisine, prepared with a perfect balance of sweet, sour, and savory.",
-        "price": 50
+        "price": 50,
+        "DateTime": "Mon Mar 25 2024 19:00:00 GMT+1300"
     },
     {
         "uid": "1u2v3w4x",
@@ -63,7 +68,8 @@
         "maxGuestSpots": 7,
         "guestSpotsLeft": 7,
         "description": "Experience the artistry of French gastronomy, with refined dishes that showcase culinary mastery and sophistication.",
-        "price": 40
+        "price": 40,
+        "DateTime": "Fri Mar 22 2024 18:00:00 GMT+1300"
     },
     {
         "uid": "5y6z7a8b",
@@ -74,7 +80,8 @@
         "maxGuestSpots": 2,
         "guestSpotsLeft": 2,
         "description": "Discover the fresh and vibrant flavors of Vietnamese cuisine, featuring a harmonious blend of herbs, spices, and textures.",
-        "price": 100
+        "price": 100,
+        "DateTime": "Fri Mar 29 2024 17:30:00 GMT+1300"
     },
     {
         "uid": "9c0d1e2f",
@@ -85,7 +92,8 @@
         "maxGuestSpots": 5,
         "guestSpotsLeft": 0,
         "description": "Taste the authentic flavors of Colombian cuisine, with dishes that reflect the country's diverse cultural influences.",
-        "price": 60
+        "price": 60,
+        "DateTime": "Wed Mar 20 2024 12:00:00 GMT+1300"
     },
     {
         "uid": "3g4h5i6j",
@@ -96,7 +104,7 @@
         "maxGuestSpots": 6,
         "guestSpotsLeft": 3,
         "description": "Experience the bold and aromatic flavors of Thai cuisine, featuring a harmonious blend of spices and fresh ingredients.",
-        "price": 70
+        "DateTime": "Tue Mar 19 2024 19:00:00 GMT+1300"
     },
     {
         "uid": "7k8l9m0n",
@@ -107,6 +115,7 @@
         "maxGuestSpots": 4,
         "guestSpotsLeft": 1,
         "description": "Indulge in the elegance of French cuisine, with dishes that showcase culinary finesse and timeless flavors.",
-        "price": 90
+        "price": 90,
+        "DateTime": "Fri Mar 15 2024 19:30:00 GMT+1300"
     }
 ]

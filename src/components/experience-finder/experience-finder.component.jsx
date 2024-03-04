@@ -10,8 +10,6 @@ import logo from '../../assets/logo.png'
 
 const ExperienceFinder = ({ largeStyles, showLogo = false, showUserProfile = false }) => {
     
-    const styles = { height: 'auto' }
-
     return (
         <div className="flex justify-between w-auto">
         {
@@ -24,12 +22,12 @@ const ExperienceFinder = ({ largeStyles, showLogo = false, showUserProfile = fal
             </div>
         }
             
-            <div className="w-auto h-auto flex self-center justify-center outline outline-1 rounded-full mb-3 overflow-hidden">
-                <FoodTypes largeStyles={largeStyles} />
-                <Divider vertical style={styles}/>
-                <DatePicker placement='bottomEnd' showOneCalendar={false} />
-                <Divider vertical style={styles}/>
-                <PartySizeInput largeStyles={largeStyles} />
+            <div className="w-fit h-auto flex self-center justify-center outline outline-1 rounded-full mb-3 overflow-hidden">
+                <FoodTypes />
+                <Divider vertical className="h-auto"/>
+                <DatePicker placement='bottomEnd' showOneCalendar={false} largeStyles={largeStyles} />
+                <Divider vertical className="h-auto"/>
+                <PartySizeInput />
                 <ButtonToolbar>
                     <IconButton className='w-fit' size="lg" icon={<SearchIcon className='w-fit'/>} />
                 </ButtonToolbar>
