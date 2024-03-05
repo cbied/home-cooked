@@ -48,7 +48,6 @@ const ProfileInformation = () => {
     const [formChange, setFormChange] = useState(false);
     const { StringType } = Schema.Types;
     const formRef = useRef();
-    let checkAge = 20;
     const [formValue, setFormValue] = useState({
         firstName: selectUserSlice.currentUser?.firstName ? selectUserSlice.currentUser.firstName : '',
         lastName: selectUserSlice.currentUser?.lastName ?  selectUserSlice.currentUser.lastName : '',
@@ -88,7 +87,7 @@ const ProfileInformation = () => {
             .isEmail('Please enter a valid email address.')
             .isRequired('This field is required.'),
         });
-console.log(new Date(formValue.birthday).getFullYear() >= new Date().getFullYear())
+
         return (
             <Container>
             {
