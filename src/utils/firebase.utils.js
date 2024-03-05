@@ -93,10 +93,10 @@ export async function signOutUser() {
 
 export async function updateUserInfoInFirebase(userInfo) {
   const userDocRef = doc(db, "users", auth.currentUser.uid)
-
   await updateDoc(userDocRef, {
     firstName: userInfo.firstName ? userInfo.firstName : '',
     lastName: userInfo.lastName ? userInfo.lastName : '',
+    birthday: userInfo.birthday  ? (userInfo.birthday).toString().slice(4,15) : '',
     displayName: userInfo.displayName ? userInfo.displayName : '',
     email: userInfo.email ? userInfo.email : '',
     phoneNumber: userInfo.phoneNumber ? userInfo.phoneNumber : '',

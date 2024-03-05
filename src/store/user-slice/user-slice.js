@@ -4,6 +4,7 @@ const initialState = {
         currentUser: {
             firstName: '',
             lastName: '',
+            birthday: '',
             displayName: '',
             email: '',
             phoneNumber: '',
@@ -57,6 +58,7 @@ export const userSlice = createSlice({
             state.isLoading = true
         },
         updateUserSuccess: (state, action) => {
+            console.log(action.payload)
             state.isLoading = false
             state.currentUser = action.payload
         },

@@ -1,12 +1,14 @@
-import { useState, useRef } from 'react';
-import { updateUserInfoInFirebase } from '../../../utils/firebase.utils';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserInfoFromFirebase } from '../../../utils/firebase.utils';
 import { updateUserStart } from '../../../store/user-slice/user-slice';
 import { Container, Content, Footer, Form, Button, Uploader,
-         Message, Schema, Loader, useToaster } from 'rsuite';
+         Message, Schema, Loader, useToaster,
+         InlineEdit, DatePicker } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
+import './profile-information.styles.css';
 
-function previewFile(file, callback) {
+  const previewFile = (file, callback) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       callback(reader.result);
@@ -14,25 +16,51 @@ function previewFile(file, callback) {
     reader.readAsDataURL(file);
   }
 
+  const Field = ({ label, as: Component, name, isRequired, type, 
+                  controlId, handleSaveInputs, defaultValue, accepter, format }) => {
+    return (
+        <Form.Group controlId={controlId}>
+            <Form.ControlLabel>{label}</Form.ControlLabel>
+        <InlineEdit 
+        placeholder="Click to edit ..." 
+        size="lg"
+        style={{ "minWidth": 300 }}
+        defaultValue={defaultValue}
+        onSave={handleSaveInputs}> 
+            <Component style={{ "minWidth": 300 }} name={name} type={type} accepter={accepter} format={format}/>
+        </InlineEdit>
+        {
+            isRequired &&
+
+            <Form.HelpText tooltip>{label} is required</Form.HelpText>
+
+        }
+        </Form.Group>   
+    );
+  };
+
 const ProfileInformation = () => {
     const dispatch = useDispatch()
     const selectUserSlice = useSelector(state => state.user);
     const toaster = useToaster();
     const [uploading, setUploading] = useState(false);
     const [fileInfo, setFileInfo] = useState(null);
+    const [formChange, setFormChange] = useState(false);
     const { StringType } = Schema.Types;
     const formRef = useRef();
+    let checkAge = 20;
     const [formValue, setFormValue] = useState({
         firstName: selectUserSlice.currentUser?.firstName ? selectUserSlice.currentUser.firstName : '',
         lastName: selectUserSlice.currentUser?.lastName ?  selectUserSlice.currentUser.lastName : '',
+        birthday: selectUserSlice.currentUser?.birthday ?  selectUserSlice.currentUser.birthday : '',
         displayName: selectUserSlice.currentUser ? selectUserSlice.currentUser.displayName : '',
         email: selectUserSlice.currentUser ? selectUserSlice.currentUser.email :'',
         phoneNumber: selectUserSlice.currentUser ? selectUserSlice.currentUser.phoneNumber : '',
         photoURL: selectUserSlice.currentUser?.photoURL ? selectUserSlice.currentUser.photoURL : ''
     });
 
-    const updateUserInfoStart = (currentUserUid) => {
-            dispatch(updateUserStart({currentUserUid}))
+    const updateUserInfoStart = (userInfo) => {
+            dispatch(updateUserStart({userInfo}))
     }
 
     const handleUpdateUserInfo = () => {
@@ -40,9 +68,18 @@ const ProfileInformation = () => {
             console.error('Form Error');
             return;
           } else {
-            updateUserInfoInFirebase(formValue)
-            updateUserInfoStart(selectUserSlice.currentUser.uid)
+            setFormChange(false)
+            const userInfo = {
+                uid: selectUserSlice.currentUser.uid,
+                userInfo: formValue
+            }
+            updateUserInfoStart(userInfo);
           }
+    }
+
+    const handleSaveInputs = (event) => {
+        setFormChange(true)
+        setFormValue(formValue)
     }
 
     const model = Schema.Model({
@@ -51,38 +88,81 @@ const ProfileInformation = () => {
             .isEmail('Please enter a valid email address.')
             .isRequired('This field is required.'),
         });
-
+console.log(new Date(formValue.birthday).getFullYear() >= new Date().getFullYear())
         return (
             <Container>
+            {
+                formChange &&
+                <div className="flex justify-center">
+                    <h4> Remember to save! </h4>
+                </div>
+            }
                 <Content className='flex justify-center mt-10'>
                 { formValue && !selectUserSlice.isLoading ?
-                    <Form
+                <Form
                     ref={formRef}
                     onChange={setFormValue}
                     formValue={formValue}
                     model={model}>
-                        <Form.Group controlId="firstName">
-                            <Form.ControlLabel>First Name</Form.ControlLabel>
-                            <Form.Control name="firstName" />
-                        </Form.Group>        
-                            <Form.Group controlId="lastName">
-                            <Form.ControlLabel>Last Name</Form.ControlLabel>
-                            <Form.Control name="lastName" />
-                        </Form.Group>
-                        <Form.Group controlId="displayName">
-                            <Form.ControlLabel>Display Name</Form.ControlLabel>
-                            <Form.Control name="displayName" />
-                            <Form.HelpText tooltip>Display Name is required</Form.HelpText>
-                        </Form.Group>
-                        <Form.Group controlId="email">
-                            <Form.ControlLabel>Email</Form.ControlLabel>
-                            <Form.Control name="email" type="email" />
-                            <Form.HelpText tooltip>Email is required</Form.HelpText>
-                        </Form.Group>
-                        <Form.Group controlId="phoneNumber">
-                            <Form.ControlLabel>Phone Number</Form.ControlLabel>
-                            <Form.Control name="phoneNumber" />
-                        </Form.Group>
+                   
+                        {formChange}
+                        <Field 
+                        label="Frist Name" 
+                        as={Form.Control} 
+                        name="firstName" 
+                        isRequired={false} 
+                        controlId="firstName"
+                        defaultValue={formValue.firstName}
+                        handleSaveInputs={handleSaveInputs}/>
+                             
+                        <Field 
+                        label="Last Name" 
+                        as={Form.Control} 
+                        name="lastName" 
+                        isRequired={false} 
+                        controlId="lastName"
+                        defaultValue={formValue.lastName}   
+                        handleUpdateUserInfo={handleSaveInputs}/>
+
+                        <Field 
+                        label="Birthday" 
+                        as={Form.Control} 
+                        name="birthday" 
+                        isRequired={false} 
+                        controlId="birthday"
+                        defaultValue={formValue.birthday ? new Date(formValue.birthday) : new Date()}   
+                        accepter={DatePicker}
+                        format="MM/dd/yyyy"
+                        handleUpdateUserInfo={(event) => handleSaveInputs(event)}/>
+
+                        <Field 
+                        label="Display Name" 
+                        as={Form.Control} 
+                        name="displayName" 
+                        isRequired={true} 
+                        controlId="displayName"
+                        defaultValue={formValue.displayName}
+                        handleUpdateUserInfo={handleSaveInputs}/>
+                       
+                        <Field 
+                        label="Email" 
+                        as={Form.Control} 
+                        name="email" 
+                        isRequired={true} 
+                        type={"email"} 
+                        controlId="email"
+                        defaultValue={formValue.email}
+                        handleUpdateUserInfo={handleSaveInputs}/>
+
+                        <Field 
+                        label="Phone Number" 
+                        as={Form.Control} 
+                        name="phoneNumber" 
+                        isRequired={false} 
+                        controlId="phoneNumber"
+                        defaultValue={formValue.phoneNumber}
+                        handleUpdateUserInfo={handleSaveInputs}/>
+                
                         <Form.Group controlId="photoURL">
                             <Form.ControlLabel>Photo URL</Form.ControlLabel>
                             <Uploader
