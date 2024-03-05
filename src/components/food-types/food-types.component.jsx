@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFoodTypes } from '../../store/experience-finder-slice/experience-finder-slice';
 import { MultiCascader, Button, Stack } from 'rsuite';
 import mockFoodData from '../../mockData/mockFoodTypes.json';
 
 
-const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
+const FoodTypes = ({ isInline }) => {
     const foodTypeValues = useSelector(state => state.experienceFinder.foodTypes)
     const [ foodTypesArr, setFoodTypesArr ] = useState(foodTypeValues)
     const dispatch = useDispatch()
+    const largeStyles = { 'minWidth': 200, 'maxWidth': 230 };
 
     const handleFoodTypeChange= (foodTypesValue, itemDataType) => {
         if((itemDataType && typeof(itemDataType.value) === 'number')) {
@@ -34,11 +35,6 @@ const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
         }
     }
 
-    useEffect(() => {
-        setFoodTypesArr(foodTypeValues)
-    }, [dispatch, foodTypeValues])
-
-
     return (
         <Stack className='rounded-full'>
             <Stack.Item>
@@ -47,7 +43,7 @@ const FoodTypes = ({ isInline, largeStyles, smallStyles }) => {
                 size="lg" 
                 placeholder="Type of Food" 
                 data={mockFoodData} 
-                style={largeStyles === undefined ? smallStyles : largeStyles}
+                style={largeStyles}
                 inline={isInline}
                 className='w-fit'
                 onCheck={(foodTypeItem, itemDataType) => handleFoodTypeChange(foodTypeItem, itemDataType)}

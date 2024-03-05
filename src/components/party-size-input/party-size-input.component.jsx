@@ -5,10 +5,11 @@ import { InputNumber, InputGroup, Stack } from 'rsuite';
 import './party-size-input.styles.less';
 
 
-const PartySizeInput = ({ largeStyles }) => {
+const PartySizeInput = () => {
     const dispatch = useDispatch();
     const partySizeValue = useSelector(state => state.experienceFinder.partySize)
     const [value, setValue] = useState(partySizeValue);
+    const partSizeStyles = { 'minWidth': 100, 'maxWidth': 200 };
     
     const handleMinus = (event) => {
       event.stopPropagation()
@@ -31,7 +32,7 @@ const PartySizeInput = ({ largeStyles }) => {
     
  
     return (
-        <Stack spacing={6} className='flex self-center' style={largeStyles}>
+        <Stack spacing={6} className='flex self-center' style={partSizeStyles}>
           <InputGroup title='How many people?'>
             <InputGroup.Button onClick={handleMinus}>-</InputGroup.Button>
             <InputNumber 

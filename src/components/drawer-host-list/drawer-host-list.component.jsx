@@ -4,8 +4,8 @@ import HostListContainer from '../host-list-container/host-list-container.compon
 import { Drawer, Button } from 'rsuite';
 
 const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
-  const largeStyles = { 'minWidth': 200, 'maxWidth': 250 };
- 
+  const largeStyles = { 'minWidth': 240, 'maxWidth': 250 };
+
   return (
     <Drawer 
     size={drawerSize} 
@@ -16,7 +16,7 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
     <Drawer.Header className='host-list-header flex justify-center'>
 
       <Drawer.Title className='w-screen flex justify-around self-center'>
-        {screenSize[0] > 950 ?
+        {screenSize[0] > 1050 ?
 
         
           <ExperienceFinder largeStyles={largeStyles} showUserProfile={true} showLogo={true} />
@@ -24,7 +24,7 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
 
         : 
 
-        screenSize[0] <= 950 &&
+        screenSize[0] <= 1050 &&
 
           <DrawerExperienceFinder size={screenSize[0]} showLogo={true} showUserProfile={true} />
           

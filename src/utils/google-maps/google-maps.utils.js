@@ -72,6 +72,7 @@ export const initMap = async (hostsInfo, position, handleOpenFn) => {
     // minZoom: 13,
     center: geoPosition,
     disableDefaultUI: true,
+    clickableIcons: false,
     mapId: "7e95a8887ec6de55",
   });
 
