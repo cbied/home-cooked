@@ -19,7 +19,6 @@ const DatePicker = ({ placement, showOneCalendar, largeStyles }) => {
 ];
 
 const handleDateRangeChange = (dateRange) => {
-  console.log(dateRange)
   if(dateRange) {
     const updateDateRange = [
       dateRange[0].toString().slice(4,15),
