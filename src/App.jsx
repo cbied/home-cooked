@@ -51,12 +51,13 @@ const App = () => {
       <div className="h-screen">
         <Navbar size={screenSize} />
           <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-          <div id='map' className='h-full w-full'>
+          <div id="map" className="h-full w-full">
             <DrawerHostList 
             screenSize={screenSize} 
             setOpen={setOpen} 
             drawerSize={size}
-            drawerOpen={open} />
+            drawerOpen={open}
+            className="pb-10" />
           </div>
         </APIProvider>        
       </div>
