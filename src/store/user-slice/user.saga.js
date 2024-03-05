@@ -1,5 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { addNewUser, getUserInfoFromFirebase, signInUserWithEmail, signInUserWithGoogle, updateUserProfile } from '../../utils/firebase.utils';
+import { addNewUser, getUserInfoFromFirebase, signInUserWithEmail, signInUserWithGoogle,
+         updateUserProfile, updateUserInfoInFirebase } from '../../utils/firebase.utils';
 import { signupUserSuccess, signupUserFailed,
         signInUserWithEmailSuccess, signInUserWithEmailFailed, 
         signInUserWithGoogleSuccess, signInUserWithGoogleFailed,
@@ -68,14 +69,26 @@ export function* signInUserGoogle() {
 }
 
 export function* onGetCurrentUserInfoStart() {
-    yield takeLatest('user/updateUserStart', getCurrentUserInfo)
+    yield takeLatest('user/updateUserStart', updateCurrentUserInfo)
 }
 
-export function* getCurrentUserInfo(data) {
+export function* updateCurrentUserInfo(data) {
     try {
         if(data) {
-            const userInfo = yield call(getUserInfoFromFirebase, data.payload.currentUserUid)
-            yield put(updateUserSuccess(userInfo))
+            yield call(updateUserInfoInFirebase, data.payload.userInfo.userInfo)
+            yield call(getCurrentUserInfo, data.payload.userInfo.uid)
+        }
+    } catch (error) {
+        console.log(error)
+        yield put(updateUserFailed(error))
+    }
+}
+
+export function* getCurrentUserInfo(uid) {
+    try {
+        if(uid) {
+            const currUserInfo = yield call(getUserInfoFromFirebase,uid)
+            yield put(updateUserSuccess(currUserInfo))
             alert('Your Information has been updated')
         }
     } catch (error) {
@@ -83,6 +96,8 @@ export function* getCurrentUserInfo(data) {
         yield put(updateUserFailed(error))
     }
 }
+
+
 
 // User Saga
 export function* userSaga() {
