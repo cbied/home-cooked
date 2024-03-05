@@ -19,10 +19,11 @@ const DatePicker = ({ placement, showOneCalendar, largeStyles }) => {
 ];
 
 const handleDateRangeChange = (dateRange) => {
+  console.log(dateRange)
   if(dateRange) {
     const updateDateRange = [
-      dateRange[0].toString(),
-      dateRange[1].toString()
+      dateRange[0].toString().slice(4,15),
+      dateRange[1].toString().slice(4,15)
     ]
     dispatch(setDateRange(updateDateRange))
   } else {
