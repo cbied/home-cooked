@@ -41,21 +41,21 @@ export default function Login() {
           email: '',
           password: ''
         })
+        if(selectUserSlice.currentUser) { 
+          navigate("/home");
+        }
   }
 
   const handleSignInWithGoogle = () => {
       dispatch(signInUserWithGoogleStart())
+      if(selectUserSlice.currentUser) { 
+        navigate("/home");
+      }
   }
 
   const handleChange = () => {
     setVisible(!visible);
   };
-
-  useEffect(() => {
-    if(selectUserSlice.currentUser) {
-      navigate("/home");
-    }
-  }, [selectUserSlice.currentUser, navigate])
 
 return ( 
     <Form 

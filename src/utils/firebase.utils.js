@@ -54,13 +54,17 @@ export async function signInUserWithEmail(email, password) {
   });
 }
 
-export function updateUserProfile(user, displayName) {
+export function updateUserProfile(user, additionalData) {
   updateProfile(auth.currentUser, {
-      displayName: displayName, 
+      displayName: additionalData.displayName
     }).then(() => {
       if(user.providerData) {
         user.providerData[0].uid = auth.currentUser.uid
         setDoc(doc(db, 'users', user.uid), user.providerData[0])
+        const userDocRef = doc(db, "users", user.uid)
+        updateDoc(userDocRef, {
+          isHost: additionalData.isHost.length ? true : false,
+          });
       }
     }).catch((error) => {
       console.error(error)
