@@ -6,7 +6,6 @@ import { Container, Content, Footer, Form, Button, Uploader,
          InlineEdit, DatePicker } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 import './profile-information.styles.css';
-import { forIn } from 'lodash';
 
   const previewFile = (file, callback) => {
     const reader = new FileReader();
@@ -79,7 +78,6 @@ const ProfileInformation = () => {
     const handleSaveInputs = () => {
         setFormValue(formValue)
         for(let key in formValue) {
-            console.log(formValue[key] !== selectUserSlice.currentUser[key])
             if(formValue[key] !== selectUserSlice.currentUser[key]) {
                 setFormChange(true)
                 return
@@ -204,7 +202,6 @@ const ProfileInformation = () => {
                             </Uploader>
                         </Form.Group>
                         <Button appearance="primary" onClick={handleUpdateUserInfo}>Save</Button>
-                        <Button appearance="default">Edit</Button>
                     </Form>
 
                     :
