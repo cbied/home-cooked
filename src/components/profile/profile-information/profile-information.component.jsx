@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfoFromFirebase } from '../../../utils/firebase.utils';
 import { updateUserStart } from '../../../store/user-slice/user-slice';
 import { Container, Content, Footer, Form, Button, Uploader,
          Message, Schema, Loader, useToaster,
@@ -76,9 +75,16 @@ const ProfileInformation = () => {
           }
     }
 
-    const handleSaveInputs = (event) => {
-        setFormChange(true)
+    const handleSaveInputs = () => {
         setFormValue(formValue)
+        for(let key in formValue) {
+            if(formValue[key] !== selectUserSlice.currentUser[key]) {
+                setFormChange(true)
+                return
+            } else {
+                setFormChange(false)
+            }
+        }
     }
 
     const model = Schema.Model({
@@ -121,7 +127,7 @@ const ProfileInformation = () => {
                         isRequired={false} 
                         controlId="lastName"
                         defaultValue={formValue.lastName}   
-                        handleUpdateUserInfo={handleSaveInputs}/>
+                        handleSaveInputs={handleSaveInputs}/>
 
                         <Field 
                         label="Birthday" 
@@ -132,7 +138,7 @@ const ProfileInformation = () => {
                         defaultValue={formValue.birthday ? new Date(formValue.birthday) : new Date()}   
                         accepter={DatePicker}
                         format="MM/dd/yyyy"
-                        handleUpdateUserInfo={(event) => handleSaveInputs(event)}/>
+                        handleSaveInputs={(event) => handleSaveInputs(event)}/>
 
                         <Field 
                         label="Display Name" 
@@ -141,7 +147,7 @@ const ProfileInformation = () => {
                         isRequired={true} 
                         controlId="displayName"
                         defaultValue={formValue.displayName}
-                        handleUpdateUserInfo={handleSaveInputs}/>
+                        handleSaveInputs={handleSaveInputs}/>
                        
                         <Field 
                         label="Email" 
@@ -151,7 +157,7 @@ const ProfileInformation = () => {
                         type={"email"} 
                         controlId="email"
                         defaultValue={formValue.email}
-                        handleUpdateUserInfo={handleSaveInputs}/>
+                        handleSaveInputs={handleSaveInputs}/>
 
                         <Field 
                         label="Phone Number" 
@@ -160,7 +166,7 @@ const ProfileInformation = () => {
                         isRequired={false} 
                         controlId="phoneNumber"
                         defaultValue={formValue.phoneNumber}
-                        handleUpdateUserInfo={handleSaveInputs}/>
+                        handleSaveInputs={handleSaveInputs}/>
                 
                         <Form.Group controlId="photoURL">
                             <Form.ControlLabel>Photo URL</Form.ControlLabel>
@@ -196,7 +202,6 @@ const ProfileInformation = () => {
                             </Uploader>
                         </Form.Group>
                         <Button appearance="primary" onClick={handleUpdateUserInfo}>Save</Button>
-                        <Button appearance="default">Edit</Button>
                     </Form>
 
                     :
