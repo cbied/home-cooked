@@ -3,7 +3,7 @@ import Navbar from './components/navbar/navbar.component';
 import DrawerHostList from './components/drawer-host-list/drawer-host-list.component';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { getUserLocationInfo, initMap } from './utils/google-maps/google-maps.utils';
-import hostMarkers from './mockData/mockHostMakers.json'
+import { hostMarkers } from './mockData/mockHostMakers'
 import './App.css';
 
 const App = () => {

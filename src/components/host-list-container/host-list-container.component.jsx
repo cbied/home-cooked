@@ -1,12 +1,10 @@
+import HostListItem from '../host-list-item/host-list-item.component';
 
 const HostListContainer = () => {
- 
 
   return (
-    // Your JSX code here
-    <div className='flex justify-center items-center'>
-        
-      <h1>Host List Container</h1>
+    <div className='w-full flex justify-center items-center'>
+      <HostListItem />
     </div>
   );
 };
