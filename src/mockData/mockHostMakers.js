@@ -1,3 +1,4 @@
+export const hostMarkers =
 [
     {
         "uid": "1a2b3c4d",
@@ -8,8 +9,10 @@
         "maxGuestSpots": 5,
         "guestSpotsLeft": 3,
         "description": "Delicious and aromatic Thai cuisine prepared with authentic ingredients and traditional recipes.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 60,
-        "Date": "Mar 30 2024",
+        "hostDisplayName": "Arisara",
+        "date": "Mar 30 2024",
         "time": "5:30 PM"
     },
     {
@@ -21,8 +24,10 @@
         "maxGuestSpots": 4,
         "guestSpotsLeft": 2,
         "description": "Exquisite French dishes crafted with finesse and elegance, showcasing the rich culinary heritage of France.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 75,
-        "Date": "Apr 01 2024",
+        "hostDisplayName": "Susie",
+        "date": "Apr 01 2024",
         "time": "12:00 PM"
     },
     {
@@ -34,8 +39,10 @@
         "maxGuestSpots": 6,
         "guestSpotsLeft": 6,
         "description": "Authentic Vietnamese delicacies bursting with flavors, combining fresh herbs, spices, and vibrant ingredients.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 40,
-        "Date": "Wed May 01 2024 20:30:00 GMT+1300",
+        "hostDisplayName": "Emily",
+        "date": "Wed May 01 2024 20:30:00 GMT+1300",
         "time": "5:00 PM"
     },
     {
@@ -47,8 +54,10 @@
         "maxGuestSpots": 3,
         "guestSpotsLeft": 1,
         "description": "Savor the taste of Colombian cuisine, featuring hearty dishes influenced by diverse regional flavors.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 80,
-        "Date": "Apr 02 2024",
+        "hostDisplayName": "Chris",
+        "date": "Apr 02 2024",
         "time": "6:15 PM"
     },
     {
@@ -60,8 +69,10 @@
         "maxGuestSpots": 8,
         "guestSpotsLeft": 4,
         "description": "Indulge in the vibrant and spicy flavors of Thai cuisine, prepared with a perfect balance of sweet, sour, and savory.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 50,
-        "Date": "Mar 25 2024",
+        "hostDisplayName": "P Lot",
+        "date": "Mar 25 2024",
         "time": "5:45 PM"
     },
     {
@@ -73,8 +84,10 @@
         "maxGuestSpots": 7,
         "guestSpotsLeft": 7,
         "description": "Experience the artistry of French gastronomy, with refined dishes that showcase culinary mastery and sophistication.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 40,
-        "Date": "Mar 22 2024",
+        "hostDisplayName": "Jean-Pierre",
+        "date": "Mar 22 2024",
         "time": "12:30 PM"
     },
     {
@@ -86,8 +99,10 @@
         "maxGuestSpots": 2,
         "guestSpotsLeft": 2,
         "description": "Discover the fresh and vibrant flavors of Vietnamese cuisine, featuring a harmonious blend of herbs, spices, and textures.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 100,
-        "Date": "Mar 29 2024",
+        "hostDisplayName": "Linh",
+        "date": "Mar 29 2024",
         "time": "7:00 PM"
     },
     {
@@ -99,9 +114,12 @@
         "maxGuestSpots": 5,
         "guestSpotsLeft": 0,
         "description": "Taste the authentic flavors of Colombian cuisine, with dishes that reflect the country's diverse cultural influences.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 60,
-        "Date": "Mar 20 2024",
+        "hostDisplayName": "Juan",
+        "date": "Mar 20 2024",
         "time": "7:30 PM"
+        
     },
     {
         "uid": "3g4h5i6j",
@@ -112,7 +130,10 @@
         "maxGuestSpots": 6,
         "guestSpotsLeft": 3,
         "description": "Experience the bold and aromatic flavors of Thai cuisine, featuring a harmonious blend of spices and fresh ingredients.",
-        "Date": "Mar 19 2024",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
+        "price": 70,
+        "hostDisplayName": "Somsak",
+        "date": "Mar 19 2024",
         "time": "8:00 PM"
     },
     {
@@ -124,8 +145,10 @@
         "maxGuestSpots": 4,
         "guestSpotsLeft": 1,
         "description": "Indulge in the elegance of French cuisine, with dishes that showcase culinary finesse and timeless flavors.",
+        "image": require("../assets/thai-pad-kra-pao.jpg"),
         "price": 90,
-        "Date": "Mar 15 2024",
+        "hostDisplayName": "Marie",
+        "date": "Mar 15 2024",
         "time": "6:30 PM"
     }
 ]

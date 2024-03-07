@@ -2,6 +2,7 @@ import ExperienceFinder from '../experience-finder/experience-finder.component';
 import DrawerExperienceFinder from '../drawer-experience-finder/drawer-experience-finder.component';
 import HostListContainer from '../host-list-container/host-list-container.component';
 import { Drawer, Button } from 'rsuite';
+import './drawer-host-list.styles.css';
 
 const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
   const largeStyles = { 'minWidth': 240, 'maxWidth': 250 };
@@ -18,9 +19,7 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
       <Drawer.Title className='w-screen flex justify-around self-center'>
         {screenSize[0] > 1050 ?
 
-        
           <ExperienceFinder largeStyles={largeStyles} showUserProfile={true} showLogo={true} />
-      
 
         : 
 
@@ -32,7 +31,7 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
       </Drawer.Title>
       
       </Drawer.Header>
-      <Drawer.Body className='flex flex-col host-list-body'>
+      <Drawer.Body id='host-list' className='flex flex-col host-list-body'>
 
       <Drawer.Actions className="flex justify-center items-center host-list">
         <Button 
