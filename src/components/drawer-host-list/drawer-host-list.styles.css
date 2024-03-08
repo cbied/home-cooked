@@ -3,3 +3,8 @@
         padding: 0;
     }
 }
+
+#host-list .host-list {
+    position: fixed;  
+}
+
