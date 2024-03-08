@@ -33,16 +33,24 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
       </Drawer.Header>
       <Drawer.Body id='host-list' className='flex flex-col host-list-body'>
 
-      <Drawer.Actions className="flex justify-center items-center host-list">
+      <Drawer.Actions className="w-full flex justify-between host-list">
+      <div className="ml-60"></div>
         <Button 
         onClick={() => setOpen(false)} 
         appearance="primary"
-        className=" w-32 h-14 self-center rounded-full">
+        className="w-32 h-14 rounded-full mr-60">
           Map
         </Button>
+        <Button 
+        appearance="primary"
+        className="w-24 h-14 rounded-full">
+          Filter
+        </Button>
       </Drawer.Actions>
+
+   
       
-      <HostListContainer />
+      <HostListContainer/>
 
       </Drawer.Body>
     </Drawer>
