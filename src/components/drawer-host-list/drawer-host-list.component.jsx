@@ -1,11 +1,20 @@
+import { useState } from 'react';
 import ExperienceFinder from '../experience-finder/experience-finder.component';
 import DrawerExperienceFinder from '../drawer-experience-finder/drawer-experience-finder.component';
 import HostListContainer from '../host-list-container/host-list-container.component';
-import { Drawer, Button } from 'rsuite';
+import FilterHostOptions from '../filter-host-options/filter-host-options.component';
+import { Drawer, Button, Modal, ButtonToolbar  } from 'rsuite';
 import './drawer-host-list.styles.css';
 
 const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
   const largeStyles = { 'minWidth': 240, 'maxWidth': 250 };
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSize, setModalSize] = useState();
+  const handleOpen = () => {
+    setModalSize('md');
+    setModalOpen(true);
+  };
+  const handleClose = () => setModalOpen(false);
 
   return (
     <Drawer 
@@ -42,15 +51,44 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
           Map
         </Button>
         <Button 
+        size="md" 
+        onClick={handleOpen}
         appearance="primary"
         className="w-24 h-14 rounded-full">
-          Filter
+        Filter
         </Button>
       </Drawer.Actions>
-
-   
       
       <HostListContainer/>
+      <Modal 
+          size={modalSize} 
+          open={modalOpen} 
+          onClose={handleClose}
+          aria-labelledby="Filter options" 
+          aria-describedby="Fitler options for host dinners">
+        <Modal.Header>
+          <Modal.Title>Modal Title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FilterHostOptions />
+        </Modal.Body>
+        <Modal.Footer >
+        <ButtonToolbar className='flex justify-between'>
+          <Button 
+          onClick={handleClose} 
+          appearance="subtle"
+          size="lg">
+            Cancel
+          </Button>
+          <Button 
+          onClick={handleClose} 
+          appearance="primary" 
+          size="lg">
+            Filter
+          </Button>
+          </ButtonToolbar>
+        </Modal.Footer>
+      </Modal>
 
       </Drawer.Body>
     </Drawer>
