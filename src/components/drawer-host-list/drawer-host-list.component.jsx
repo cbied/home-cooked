@@ -66,9 +66,6 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
           onClose={handleClose}
           aria-labelledby="Filter options" 
           aria-describedby="Fitler options for host dinners">
-        <Modal.Header>
-          <Modal.Title>Modal Title</Modal.Title>
-        </Modal.Header>
         <Modal.Body>
           <FilterHostOptions />
         </Modal.Body>
