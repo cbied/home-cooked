@@ -20,13 +20,12 @@ const HostSignupContainer = () => {
   };
 
   const saveForm = (firstFormValue) => {
-    console.log(firstFormValue);
+    //TODO
     // add form for user full legal information and verification (gov id, sefie), phone number
     // add form for user bank info so they can get paid
     setFormValue({
         firstFormValue: firstFormValue
     })
-    console.log(formValue)
   }
 
   const onNext = () => {

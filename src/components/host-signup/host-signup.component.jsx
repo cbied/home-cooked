@@ -11,7 +11,6 @@ const initFormValue = {
   };
 
 const HostSignup = ({ saveForm, formInfo }) => {
-    console.log(formInfo)
     const [firstFormValue, firstSetFormValue] = useState();
     const Textarea = forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
