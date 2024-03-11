@@ -81,7 +81,6 @@ const CustomButtonGroup = ({ appearance }) => (
             name="languageList"
             value={languageValue}
             onChange={value => {
-                console.log(value, 'onChange');
                 setLanguageValue(value);
             }}
             className='my-10'

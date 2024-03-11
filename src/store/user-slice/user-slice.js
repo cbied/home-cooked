@@ -9,7 +9,8 @@ const initialState = {
             email: '',
             phoneNumber: '',
             photoURL: '',
-            providerId: ''
+            providerId: '',
+            isHost: false
         },
         isLoading: false,
         error: null

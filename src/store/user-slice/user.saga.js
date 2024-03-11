@@ -10,7 +10,7 @@ function* signInUserSteps(data) {
     try {
         const user = yield call(signInUserWithEmail, data.payload.email, data.payload.password)
         if(data.payload.displayName) {
-            yield call(updateUserProfile, user, data.payload.displayName)
+            yield call(updateUserProfile, user, data.payload)
         }
         const userInfo = yield call(getUserInfoFromFirebase, user.uid)
         yield put(signInUserWithEmailSuccess(userInfo))

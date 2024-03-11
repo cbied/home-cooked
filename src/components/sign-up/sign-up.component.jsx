@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { signupUserStart } from "../../store/user-slice/user-slice"; 
-import { Form, Schema, InputGroup, Button, ButtonGroup } from 'rsuite';
+import { Form, Schema, InputGroup, Button, ButtonGroup, Checkbox, CheckboxGroup, } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
 
@@ -17,6 +17,7 @@ export default function SignUp() {
     email: '',
     password: '',
     verifyPassword: '',
+    isHost: []
   });
   const styles = {
     width: 350
@@ -61,9 +62,15 @@ export default function SignUp() {
   };
 
   useEffect(() => {
-    if(selectUserSlice.currentUser) {
+    if (selectUserSlice.currentUser && selectUserSlice.currentUser.isHost) {
+      console.log(selectUserSlice.currentUser.isHost)
+      navigate("/hostSignup");
+    } 
+    
+    if(selectUserSlice.currentUser && !selectUserSlice.currentUser.isHost) {
+      console.log(selectUserSlice.currentUser.isHost)
       navigate("/home");
-    }
+    } 
   }, [selectUserSlice.currentUser, navigate])
 
     return ( 
@@ -105,6 +112,13 @@ export default function SignUp() {
         </InputGroup.Button>
         </Form.Group>
       </div>
+
+      <Form.Group controlId="isHost">
+          <Form.Control name="isHost" accepter={CheckboxGroup} inline>
+            <Checkbox value="isHost">I want to be a Host!</Checkbox>
+          </Form.Control>
+          <Form.HelpText>Teach people how to cook authentic meals and/or host parties!</Form.HelpText>
+        </Form.Group>
 
       <ButtonGroup size="lg" style={styles}>
         {/* <!-- Submit button --> */}

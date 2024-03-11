@@ -12,6 +12,7 @@ import Root from './routes/root';
 import App from './App'
 import Authentication from './routes/authentication/authentication.component';
 import UserProfile from './routes/user-profile/user-profile.component';
+import HostSignupContainer from './routes/host-signup/host-signup-container.component';
 import { store, persistor } from './store/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -22,9 +23,10 @@ import './index.less';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='*' element={<Root />}>
-      <Route path='home' element={<App />}/>
+    <Route path='home' element={<App />}/>
       <Route path='auth' element={<Authentication />}/>
       <Route path='userProfile' element={<UserProfile />}/>
+      <Route path='hostSignup' element={<HostSignupContainer />}/>
     </Route>
   )
 );
