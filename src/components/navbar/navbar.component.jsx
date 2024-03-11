@@ -24,7 +24,7 @@ return(
                 <Nav className='flex justify-around items-center'>
                     <Nav.Item href={'/'}>Be a Guest</Nav.Item>
                     <Nav.Item href={'/'}>Learn about the experience</Nav.Item>
-                    <Nav.Item href={'/'}>Be a Host</Nav.Item>
+                    <Nav.Item href={'/hostSignup'}>Be a Host</Nav.Item>
                 </Nav>
             </div>
 
