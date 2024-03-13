@@ -1,8 +1,8 @@
-import { all, call } from 'redux-saga/effects';
-import { userSaga } from './user-slice/user.saga';
+import { all, call } from 'redux-saga/effects'
+import { userSaga } from './user-slice/user.saga'
 
 function* rootSaga() {
-    yield all([call(userSaga)])
+	yield all([call(userSaga)])
 }
 
-export default rootSaga;
+export default rootSaga
