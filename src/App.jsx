@@ -1,6 +1,7 @@
 import { useLayoutEffect, useEffect, useState } from 'react';
 import Navbar from './components/navbar/navbar.component';
 import DrawerHostList from './components/drawer-host-list/drawer-host-list.component';
+import FilterModal from './components/filter-modal/filter-modal.component';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { getUserLocationInfo, initMap } from './utils/google-maps/google-maps.utils';
 import { hostMarkers } from './mockData/mockHostMakers'
@@ -11,11 +12,22 @@ const App = () => {
   const [ geoPosition, setGeoPosition ] = useState({lat: -41.288, lng: 174.788})
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSize, setModalSize] = useState();
 
   const handleOpen = () => {
     setSize('full');
     setOpen(true);
+    
   };
+
+  const handleOpenFilterOptions = () => {
+    setModalSize('md');
+    setModalOpen(true);
+    if(modalOpen) {
+      setModalOpen(false);
+    }
+};
 
   const findUserPositionSuccess = (position) => {
     setGeoPosition({
@@ -44,7 +56,7 @@ const App = () => {
 
   useEffect(() => {
     getUserLocationInfo(findUserPositionSuccess, findUserPositionFailed)
-    initMap(hostMarkers, geoPosition, handleOpen);
+    initMap(hostMarkers, geoPosition, handleOpen, handleOpenFilterOptions);
   }, [])
   
   return (
@@ -59,6 +71,10 @@ const App = () => {
             drawerOpen={open}
             className="pb-10" />
           </div>
+          <FilterModal 
+          handleOpenFilterOptions={handleOpenFilterOptions} 
+          modalOpen={modalOpen} 
+          modalSize={modalSize}  />
         </APIProvider>        
       </div>
   );

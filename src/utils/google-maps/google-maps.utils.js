@@ -34,7 +34,7 @@ class CenterControl {
     setDrawerButtonUI.style.width = "140px";
     setDrawerButtonUI.style.height = "60px";
     setDrawerButtonUI.textContent = "List";
-    setDrawerButtonUI.title = "Click to recenter the map";
+    setDrawerButtonUI.title = "Click to get a list of hosts";
     
     controlDiv.appendChild(setDrawerButtonUI);
 
@@ -53,7 +53,55 @@ class CenterControl {
   }
 }
 
-export const initMap = async (hostsInfo, position, handleOpenFn) => {
+class FilterControl {
+  map_;
+  drawer_;
+  constructor(controlDiv, map, handleFilterOpenFn) {
+    this.map_ = map;
+    // Set the center property upon construction
+    this.drawer_ = false
+   
+    // Set CSS for the setCenter control border
+    const setDrawerButtonUI = document.createElement("button");
+
+    setDrawerButtonUI.id = "setDrawerUI";
+    setDrawerButtonUI.type = "button";
+    setDrawerButtonUI.title = "Open modal to filter results";
+    setDrawerButtonUI.style.backgroundColor = "#eb3626";
+    setDrawerButtonUI.style.border = "2px solid #eb3626";
+    setDrawerButtonUI.style.borderRadius = "999px";
+    setDrawerButtonUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+    setDrawerButtonUI.style.color = "#fff";
+    setDrawerButtonUI.style.cursor = "pointer";
+    setDrawerButtonUI.style.fontFamily = "Roboto,Arial,sans-serif";
+    setDrawerButtonUI.style.fontSize = "16px";
+    setDrawerButtonUI.style.lineHeight = "38px";
+    setDrawerButtonUI.style.margin = "8px 25px 22px";
+    setDrawerButtonUI.style.padding = "0 5px";
+    setDrawerButtonUI.style.textAlign = "center";
+    setDrawerButtonUI.style.width = "110px";
+    setDrawerButtonUI.style.height = "50px";
+    setDrawerButtonUI.textContent = "Filter";
+    setDrawerButtonUI.title = "Click to get filter options";
+    
+    controlDiv.appendChild(setDrawerButtonUI);
+
+    // Set CSS for the control interior
+    const setCenterText = document.createElement("div");
+
+    setCenterText.id = "setCenterText";
+    setDrawerButtonUI.appendChild(setCenterText);
+
+    // Set up the click event listener for 'Set Center': Set the center of
+    // the control to the current center of the map.
+    setDrawerButtonUI.addEventListener("click", () => {
+      
+      handleFilterOpenFn()
+    }, {capture: true});
+  }
+}
+
+export const initMap = async (hostsInfo, position, handleOpenFn, handleFilterOpenFn) => {
   
   // The location of Uluru
   let geoPosition
@@ -85,6 +133,16 @@ export const initMap = async (hostsInfo, position, handleOpenFn) => {
   centerControlDiv.index = 1;
   centerControlDiv.style.paddingTop = "10px";
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+  // Create the DIV to hold the control and call the FilterControl()
+  // constructor passing in this DIV.
+  const filterControlDiv = document.createElement("div");
+  const filterControl = new FilterControl(filterControlDiv, map, handleFilterOpenFn);
+
+  // @ts-ignore
+  filterControlDiv.index = 1;
+  filterControlDiv.style.paddingTop = "10px";
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(filterControlDiv);
 
   const infowindow = new google.maps.InfoWindow();
   let marker;
