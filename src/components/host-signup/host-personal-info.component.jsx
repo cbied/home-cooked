@@ -2,6 +2,7 @@ import { Form, SelectPicker } from 'rsuite'
 import statesData from '../../mockData/statesData'
 
 const HostPersonInfo = ({ saveForm, formInfo }) => {
+	console.log('hello')
 	return (
 		<Form
 			layout='horizontal'
