@@ -1,13 +1,13 @@
 import { Form, SelectPicker } from 'rsuite'
 import statesData from '../../mockData/statesData'
 
-const HostPersonInfo = ({ saveForm, formInfo }) => {
+const HostPersonInfo = ({ saveFirstForm, formInfo }) => {
 	return (
 		<Form
 			layout='horizontal'
 			formValue={formInfo}
 			formDefaultValue={formInfo}
-			onChange={(formValue) => saveForm(formValue)}
+			onChange={(formValue) => saveFirstForm(formValue)}
 		>
 			<Form.Group controlId='firstName'>
 				<Form.ControlLabel>Full First Name</Form.ControlLabel>

@@ -88,6 +88,32 @@ export function updateUserProfile(user, additionalData) {
 		})
 }
 
+export function updateHostProfile(user) {
+	updateProfile(auth.currentUser, {})
+		.then(() => {
+			if (user) {
+				const userDocRef = doc(db, 'users', auth.currentUser.uid)
+				updateDoc(userDocRef, {
+					firstName: user.userPersonalInfo.firstName,
+					lastName: user.userPersonalInfo.lastName,
+					phoneNumber: user.userPersonalInfo.phoneNumber,
+					address: {
+						street: user.userPersonalInfo.street,
+						city: user.userPersonalInfo.city,
+						state: user.userPersonalInfo.state,
+						zip: user.userPersonalInfo.zipCode,
+					},
+					languages: user.userProfileInfo.languages,
+					foodTypes: user.userProfileInfo.foodTypes,
+					textarea: user.userProfileInfo.textarea,
+				})
+			}
+		})
+		.catch((error) => {
+			console.error(error)
+		})
+}
+
 export async function signInUserWithGoogle() {
 	return signInWithPopup(auth, googleProvider)
 		.then((result) => {

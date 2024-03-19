@@ -55,7 +55,7 @@ const FilterHostOptions = () => {
 							: { backgroundColor: '#fe6565' }
 					}
 				>
-					Cooking and Dinnder
+					Cooking and Dinner
 				</Button>
 				<Button
 					appearance={appearance}

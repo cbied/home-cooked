@@ -11,6 +11,15 @@ const initialState = {
 		photoURL: '',
 		providerId: '',
 		isHost: false,
+		address: {
+			street: '',
+			city: '',
+			state: '',
+			zip: '',
+		},
+		languagesSpoken: [],
+		cuisineType: '',
+		aboutHost: '',
 	},
 	isLoading: false,
 	error: null,
@@ -66,6 +75,17 @@ export const userSlice = createSlice({
 			state.isLoading = false
 			state.error = action.payload
 		},
+		updateHostStart: (state) => {
+			state.isLoading = true
+		},
+		updateHostSuccess: (state, action) => {
+			state.isLoading = false
+			state.currentUser = action.payload
+		},
+		updateHostFailed: (state, action) => {
+			state.isLoading = false
+			state.error = action.payload
+		},
 	},
 })
 
@@ -83,6 +103,9 @@ export const {
 	signInUserWithGoogleSuccess,
 	signInUserWithGoogleFailed,
 	signUserOut,
+	updateHostStart,
+	updateHostSuccess,
+	updateHostFailed,
 } = userSlice.actions
 
 export default userSlice.reducer
