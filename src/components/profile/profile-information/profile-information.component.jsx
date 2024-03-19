@@ -150,7 +150,7 @@ const ProfileInformation = () => {
 					>
 						{formChange}
 						<Field
-							label='Frist Name'
+							label='First Name'
 							as={Form.Control}
 							name='firstName'
 							isRequired={false}
