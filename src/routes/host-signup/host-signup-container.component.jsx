@@ -1,51 +1,37 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import HostPersonInfo from '../../components/host-signup/host-personal-info.component'
 import HostProfileInfo from '../../components/host-signup/host-profile-info.component'
 import { Steps, ButtonGroup, Button, Panel, Form, ButtonToolbar } from 'rsuite'
 
-const totalFormValue = {
-	firstStepFormValues: {
-		firstName: '',
-		lastName: '',
-		phoneNumber: '',
-		street: '',
-		city: '',
-		state: '',
-		zipCode: '',
-	},
-	secondStepFormValues: {
-		foodTypes: [],
-		languages: [],
-		textarea: '',
-	},
+const hostPersonalInfoValues = {
+	firstName: '',
+	lastName: '',
+	phoneNumber: '',
+	street: '',
+	city: '',
+	state: '',
+	zipCode: '',
+}
+const hostProfileInfoValues = {
+	foodTypes: [],
+	languages: [],
+	textarea: '',
 }
 
 const HostSignupContainer = () => {
 	const [step, setStep] = useState(0)
-	const [formValue, setFormValue] = useState(totalFormValue)
+	const dispatch = useDispatch()
 	const onChange = (nextStep) => {
 		setStep(nextStep < 0 ? 0 : nextStep > 3 ? 3 : nextStep)
 	}
 
 	const saveForm = (formValues) => {
-		//TODO
-		// add form for user bank info so they can get paid
-		if (formValues.firstName) {
-			setFormValue({
-				firstStepFormValues: formValues,
-			})
-		}
-
-		if (formValues.textarea) {
-			setFormValue({
-				...formValue,
-				secondStepFormValues: formValues,
-			})
-		}
+		// dispatch formValues to store
 	}
 
 	const onNext = () => {
-		saveForm(formValue)
+		// saveForm()
 		onChange(step + 1)
 	}
 	const onPrevious = () => onChange(step - 1)
@@ -62,12 +48,12 @@ const HostSignupContainer = () => {
 					{step === 0 ? (
 						<HostPersonInfo
 							saveForm={saveForm}
-							formInfo={formValue.firstStepFormValues}
+							formInfo={hostPersonalInfoValues}
 						/>
 					) : step === 1 ? (
 						<HostProfileInfo
 							saveForm={saveForm}
-							formInfo={formValue.secondStepFormValues}
+							formInfo={hostProfileInfoValues}
 						/>
 					) : step === 2 ? (
 						<div>
