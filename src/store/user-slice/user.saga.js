@@ -6,6 +6,7 @@ import {
 	signInUserWithGoogle,
 	updateUserProfile,
 	updateUserInfoInFirebase,
+	updateHostProfile,
 } from '../../utils/firebase.utils'
 import {
 	signupUserSuccess,
@@ -16,6 +17,8 @@ import {
 	signInUserWithGoogleFailed,
 	updateUserSuccess,
 	updateUserFailed,
+	updateHostSuccess,
+	updateHostFailed,
 } from './user-slice'
 
 function* signInUserSteps(data) {
@@ -100,6 +103,24 @@ export function* updateCurrentUserInfo(data) {
 	}
 }
 
+export function* onUpdateHostInfoStart() {
+	yield takeLatest('user/updateHostStart', updateHostInfo)
+}
+
+export function* updateHostInfo(hostData) {
+	console.log(hostData)
+	try {
+		if (hostData) {
+			yield call(updateHostProfile, hostData.payload)
+			yield put(updateHostSuccess(hostData.payload))
+			// yield call(getCurrentUserInfo, hostData.payload.uid)
+		}
+	} catch (error) {
+		console.log(error)
+		yield put(updateHostFailed(error))
+	}
+}
+
 export function* getCurrentUserInfo(uid) {
 	try {
 		if (uid) {
@@ -120,6 +141,7 @@ export function* userSaga() {
 		call(onSignInUserWithEmailStart),
 		call(onGoogleSigninStart),
 		call(onSignupUserStart),
+		call(onUpdateHostInfoStart),
 	])
 	// TO ADD
 	// yield all(

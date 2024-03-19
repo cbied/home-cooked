@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { updateHostStart } from '../../store/user-slice/user-slice'
 import HostPersonInfo from '../../components/host-signup/host-personal-info.component'
 import HostProfileInfo from '../../components/host-signup/host-profile-info.component'
 import { Steps, ButtonGroup, Button, Panel, Form, ButtonToolbar } from 'rsuite'
 
-const hostPersonalInfoValues = {
+let hostPersonalInfoValues = {
 	firstName: '',
 	lastName: '',
 	phoneNumber: '',
@@ -20,18 +21,39 @@ const hostProfileInfoValues = {
 }
 
 const HostSignupContainer = () => {
+	const [hostPersonalInfo, setHostPersonalInfo] = useState()
+	const [hostProfileInfo, setHostProfileInfo] = useState()
 	const [step, setStep] = useState(0)
 	const dispatch = useDispatch()
 	const onChange = (nextStep) => {
 		setStep(nextStep < 0 ? 0 : nextStep > 3 ? 3 : nextStep)
 	}
 
+	const saveFirstForm = (formValues) => {
+		setHostPersonalInfo(formValues)
+	}
+
+	const saveSecondForm = (formValues) => {
+		setHostProfileInfo(formValues)
+		console.log(hostProfileInfo)
+	}
+
 	const saveForm = (formValues) => {
+		console.log('hello')
 		// dispatch formValues to store
+		dispatch(
+			updateHostStart({
+				userPersonalInfo: hostPersonalInfo,
+				userProfileInfo: hostProfileInfo,
+			})
+		)
 	}
 
 	const onNext = () => {
-		// saveForm()
+		console.log(step)
+		if (step === 1) {
+			saveForm()
+		}
 		onChange(step + 1)
 	}
 	const onPrevious = () => onChange(step - 1)
@@ -47,13 +69,13 @@ const HostSignupContainer = () => {
 				<Panel className='flex flex-col self-center mt-10'>
 					{step === 0 ? (
 						<HostPersonInfo
-							saveForm={saveForm}
-							formInfo={hostPersonalInfoValues}
+							saveFirstForm={saveFirstForm}
+							formInfo={hostPersonalInfo}
 						/>
 					) : step === 1 ? (
 						<HostProfileInfo
-							saveForm={saveForm}
-							formInfo={hostProfileInfoValues}
+							saveForm={saveSecondForm}
+							formInfo={hostProfileInfo}
 						/>
 					) : step === 2 ? (
 						<div>
