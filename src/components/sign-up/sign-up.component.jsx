@@ -69,7 +69,6 @@ export default function SignUp() {
 
 	useEffect(() => {
 		if (selectUserSlice.currentUser && selectUserSlice.currentUser.isHost) {
-			console.log(selectUserSlice.currentUser.isHost)
 			navigate('/hostSignup')
 		}
 
@@ -77,7 +76,6 @@ export default function SignUp() {
 			selectUserSlice.currentUser &&
 			!selectUserSlice.currentUser.isHost
 		) {
-			console.log(selectUserSlice.currentUser.isHost)
 			navigate('/home')
 		}
 	}, [selectUserSlice.currentUser, navigate])

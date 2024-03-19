@@ -108,7 +108,6 @@ export function* onUpdateHostInfoStart() {
 }
 
 export function* updateHostInfo(hostData) {
-	console.log(hostData)
 	try {
 		if (hostData) {
 			yield call(updateHostProfile, hostData.payload)

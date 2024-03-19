@@ -35,11 +35,9 @@ const HostSignupContainer = () => {
 
 	const saveSecondForm = (formValues) => {
 		setHostProfileInfo(formValues)
-		console.log(hostProfileInfo)
 	}
 
 	const saveForm = (formValues) => {
-		console.log('hello')
 		// dispatch formValues to store
 		dispatch(
 			updateHostStart({
@@ -50,7 +48,6 @@ const HostSignupContainer = () => {
 	}
 
 	const onNext = () => {
-		console.log(step)
 		if (step === 1) {
 			saveForm()
 		}

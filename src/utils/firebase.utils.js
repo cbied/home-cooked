@@ -89,13 +89,10 @@ export function updateUserProfile(user, additionalData) {
 }
 
 export function updateHostProfile(user) {
-	console.log(user)
-	console.log(auth.currentUser)
 	updateProfile(auth.currentUser, {})
 		.then(() => {
 			if (user) {
 				const userDocRef = doc(db, 'users', auth.currentUser.uid)
-				console.log(userDocRef)
 				updateDoc(userDocRef, {
 					firstName: user.userPersonalInfo.firstName,
 					lastName: user.userPersonalInfo.lastName,
