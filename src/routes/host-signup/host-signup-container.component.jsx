@@ -4,6 +4,7 @@ import { updateHostStart } from '../../store/user-slice/user-slice'
 import HostPersonInfo from '../../components/host-signup/host-personal-info.component'
 import HostProfileInfo from '../../components/host-signup/host-profile-info.component'
 import { Steps, ButtonGroup, Button, Panel, Form, ButtonToolbar } from 'rsuite'
+import { useNavigate } from 'react-router-dom'
 
 let hostPersonalInfoValues = {
 	firstName: '',
@@ -25,6 +26,8 @@ const HostSignupContainer = () => {
 	const [hostProfileInfo, setHostProfileInfo] = useState()
 	const [step, setStep] = useState(0)
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
 	const onChange = (nextStep) => {
 		setStep(nextStep < 0 ? 0 : nextStep > 3 ? 3 : nextStep)
 	}
@@ -53,7 +56,13 @@ const HostSignupContainer = () => {
 		}
 		onChange(step + 1)
 	}
+
 	const onPrevious = () => onChange(step - 1)
+
+	const onSubmit = () => {
+		saveForm()
+		navigate('/home')
+	}
 
 	return (
 		<div className='h-full w-full p-24'>
@@ -92,7 +101,9 @@ const HostSignupContainer = () => {
 					{step === 2 ? (
 						<Form.Group>
 							<ButtonToolbar>
-								<Button appearance='primary'>Submit</Button>
+								<Button appearance='primary' onClick={onSubmit}>
+									Submit
+								</Button>
 							</ButtonToolbar>
 						</Form.Group>
 					) : (
