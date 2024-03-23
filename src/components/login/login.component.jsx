@@ -5,7 +5,7 @@ import {
 	signInUserWithEmailStart,
 	signInUserWithGoogleStart,
 } from '../../store/user-slice/user-slice'
-import { Form, InputGroup, Button, ButtonGroup } from 'rsuite'
+import { Form, InputGroup, Button, ButtonGroup, Schema } from 'rsuite'
 import EyeIcon from '@rsuite/icons/legacy/Eye'
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash'
 import GoogleIcon from '../../assets/google_icon.png'
@@ -18,6 +18,7 @@ export default function Login() {
 		email: '',
 		password: '',
 	})
+	const { StringType } = Schema.Types
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const styles = {
@@ -60,8 +61,20 @@ export default function Login() {
 		setVisible(!visible)
 	}
 
+	const model = Schema.Model({
+		email: StringType()
+			.isEmail('Please enter a valid email address.')
+			.isRequired('This field is required.'),
+		password: StringType().isRequired('This field is required.'),
+	})
+
 	return (
-		<Form ref={formRef} onChange={setFormValue} formValue={formValue}>
+		<Form
+			ref={formRef}
+			onChange={setFormValue}
+			formValue={formValue}
+			model={model}
+		>
 			{/* <!-- Email input --> */}
 			<Form.Group controlId='email'>
 				<Form.Control name='email' placeholder='Email' />
