@@ -47,6 +47,8 @@ export default function Login() {
     });
     if (selectUserSlice.currentUser) {
       navigate("/home");
+    } else {
+      alert("Invalid email or password");
     }
   };
 
@@ -61,20 +63,8 @@ export default function Login() {
     setVisible(!visible);
   };
 
-  const model = Schema.Model({
-    email: StringType()
-      .isEmail("Please enter a valid email address.")
-      .isRequired("This field is required."),
-    password: StringType().isRequired("This field is required."),
-  });
-
   return (
-    <Form
-      ref={formRef}
-      onChange={setFormValue}
-      formValue={formValue}
-      model={model}
-    >
+    <Form ref={formRef} onChange={setFormValue} formValue={formValue}>
       {/* <!-- Email input --> */}
       <Form.Group controlId="email">
         <Form.Control name="email" placeholder="Email" />

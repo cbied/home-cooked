@@ -25,7 +25,7 @@ function* signInUserSteps(data) {
     const user = yield call(
       signInUserWithEmail,
       data.payload.email,
-      data.payload.password
+      data.payload.password,
     );
     if (data.payload.displayName) {
       yield call(updateUserProfile, user, data.payload);
@@ -78,7 +78,7 @@ export function* signInUserGoogle() {
     yield call(
       updateUserProfile,
       userResults,
-      userResults.providerData[0].displayName
+      userResults.providerData[0].displayName,
     );
     const userInfo = yield call(getUserInfoFromFirebase, result.user.uid);
     yield put(signInUserWithGoogleSuccess(userInfo));
