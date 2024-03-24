@@ -4,6 +4,9 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   content: [
       "./index.html",
+      "./src/**/*.html' /* ... */",
+      "./pages/**/*.{js,ts,jsx,tsx}", 
+      "./components/**/*.{js,ts,jsx,tsx}",
       "./src/**/*.{js,ts,jsx,tsx}",
       "./src/**/**/*.{js,ts,jsx,tsx}",
       "./node_modules/tw-elements-react/dist/js/**/*.js"
