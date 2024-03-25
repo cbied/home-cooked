@@ -8,6 +8,7 @@ const initialState = {
     lat: null,
     lng: null,
   },
+  formattedAddress: null,
   isLoading: false,
   error: null,
 };
@@ -28,10 +29,13 @@ export const experienceFinderSlice = createSlice({
     setLocation: (state, action) => {
       state.location = action.payload;
     },
+    setFormattedAddress: (state, action) => {
+      state.formattedAddress = action.payload;
+    },
   },
 });
 
-export const { setFoodTypes, setDateRange, setPartySize, setLocation } =
+export const { setFoodTypes, setDateRange, setPartySize, setLocation, setFormattedAddress } =
   experienceFinderSlice.actions;
 
 export default experienceFinderSlice.reducer;

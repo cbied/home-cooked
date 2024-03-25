@@ -1,43 +1,54 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Input } from "rsuite";
-import { connect } from "react-redux";
-import { setLocation } from "../../store/experience-finder-slice/experience-finder-slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setLocation,
+  setFormattedAddress,
+} from "../../store/experience-finder-slice/experience-finder-slice";
 /* global google */
 
-class LocationFinder extends React.Component {
-  constructor(props) {
-    super(props);
-    this.autocompleteInput = React.createRef();
-    this.autocomplete = null;
-    this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
-  }
-
-  componentDidMount() {
-    this.autocomplete = new google.maps.places.Autocomplete(
-      this.autocompleteInput.current,
+const LocationFinder = () => {
+  const autocompleteInput = useRef(null);
+  const dispatch = useDispatch();
+  const selectFormattedAddress = useSelector(
+    (state) => state.experienceFinder.formattedAddress
+  );
+  let autocomplete = null;
+  console.log(selectFormattedAddress);
+  useEffect(() => {
+    autocomplete = new google.maps.places.Autocomplete(
+      autocompleteInput.current,
       { types: ["geocode"] }
     );
-    this.autocomplete.addListener("place_changed", this.handlePlaceChanged);
-  }
+    autocomplete.addListener("place_changed", handlePlaceChanged);
 
-  handlePlaceChanged() {
-    const place = this.autocomplete.getPlace();
+    return () => {
+      google.maps.event.clearInstanceListeners(autocomplete);
+    };
+  }, []);
+
+  const handlePlaceChanged = () => {
+    const place = autocomplete.getPlace();
     let lat = place.geometry.location.lat();
     let lng = place.geometry.location.lng();
     let currentLocation = { lat, lng };
-    this.props.dispatch(setLocation(currentLocation));
-  }
+    dispatch(setLocation(currentLocation));
+    dispatch(setFormattedAddress(place.formatted_address));
+  };
 
-  render() {
-    return (
-      <Input
-        ref={this.autocompleteInput}
-        id="autocomplete"
-        placeholder="Enter your address"
-        type="text"
-      />
-    );
-  }
-}
+  return (
+    <Input
+      ref={autocompleteInput}
+      id="autocomplete"
+      placeholder="Enter your address"
+      type="text"
+      defaultValue={
+        selectFormattedAddress
+          ? selectFormattedAddress
+          : autocompleteInput.current
+      }
+    />
+  );
+};
 
-export default connect()(LocationFinder);
+export default LocationFinder;
