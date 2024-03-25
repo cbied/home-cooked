@@ -24,8 +24,8 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
       onClose={() => setOpen(false)}
       className="host-list-drawer"
     >
-      <Drawer.Header className="host-list-header flex justify-center">
-        <Drawer.Title className="w-screen flex justify-around self-center">
+      <Drawer.Header>
+        <Drawer.Title>
           {screenSize[0] > 1050 ? (
             <ExperienceFinder
               largeStyles={largeStyles}

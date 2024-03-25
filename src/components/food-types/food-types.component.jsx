@@ -6,7 +6,7 @@ import mockFoodData from "../../mockData/mockFoodTypes.json";
 
 const FoodTypes = ({ isInline }) => {
   const foodTypeValues = useSelector(
-    (state) => state.experienceFinder.foodTypes,
+    (state) => state.experienceFinder.foodTypes
   );
   const [foodTypesArr, setFoodTypesArr] = useState(foodTypeValues);
   const dispatch = useDispatch();
@@ -26,14 +26,14 @@ const FoodTypes = ({ isInline }) => {
           removeChildrenArr.push(itemDataType.children[i].value);
         }
         itemChildrenArr = foodTypesArr.filter(
-          (item) => !removeChildrenArr.includes(item),
+          (item) => !removeChildrenArr.includes(item)
         );
       }
       setFoodTypesArr(itemChildrenArr);
       dispatch(setFoodTypes(itemChildrenArr));
     } else {
       const values = foodTypesValue.filter(
-        (value) => typeof value !== "number",
+        (value) => typeof value !== "number"
       );
       setFoodTypesArr(values);
       dispatch(setFoodTypes(values));
@@ -41,7 +41,7 @@ const FoodTypes = ({ isInline }) => {
   };
 
   return (
-    <Stack className="rounded-full">
+    <Stack>
       <Stack.Item>
         <MultiCascader
           toggleAs={Button}

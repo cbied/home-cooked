@@ -1,7 +1,7 @@
 import { Button } from "rsuite";
 import { renderToString } from "react-dom/server";
 // Initialize and add the map
-let map;
+export let map;
 
 const google = window.google;
 
@@ -51,7 +51,7 @@ class CenterControl {
       () => {
         handleOpenFn();
       },
-      { capture: true },
+      { capture: true }
     );
   }
 }
@@ -102,7 +102,7 @@ class FilterControl {
       () => {
         handleFilterOpenFn();
       },
-      { capture: true },
+      { capture: true }
     );
   }
 }
@@ -111,9 +111,8 @@ export const initMap = async (
   hostsInfo,
   position,
   handleOpenFn,
-  handleFilterOpenFn,
+  handleFilterOpenFn
 ) => {
-  // The location of Uluru
   let geoPosition;
   if (position) {
     geoPosition = position;
@@ -134,6 +133,20 @@ export const initMap = async (
     mapId: "7e95a8887ec6de55",
   });
 
+  let meter = 1500;
+  let regionCircle = new google.maps.Circle({
+    // strokeOpacity: 0.8,
+    // strokeWeight: 2,
+    // fillColor: "#FF0000",
+    // fillOpacity: 0.19,
+    strokeOpacity: 0,
+    fillOpacity: 0,
+    map: map,
+    center: geoPosition,
+    radius: meter,
+    clickable: false,
+  });
+
   // Create the DIV to hold the control and call the CenterControl()
   // constructor passing in this DIV.
   const centerControlDiv = document.createElement("div");
@@ -150,7 +163,7 @@ export const initMap = async (
   const filterControl = new FilterControl(
     filterControlDiv,
     map,
-    handleFilterOpenFn,
+    handleFilterOpenFn
   );
 
   // @ts-ignore
@@ -164,7 +177,7 @@ export const initMap = async (
   hostsInfo.forEach((host) => {
     const markerPosition = { lat: host.lat, lng: host.lng };
     marker = new AdvancedMarkerElement({
-      map: map,
+      map: check(markerPosition, position, meter) ? map : null,
       position: markerPosition,
       title: host.foodType,
     });
@@ -189,7 +202,7 @@ export const initMap = async (
         <div className="flex justify-end">
           <Button appearance="primary">Register</Button>
         </div>
-      </div>,
+      </div>
     ).toString();
 
     google.maps.event.addListener(marker, "click", function () {
@@ -197,6 +210,14 @@ export const initMap = async (
       infowindow.open(map, this);
     });
   });
+};
+
+export const check = (marker, circle, radius) => {
+  var km = radius / 1000;
+  var kx = Math.cos((Math.PI * circle.lat) / 180) * 111;
+  var dx = Math.abs(circle.lng - marker.lng) * kx;
+  var dy = Math.abs(circle.lat - marker.lat) * 111;
+  return Math.sqrt(dx * dx + dy * dy) <= km;
 };
 
 export const getUserLocationInfo = (successFunction, failedFunction) => {
