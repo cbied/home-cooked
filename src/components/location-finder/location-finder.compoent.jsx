@@ -14,7 +14,7 @@ const LocationFinder = () => {
     (state) => state.experienceFinder.formattedAddress
   );
   let autocomplete = null;
-  console.log(selectFormattedAddress);
+
   useEffect(() => {
     autocomplete = new google.maps.places.Autocomplete(
       autocompleteInput.current,
