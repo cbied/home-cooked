@@ -24,7 +24,7 @@ const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
               <Nav.Item href={"/hostSignup"}>Be a Host</Nav.Item>
             </Nav>
           </div>
-        ) : size[0] < 950 && size[0] >= 500 && showSearch ? (
+        ) : size[0] < 950 && size[0] >= 680 && showSearch ? (
           <DrawerExperienceFinder />
         ) : null}
 
@@ -33,13 +33,13 @@ const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
       {size[0] > 950 && showSearch ? (
         <div className="w-4/5 flex justify-center self-center">
           <ExperienceFinder
-            largeStyles={largeStyles}
+            customStyles={largeStyles}
             showUserProfile={false}
             showLogo={false}
           />
         </div>
       ) : (
-        size[0] < 500 &&
+        size[0] < 680 &&
         showSearch && (
           <div className="w-4/5 self-center">
             <DrawerExperienceFinder size={size[0]} />

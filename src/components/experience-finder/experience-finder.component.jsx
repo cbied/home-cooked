@@ -8,7 +8,7 @@ import SearchIcon from "@rsuite/icons/Search";
 import logo from "../../assets/logo.png";
 
 const ExperienceFinder = ({
-  largeStyles,
+  customStyles,
   showLogo = false,
   showUserProfile = false,
 }) => {
@@ -39,7 +39,7 @@ const ExperienceFinder = ({
             <DatePicker
               placement="bottomEnd"
               showOneCalendar={false}
-              largeStyles={largeStyles}
+              customStyles={customStyles}
             />
             <Divider vertical className="h-auto" />
             <PartySizeInput />
