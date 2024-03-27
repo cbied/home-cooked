@@ -3,7 +3,7 @@ import { setDateRange } from "../../store/experience-finder-slice/experience-fin
 import { DateRangePicker, Stack } from "rsuite";
 import addDays from "date-fns/addDays";
 
-const DatePicker = ({ placement, showOneCalendar, largeStyles }) => {
+const DatePicker = ({ placement, showOneCalendar, customStyles }) => {
   const dispatch = useDispatch();
   const dateRange = useSelector((state) => state.experienceFinder.dateRange);
   const { combine, allowedMaxDays, beforeToday } = DateRangePicker;
@@ -36,7 +36,7 @@ const DatePicker = ({ placement, showOneCalendar, largeStyles }) => {
         <DateRangePicker
           onChange={(dateRange) => handleDateRangeChange(dateRange)}
           size="lg"
-          style={largeStyles}
+          style={customStyles}
           placement={placement}
           ranges={predefinedRanges}
           placeholder="Pick a date"

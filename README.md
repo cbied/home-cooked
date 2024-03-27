@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Home Cooked
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The app serves as a platform connecting individuals eager to learn authentic cooking (guests) with skilled cooks offering lessons or dining experiences (hosts). Guests have the option to participate in cooking lessons or simply enjoy a meal at the host's home. Users can create profiles as either guests or hosts, with hosts able to post dinner or cooking lesson listings, specify cuisine, dates, and guest capacity. Features such as messaging between hosts and guests, profile management, and secure payment integration further enhance the app's functionality, facilitating seamless interactions and transactions while fostering cultural exchange and culinary education.
 
-## Available Scripts
+## MVP
 
-In the project directory, you can run:
+The app should allow the user to:
 
-### `npm start`
+Create a user (guest and host)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+hosts will have all of the guest features below plus:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+able to post a dinner/cooking lesson, cuisine, date, and how many guests they can accommodate
 
-### `npm test`
+possibly use host information and ChatGPT to write them an about me
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Log user in
 
-### `npm run build`
+Read user their information (i.e. user Info)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Update user information (i.e. user Info)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Allow user to search for people hosting dinners based on cuisine, date, and how many guests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Allow Hosts and Guest to message each other
 
-### `npm run eject`
+Allow host to connect a bank account to get paid
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Allow all users to add/save their credit/debit card information
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Allow user to delete their user profile
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `Change Log`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+03/25/2024 - addLocationLookup -- IN PROGRESS
 
-## Learn More
+add location-finder component, update css, update Google map when finder is used, the lat and lng gets updated in Redux, radius circle to only show markers where user is looking
+added more markers in the Asheville area, updated the CSS for the experience finder,
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+03/26/2024 - addLocationLookup -- IN PROGRESS
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+convert location-finder to functional component, persist the location address in the bar until updated, update experience-finder-slice to set formattedAddress
 
-### Code Splitting
+03/27/2024 - addLocationLookup -- Done
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+add location-finder to drawer-experience-finder. update css for smaller screens. Update README to reflect changes

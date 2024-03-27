@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IconButton, Drawer, Button } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
+import LocationFinder from "../location-finder/location-finder.compoent";
 import FoodTypes from "../food-types/food-types.component";
 import DatePicker from "../date-range-picker/date-range-picker.component";
 import PartySizeInput from "../party-size-input/party-size-input.component";
@@ -18,7 +19,7 @@ const DrawerExperienceFinder = ({
     setOpen(true);
     setPlacement(key);
   };
-  const smallStyles = { width: "100%" };
+  const smallStyles = { minWidth: 200, maxWidth: 250 };
 
   return (
     // JSX code goes here
@@ -45,36 +46,54 @@ const DrawerExperienceFinder = ({
           placement={placement}
           open={open}
           onClose={() => setOpen(false)}
-          size={size < 700 ? "full" : "lg"}
+          size={size < 800 ? "full" : "lg"}
         >
           <Drawer.Body>
-            {size < 700 ? (
+            {size < 800 ? (
               <div className={"flex flex-col items-center h-fit mt-14"}>
+                <h5 className="my-5">Where we eatting?</h5>
+                <LocationFinder />
+                <h5 className="my-5">When we eatting?</h5>
                 <DatePicker
                   placement={"bottomStart"}
                   showOneCalendar={true}
                   className="mt-14"
+                  customStyles={smallStyles}
                 />
                 <div
                   className={
-                    "flex flex-col items-center justify-around h-96 mb-10"
+                    "flex flex-col items-center justify-around h-96 mb-10 mt-5"
                   }
                 >
+                  <h5>What we eatting?</h5>
                   <FoodTypes isInline={true} smallStyles={smallStyles} />
+                  <h5 className="my-5">How many people we eatting with?</h5>
                   <PartySizeInput />
                 </div>
               </div>
             ) : (
-              <div className="flex justify-around mt-14">
-                <FoodTypes isInline={true} smallStyles={smallStyles} />
-                <div
-                  className={"flex flex-col self-stretch justify-around mb-10"}
-                >
-                  <DatePicker
-                    placement={"bottomStart"}
-                    showOneCalendar={true}
-                  />
-                  <PartySizeInput />
+              <div className="mt-14">
+                <h5>Where we eatting?</h5>
+                <LocationFinder />
+                <div className="flex justify-around mt-5">
+                  <div className="flex flex-col">
+                    <h5>What we eatting?</h5>
+                    <FoodTypes isInline={true} smallStyles={smallStyles} />
+                  </div>
+                  <div
+                    className={
+                      "flex flex-col self-stretch justify-around ml-5 mb-10"
+                    }
+                  >
+                    <h5>When we eatting?</h5>
+                    <DatePicker
+                      placement={"bottomStart"}
+                      showOneCalendar={true}
+                      customStyles={smallStyles}
+                    />
+                    <h5>How many people we eatting with?</h5>
+                    <PartySizeInput />
+                  </div>
                 </div>
               </div>
             )}
