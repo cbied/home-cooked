@@ -10,7 +10,7 @@ import { setLocation } from "../../store/experience-finder-slice/experience-find
 import { useDispatch, useSelector } from "react-redux";
 import { hostMarkers } from "../../mockData/mockHostMakers";
 
-const Map = ({ screenSize }) => {
+const Map = ({ screenSize, setAutocompletePlace, autocompletePlace }) => {
   const dispatch = useDispatch();
   const [size, setSize] = useState();
   const [open, setOpen] = useState(false);
@@ -61,6 +61,8 @@ const Map = ({ screenSize }) => {
           drawerSize={size}
           drawerOpen={open}
           className="pb-10"
+          setAutocompletePlace={setAutocompletePlace}
+          autocompletePlace={autocompletePlace}
         />
       </div>
       <FilterModal

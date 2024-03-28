@@ -5,7 +5,12 @@ import DrawerExperienceFinder from "../drawer-experience-finder/drawer-experienc
 import logo from "../../assets/logo.png";
 import "./navbar.styles.css";
 
-const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
+const Navbar = ({
+  showSearch = true,
+  size = [1000, 1000],
+  setAutocompletePlace,
+  autocompletePlace,
+}) => {
   const largeStyles = { minWidth: 200, maxWidth: 250 };
 
   return (
@@ -36,6 +41,8 @@ const Navbar = ({ showSearch = true, size = [1000, 1000] }) => {
             customStyles={largeStyles}
             showUserProfile={false}
             showLogo={false}
+            setAutocompletePlace={setAutocompletePlace}
+            autocompletePlace={autocompletePlace}
           />
         </div>
       ) : (
