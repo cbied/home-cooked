@@ -107,13 +107,14 @@ class FilterControl {
   }
 }
 
+export let geoPosition;
+export let meter = 1500;
 export const initMap = async (
   hostsInfo,
   position,
   handleOpenFn,
   handleFilterOpenFn
 ) => {
-  let geoPosition;
   if (position) {
     geoPosition = position;
   }
@@ -133,7 +134,6 @@ export const initMap = async (
     mapId: "7e95a8887ec6de55",
   });
 
-  let meter = 1500;
   let regionCircle = new google.maps.Circle({
     // strokeOpacity: 0.8,
     // strokeWeight: 2,
