@@ -29,11 +29,13 @@ const LocationFinder = () => {
 
   const handlePlaceChanged = () => {
     const place = autocomplete.getPlace();
-    let lat = place.geometry.location.lat();
-    let lng = place.geometry.location.lng();
-    let currentLocation = { lat, lng };
-    dispatch(setLocation(currentLocation));
-    dispatch(setFormattedAddress(place.formatted_address));
+    if (place.geometry && place.geometry.location) {
+      let lat = place.geometry.location.lat();
+      let lng = place.geometry.location.lng();
+      let currentLocation = { lat, lng };
+      dispatch(setLocation(currentLocation));
+      dispatch(setFormattedAddress(place.formatted_address));
+    }
   };
 
   return (
