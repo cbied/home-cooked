@@ -7,7 +7,7 @@ import {
 } from "../../store/experience-finder-slice/experience-finder-slice";
 /* global google */
 
-const LocationFinder = () => {
+const LocationFinder = ({ setAutocompletePlace, autocompletePlace }) => {
   const autocompleteInput = useRef(null);
   const dispatch = useDispatch();
   const selectFormattedAddress = useSelector(
@@ -21,7 +21,6 @@ const LocationFinder = () => {
       { types: ["geocode"] }
     );
     autocomplete.addListener("place_changed", handlePlaceChanged);
-
     return () => {
       google.maps.event.clearInstanceListeners(autocomplete);
     };
@@ -29,11 +28,13 @@ const LocationFinder = () => {
 
   const handlePlaceChanged = () => {
     const place = autocomplete.getPlace();
-    let lat = place.geometry.location.lat();
-    let lng = place.geometry.location.lng();
-    let currentLocation = { lat, lng };
-    dispatch(setLocation(currentLocation));
-    dispatch(setFormattedAddress(place.formatted_address));
+    if (place.geometry && place.geometry.location) {
+      let lat = place.geometry.location.lat();
+      let lng = place.geometry.location.lng();
+      let currentLocation = { lat, lng };
+      dispatch(setLocation(currentLocation));
+      dispatch(setFormattedAddress(place.formatted_address));
+    }
   };
 
   return (
@@ -42,11 +43,10 @@ const LocationFinder = () => {
       id="autocomplete"
       placeholder="Enter your address"
       type="text"
-      defaultValue={
-        selectFormattedAddress
-          ? selectFormattedAddress
-          : autocompleteInput.current
-      }
+      onChange={(value) => {
+        setAutocompletePlace(value);
+      }}
+      value={autocompletePlace ? autocompletePlace : selectFormattedAddress}
     />
   );
 };

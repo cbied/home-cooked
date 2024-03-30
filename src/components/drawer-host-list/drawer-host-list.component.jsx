@@ -6,7 +6,14 @@ import FilterHostOptions from "../filter-host-options/filter-host-options.compon
 import { Drawer, Button, Modal, ButtonToolbar } from "rsuite";
 import "./drawer-host-list.styles.css";
 
-const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
+const DrawerHostList = ({
+  screenSize,
+  setOpen,
+  drawerSize,
+  drawerOpen,
+  setAutocompletePlace,
+  autocompletePlace,
+}) => {
   const largeStyles = { minWidth: 240, maxWidth: 250 };
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSize, setModalSize] = useState();
@@ -31,6 +38,8 @@ const DrawerHostList = ({ screenSize, setOpen, drawerSize, drawerOpen }) => {
               largeStyles={largeStyles}
               showUserProfile={true}
               showLogo={true}
+              setAutocompletePlace={setAutocompletePlace}
+              autocompletePlace={autocompletePlace}
             />
           ) : (
             screenSize[0] <= 1050 && (

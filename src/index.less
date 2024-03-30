@@ -12,3 +12,7 @@
 @import "tailwindcss/utilities";
 
 @import "~rsuite/styles/index.less";
+// google search dropdown will not show if z-index is not set
+.pac-container {
+  z-index: 9999 !important;
+}

@@ -44,3 +44,7 @@ convert location-finder to functional component, persist the location address in
 03/27/2024 - addLocationLookup -- Done
 
 add location-finder to drawer-experience-finder. update css for smaller screens. Update README to reflect changes
+
+03/29/2024 - bugLocationFinderinDrawers - Done
+
+fix location finder now updating when used in other locations, fixed host list not updating when location finder is used in drawer

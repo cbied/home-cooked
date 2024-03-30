@@ -11,7 +11,12 @@ const ExperienceFinder = ({
   customStyles,
   showLogo = false,
   showUserProfile = false,
+  setAutocompletePlace,
+  autocompletePlace,
 }) => {
+  const handleSearch = () => {
+    console.log("searching");
+  };
   return (
     <div className="flex justify-between w-auto mb-5">
       {showLogo && (
@@ -31,7 +36,10 @@ const ExperienceFinder = ({
           />
         </ButtonToolbar>
         <div className="w-fit h-auto flex flex-col">
-          <LocationFinder />
+          <LocationFinder
+            setAutocompletePlace={setAutocompletePlace}
+            autocompletePlace={autocompletePlace}
+          />
 
           <div className="flex self-center justify-center">
             <FoodTypes />
@@ -45,7 +53,7 @@ const ExperienceFinder = ({
             <PartySizeInput />
           </div>
         </div>
-        <ButtonToolbar>
+        <ButtonToolbar onClick={() => handleSearch()}>
           <IconButton
             className="w-fit"
             size="lg"
