@@ -123,28 +123,28 @@ const FilterHostOptions = () => {
         >
           <Grid>
             <Row className="h-24">
-              <Col xs={3} className="h-56 flex flex-col justify-around mr-3">
+              <Col xs={3} className="h-56 flex flex-col justify-around mr-5">
                 <Checkbox value="English">English</Checkbox>
                 <Checkbox value="Spanish">Spanish</Checkbox>
                 <Checkbox value="French">French</Checkbox>
                 <Checkbox value="German">German</Checkbox>
                 <Checkbox value="Dutch">Dutch</Checkbox>
               </Col>
-              <Col xs={3} className="h-56 flex flex-col justify-around mr-3">
+              <Col xs={3} className="h-56 flex flex-col justify-around mr-5">
                 <Checkbox value="Italian">Italian</Checkbox>
                 <Checkbox value="Chinese">Chinese</Checkbox>
                 <Checkbox value="Japanese">Japanese</Checkbox>
                 <Checkbox value="Korean">Korean</Checkbox>
                 <Checkbox value="Russian">Russian</Checkbox>
               </Col>
-              <Col xs={3} className="h-56 flex flex-col justify-around mr-3">
+              <Col xs={3} className="h-56 flex flex-col justify-around mr-5">
                 <Checkbox value="Arabic">Arabic</Checkbox>
                 <Checkbox value="Hindi">Hindi</Checkbox>
                 <Checkbox value="Portuguese">Portuguese</Checkbox>
                 <Checkbox value="Thai">Thai</Checkbox>
                 <Checkbox value="Vietnamise">Vietnamise</Checkbox>
               </Col>
-              <Col xs={3} className="h-56 flex flex-col justify-around mr-3">
+              <Col xs={3} className="h-56 flex flex-col justify-around mr-5">
                 <Checkbox value="Hebrew">Hebrew</Checkbox>
                 <Checkbox value="Polish">Polish</Checkbox>
                 <Checkbox value="Greek">Greek</Checkbox>

@@ -108,33 +108,28 @@ class FilterControl {
 }
 
 export let geoPosition;
-export let meter = 1500;
-export const initMap = async (
-  hostsInfo,
-  position,
-  handleOpenFn,
-  handleFilterOpenFn
-) => {
+export let meter = 10000;
+export let regionCircle;
+export const initMap = async (position, handleOpenFn, handleFilterOpenFn) => {
   if (position) {
     geoPosition = position;
   }
   // Request needed libraries.
   //@ts-ignore
   var { Map } = await google.maps.importLibrary("maps");
-  var { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
   // The map, centered at Uluru
   map = new Map(document.getElementById("map"), {
     zoom: 14,
-    // maxZoom: 17,
-    // minZoom: 13,
+    maxZoom: 17,
+    minZoom: 13,
     center: geoPosition,
     disableDefaultUI: true,
     clickableIcons: false,
     mapId: "7e95a8887ec6de55",
   });
 
-  let regionCircle = new google.maps.Circle({
+  regionCircle = new google.maps.Circle({
     // strokeOpacity: 0.8,
     // strokeWeight: 2,
     // fillColor: "#FF0000",
@@ -142,45 +137,61 @@ export const initMap = async (
     strokeOpacity: 0,
     fillOpacity: 0,
     map: map,
-    center: geoPosition,
+    center: position,
     radius: meter,
     clickable: false,
   });
 
+  addControlsToMap(handleOpenFn, handleFilterOpenFn);
+};
+
+export const addControlsToMap = (handleOpenFn, handleFilterOpenFn) => {
   // Create the DIV to hold the control and call the CenterControl()
   // constructor passing in this DIV.
   const centerControlDiv = document.createElement("div");
-  const control = new CenterControl(centerControlDiv, map, handleOpenFn);
 
   // @ts-ignore
   centerControlDiv.index = 1;
   centerControlDiv.style.paddingTop = "10px";
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
   // Create the DIV to hold the control and call the FilterControl()
   // constructor passing in this DIV.
   const filterControlDiv = document.createElement("div");
-  const filterControl = new FilterControl(
-    filterControlDiv,
-    map,
-    handleFilterOpenFn
-  );
 
   // @ts-ignore
   filterControlDiv.index = 1;
   filterControlDiv.style.paddingTop = "10px";
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(filterControlDiv);
 
-  const infowindow = new google.maps.InfoWindow();
+  if (map) {
+    new CenterControl(centerControlDiv, map, handleOpenFn);
+    new FilterControl(filterControlDiv, map, handleFilterOpenFn);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(filterControlDiv);
+  }
+};
+let markers = [];
+
+const setMapOnAll = (map) => {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+};
+export const updateHostMakers = async (hostsInfo, position) => {
+  setMapOnAll(null);
+  markers = [];
   let marker;
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+  const infowindow = new google.maps.InfoWindow();
 
   hostsInfo.forEach((host) => {
+    marker = new AdvancedMarkerElement();
     const markerPosition = { lat: host.lat, lng: host.lng };
-    marker = new AdvancedMarkerElement({
-      map: check(markerPosition, position, meter) ? map : null,
-      position: markerPosition,
-      title: host.foodType,
-    });
+    if (check(markerPosition, position, meter)) {
+      markers.push(marker);
+    }
+    marker.position = markerPosition;
+    marker.title = host.foodType;
+    marker.map = check(markerPosition, position, meter) ? map : null;
 
     let hostInfoContent = renderToString(
       <div className="flex flex-col text-gray-600">
@@ -205,10 +216,12 @@ export const initMap = async (
       </div>
     ).toString();
 
-    google.maps.event.addListener(marker, "click", function () {
-      infowindow.setContent(hostInfoContent);
-      infowindow.open(map, this);
-    });
+    if (marker) {
+      google.maps.event.addListener(marker, "click", function () {
+        infowindow.setContent(hostInfoContent);
+        infowindow.open(map, this);
+      });
+    }
   });
 };
 

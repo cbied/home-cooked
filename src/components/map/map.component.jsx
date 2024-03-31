@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import DrawerHostList from "../drawer-host-list/drawer-host-list.component";
 import FilterModal from "../filter-modal/filter-modal.component";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import {
   getUserLocationInfo,
   initMap,
+  updateHostMakers,
 } from "../../utils/google-maps/google-maps.utils";
 import { setLocation } from "../../store/experience-finder-slice/experience-finder-slice";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +20,7 @@ const Map = ({ screenSize, setAutocompletePlace, autocompletePlace }) => {
   const selectUserLatLng = useSelector(
     (state) => state.experienceFinder.location
   );
+  const hasRun = useRef(false);
   const findUserPositionSuccess = (position) => {
     dispatch(
       setLocation({
@@ -49,7 +51,11 @@ const Map = ({ screenSize, setAutocompletePlace, autocompletePlace }) => {
     if (selectUserLatLng.lat === null) {
       getUserLocationInfo(findUserPositionSuccess, findUserPositionFailed);
     }
-    initMap(hostMarkers, selectUserLatLng, handleOpen, handleOpenFilterOptions);
+    if (!hasRun.current) {
+      initMap(selectUserLatLng, handleOpen, handleOpenFilterOptions);
+      hasRun.current = true;
+    }
+    updateHostMakers(hostMarkers, selectUserLatLng);
   }, [selectUserLatLng.lat]);
 
   return (
