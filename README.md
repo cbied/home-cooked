@@ -48,3 +48,8 @@ add location-finder to drawer-experience-finder. update css for smaller screens.
 03/29/2024 - bugLocationFinderinDrawers - Done
 
 fix location finder now updating when used in other locations, fixed host list not updating when location finder is used in drawer
+
+04/06/2024 - updateMarkersBasedOnLocation - Done
+
+markers get updated based on where the user click and drags the map. The markers are shown based on the radius of the regionCircle. Also fixed a bug, when the user accepts to share location, the autofil address bar gets updated accordingly
+\*\* There is a know bug that still needs to be fixed, when the user clicks and drags the map. Some of the markers do now show up as they are supposed to. I think what is happening, is that the markers and getting duplicated and only a few show up

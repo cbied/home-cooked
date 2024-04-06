@@ -118,16 +118,17 @@ export const initMap = async (position, handleOpenFn, handleFilterOpenFn) => {
   //@ts-ignore
   var { Map } = await google.maps.importLibrary("maps");
 
-  // The map, centered at Uluru
-  map = new Map(document.getElementById("map"), {
-    zoom: 14,
-    maxZoom: 17,
-    minZoom: 13,
-    center: geoPosition,
-    disableDefaultUI: true,
-    clickableIcons: false,
-    mapId: "7e95a8887ec6de55",
-  });
+  if (Map) {
+    map = new Map(document.getElementById("map"), {
+      zoom: 14,
+      // maxZoom: 17,
+      // minZoom: 13,
+      center: geoPosition,
+      disableDefaultUI: true,
+      clickableIcons: false,
+      mapId: "7e95a8887ec6de55",
+    });
+  }
 
   regionCircle = new google.maps.Circle({
     // strokeOpacity: 0.8,
@@ -169,58 +170,68 @@ export const addControlsToMap = (handleOpenFn, handleFilterOpenFn) => {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(filterControlDiv);
   }
 };
-let markers = [];
+export let markers = [];
 
-const setMapOnAll = (map) => {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
-};
 export const updateHostMakers = async (hostsInfo, position) => {
-  setMapOnAll(null);
-  markers = [];
-  let marker;
-  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-  const infowindow = new google.maps.InfoWindow();
-
-  hostsInfo.forEach((host) => {
-    marker = new AdvancedMarkerElement();
-    const markerPosition = { lat: host.lat, lng: host.lng };
-    if (check(markerPosition, position, meter)) {
-      markers.push(marker);
+  for (let i = 0; i < markers.length; i++) {
+    if (!isMarkerInRegion(markers[i], regionCircle)) {
+      markers[i].setMap(null);
     }
-    marker.position = markerPosition;
-    marker.title = host.foodType;
-    marker.map = check(markerPosition, position, meter) ? map : null;
+  }
 
-    let hostInfoContent = renderToString(
-      <div className="flex flex-col text-gray-600">
-        <div className="text-lg font-bsold">{host.foodType}</div>
-        <div className="mt-2">
-          <div className="flex items-center">
-            <span>{host.description}</span>
-          </div>
-          <div className="flex items-center mt-1">
-            <div>
-              Guest spots left:{" "}
-              <span className="font-bold">{host.guestSpotsLeft}</span>
+  const newMarkers = markers.filter((marker) => marker.map !== null);
+  markers = [];
+  markers.push(...newMarkers);
+
+  let marker;
+  const { AdvancedMarkerElement } =
+    await window.google.maps.importLibrary("marker");
+  const infowindow = new window.google.maps.InfoWindow();
+
+  hostsInfo.forEach((host, i) => {
+    if (!markers[i]) {
+      if (AdvancedMarkerElement) {
+        marker = new AdvancedMarkerElement();
+      }
+      const markerPosition = { lat: host.lat, lng: host.lng };
+      marker.position = markerPosition;
+      marker.title = host.foodType;
+      if (isMarkerInRegion(marker, regionCircle)) {
+        marker[i] = true;
+        markers.push(marker);
+        marker.setMap(map);
+      } else {
+        marker.setMap(null);
+      }
+      let hostInfoContent = renderToString(
+        <div className="flex flex-col text-gray-600">
+          <div className="text-lg font-bsold">{host.foodType}</div>
+          <div className="mt-2">
+            <div className="flex items-center">
+              <span>{host.description}</span>
+            </div>
+            <div className="flex items-center mt-1">
+              <div>
+                Guest spots left:{" "}
+                <span className="font-bold">{host.guestSpotsLeft}</span>
+              </div>
+            </div>
+            <div className="flex items-center mt-1">
+              <div className="font-bold">${host.price} per person</div>
             </div>
           </div>
-          <div className="flex items-center mt-1">
-            <div className="font-bold">${host.price} per person</div>
+          <div className="flex justify-end">
+            <Button appearance="primary">Register</Button>
           </div>
         </div>
-        <div className="flex justify-end">
-          <Button appearance="primary">Register</Button>
-        </div>
-      </div>
-    ).toString();
+      ).toString();
 
-    if (marker) {
-      google.maps.event.addListener(marker, "click", function () {
-        infowindow.setContent(hostInfoContent);
-        infowindow.open(map, this);
-      });
+      if (marker) {
+        google.maps.event.addListener(marker, "click", function () {
+          infowindow.setContent(hostInfoContent);
+          infowindow.open(map, this);
+        });
+      }
     }
   });
 };
@@ -231,6 +242,23 @@ export const check = (marker, circle, radius) => {
   var dx = Math.abs(circle.lng - marker.lng) * kx;
   var dy = Math.abs(circle.lat - marker.lat) * 111;
   return Math.sqrt(dx * dx + dy * dy) <= km;
+};
+
+export const isMarkerInRegion = (marker, regionCircle) => {
+  let center;
+  let radius;
+  let distance;
+  if (regionCircle) {
+    center = { lat: regionCircle.center.lat(), lng: regionCircle.center.lng() };
+    radius = regionCircle.radius;
+  }
+  if (marker) {
+    distance = window.google.maps.geometry.spherical.computeDistanceBetween(
+      center,
+      marker.position
+    );
+  }
+  return distance <= radius;
 };
 
 export const getUserLocationInfo = (successFunction, failedFunction) => {
