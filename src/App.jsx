@@ -44,7 +44,10 @@ const App = () => {
       let lng = center.lng();
       let currentLocation = { lat, lng };
       map.setCenter(currentLocation);
-      regionCircle.setCenter(currentLocation);
+      map.panTo(currentLocation);
+      if (regionCircle) {
+        regionCircle.setCenter(currentLocation);
+      }
       updateHostMakers(hostMarkers, currentLocation);
       dispatch(setLocation(currentLocation));
     }

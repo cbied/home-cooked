@@ -1,26 +1,16 @@
 import { Panel, Stack, ButtonGroup, Button } from "rsuite";
-import { check, meter } from "../../utils/google-maps/google-maps.utils";
-import { useSelector } from "react-redux";
-import { updateHostMakers } from "../../utils/google-maps/google-maps.utils";
-
-import { useState, useEffect } from "react";
+import {
+  regionCircle,
+  isMarkerInRegion,
+} from "../../utils/google-maps/google-maps.utils";
 import { hostMarkers } from "../../mockData/mockHostMakers";
 
 const HostListItem = () => {
-  const selectUserLatLng = useSelector(
-    (state) => state.experienceFinder.location
-  );
-  const [userLatLng, setUserLatLng] = useState(selectUserLatLng);
-  // when user updates their location within the HostListContainer component, update the listed host dinners
-  useEffect(() => {
-    updateHostMakers(hostMarkers, selectUserLatLng);
-    setUserLatLng(selectUserLatLng);
-  }, [selectUserLatLng]);
   return (
     <div className="w-full flex flex-col justify-center items-center">
       {hostMarkers.map((host) => {
-        const markerPosition = { lat: host.lat, lng: host.lng };
-        if (check(markerPosition, userLatLng, meter)) {
+        const markerPosition = { position: { lat: host.lat, lng: host.lng } };
+        if (isMarkerInRegion(markerPosition, regionCircle)) {
           return (
             <Panel
               key={host.uid}
