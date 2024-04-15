@@ -89,7 +89,17 @@ const Map = ({ screenSize, setAutocompletePlace, autocompletePlace }) => {
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-      <div id="map" className="h-full w-full">
+      <div
+        id="map"
+        className="w-full h-auto"
+        style={{
+          position: "absolute",
+          top: "225px",
+          left: "0",
+          right: "0",
+          bottom: "0",
+        }}
+      >
         <DrawerHostList
           screenSize={screenSize}
           setOpen={setOpen}

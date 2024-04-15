@@ -53,3 +53,7 @@ fix location finder now updating when used in other locations, fixed host list n
 
 markers get updated based on where the user click and drags the map. The markers are shown based on the radius of the regionCircle. Also fixed a bug, when the user accepts to share location, the autofil address bar gets updated accordingly
 \*\* There is a know bug that still needs to be fixed, when the user clicks and drags the map. Some of the markers do now show up as they are supposed to. I think what is happening, is that the markers and getting duplicated and only a few show up
+
+04/09/2024 - updateMarkersBasedOnLocation - Done
+
+Fix center button on map to be at the bottom of the map when in mobile

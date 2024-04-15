@@ -35,6 +35,9 @@ class CenterControl {
     setDrawerButtonUI.style.height = "60px";
     setDrawerButtonUI.textContent = "List";
     setDrawerButtonUI.title = "Click to get a list of hosts";
+    if (window.outerWidth <= 550) {
+      setDrawerButtonUI.style.marginBottom = "50px";
+    }
 
     controlDiv.appendChild(setDrawerButtonUI);
 
@@ -126,6 +129,7 @@ export const initMap = async (position, handleOpenFn, handleFilterOpenFn) => {
       center: geoPosition,
       disableDefaultUI: true,
       clickableIcons: false,
+      keyboardShortcuts: false,
       mapId: "7e95a8887ec6de55",
     });
   }
@@ -166,7 +170,15 @@ export const addControlsToMap = (handleOpenFn, handleFilterOpenFn) => {
   if (map) {
     new CenterControl(centerControlDiv, map, handleOpenFn);
     new FilterControl(filterControlDiv, map, handleFilterOpenFn);
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+    if (window.outerWidth <= 550) {
+      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(
+        centerControlDiv
+      );
+    } else {
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+        centerControlDiv
+      );
+    }
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(filterControlDiv);
   }
 };
