@@ -57,3 +57,7 @@ markers get updated based on where the user click and drags the map. The markers
 04/09/2024 - updateMarkersBasedOnLocation - Done
 
 Fix center button on map to be at the bottom of the map when in mobile
+
+04/17/2024 - updateMarkersBasedOnLocation - Done
+
+add admin container, add side nav. update root to use 100vh
