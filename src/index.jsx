@@ -13,6 +13,7 @@ import App from "./App";
 import Authentication from "./routes/authentication/authentication.component";
 import UserProfile from "./routes/user-profile/user-profile.component";
 import HostSignupContainer from "./routes/host-signup/host-signup-container.component";
+import AdminContainer from "./routes/admin/admin-container.component";
 import { store, persistor } from "./store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -26,9 +27,10 @@ const router = createBrowserRouter(
       <Route path="home" element={<App />} />
       <Route path="auth" element={<Authentication />} />
       <Route path="userProfile" element={<UserProfile />} />
+      <Route path="admin" element={<AdminContainer />} />
       <Route path="hostSignup" element={<HostSignupContainer />} />
-    </Route>,
-  ),
+    </Route>
+  )
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -41,7 +43,7 @@ root.render(
         </PersistGate>
       </Provider>
     </CustomProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
