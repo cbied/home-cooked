@@ -62,7 +62,9 @@ const DropdownAvatar = () => {
             <a className="links" href="/userProfile" alt="User Profile page">
               <Dropdown.Item>Your profile</Dropdown.Item>
             </a>
-            <Dropdown.Item>Your dinners</Dropdown.Item>
+            <a className="links" href="/admin" alt="User Admin page">
+              <Dropdown.Item>Admin</Dropdown.Item>
+            </a>
             <Dropdown.Item>Your friends</Dropdown.Item>
           </div>
         ) : null}
