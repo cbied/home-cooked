@@ -1,39 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import SideAdminNav from "../../components/side-nav/side-admin-nav.component";
-import { Container, DOMHelper } from "rsuite";
-
-const { getHeight, on } = DOMHelper;
+import { Container } from "rsuite";
 
 const AdminContainer = () => {
-  const [windowHeight, setWindowHeight] = useState(getHeight(window));
-  const [expand, setExpand] = useState(true);
+  const [screenSize, setScreenSize] = useState([0, 0]);
 
-  useEffect(() => {
-    setWindowHeight(getHeight(window));
-    const resizeListenner = on(window, "resize", () =>
-      setWindowHeight(getHeight(window))
-    );
-
-    console.log(windowHeight);
-    return () => {
-      resizeListenner.off();
-    };
+  useLayoutEffect(() => {
+    function updateSize() {
+      setScreenSize([window.innerWidth, window.innerHeight]);
+    }
+    let supportsPassive = false;
+    let opts = Object.defineProperty({}, "passive", {
+      get: function () {
+        supportsPassive = true;
+      },
+    });
+    window.addEventListener("resize", updateSize, opts);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  const navBodyStyle = expand
-    ? { height: windowHeight - 112, overflow: "auto" }
-    : {};
   return (
     <Container style={{ height: "100%" }}>
       <div className="flex h-screen">
-        <SideAdminNav
-          expanded={expand}
-          setExpanded={setExpand}
-          navBodyStyle={navBodyStyle}
-        />
+        <SideAdminNav screenSize={screenSize} />
         <Container
           style={
-            !expand
+            screenSize[0] <= 650
               ? { paddingLeft: "60px" }
               : { paddingLeft: "260px", transition: "padding 0.5s" }
           }

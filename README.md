@@ -61,3 +61,7 @@ Fix center button on map to be at the bottom of the map when in mobile
 04/17/2024 - updateMarkersBasedOnLocation - Done
 
 add admin container, add side nav. update root to use 100vh
+
+04/20/2024 - updateAdminSidenav - Done
+
+update admin side nav based on screen width
