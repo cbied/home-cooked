@@ -46,7 +46,7 @@ const HostSignupContainer = () => {
       updateHostStart({
         userPersonalInfo: hostPersonalInfo,
         userProfileInfo: hostProfileInfo,
-      }),
+      })
     );
   };
 
@@ -65,8 +65,8 @@ const HostSignupContainer = () => {
   };
 
   return (
-    <div className="h-full w-full p-24">
-      <div className="w-full flex flex-col justify-around items-stretch ">
+    <div className="h-auto w-full p-24 overflow-scroll">
+      <div className="w-auto flex flex-col justify-around items-stretch">
         <Steps current={step}>
           <Steps.Item />
           <Steps.Item />
@@ -90,7 +90,7 @@ const HostSignupContainer = () => {
           ) : null}
         </Panel>
       </div>
-      <div className="h-full w-full flex flex-col justify-center items-center">
+      <div className="h-auto w-full flex flex-col justify-center items-center">
         <ButtonGroup
           className="w-full justify-around items-center"
           style={{ display: "flex" }}

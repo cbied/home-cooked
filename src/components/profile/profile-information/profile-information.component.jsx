@@ -130,7 +130,7 @@ const ProfileInformation = () => {
   });
 
   return (
-    <Container>
+    <Container style={{ height: "auto", overflow: "scroll" }}>
       {formChange && (
         <div className="flex justify-center">
           <h4> Remember to save! </h4>
@@ -225,7 +225,7 @@ const ProfileInformation = () => {
                 onSuccess={(response, file) => {
                   setUploading(false);
                   toaster.push(
-                    <Message type="success">Uploaded successfully</Message>,
+                    <Message type="success">Uploaded successfully</Message>
                   );
                   console.log(response);
                 }}
