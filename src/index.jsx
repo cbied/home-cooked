@@ -27,7 +27,7 @@ const router = createBrowserRouter(
       <Route path="home" element={<App />} />
       <Route path="auth" element={<Authentication />} />
       <Route path="userProfile" element={<UserProfile />} />
-      <Route path="admin" element={<AdminContainer />} />
+      <Route path="hostAdmin" element={<AdminContainer />} />
       <Route path="hostSignup" element={<HostSignupContainer />} />
     </Route>
   )

@@ -6,6 +6,7 @@ import {
   signInUserWithGoogle,
   updateUserProfile,
   updateUserInfoInFirebase,
+  updateHostProfile,
   auth,
 } from "../../utils/firebase.utils";
 import {
@@ -25,7 +26,7 @@ function* signInUserSteps(data) {
     const user = yield call(
       signInUserWithEmail,
       data.payload.email,
-      data.payload.password,
+      data.payload.password
     );
     if (data.payload.displayName) {
       yield call(updateUserProfile, user, data.payload);
@@ -78,7 +79,7 @@ export function* signInUserGoogle() {
     yield call(
       updateUserProfile,
       userResults,
-      userResults.providerData[0].displayName,
+      userResults.providerData[0].displayName
     );
     const userInfo = yield call(getUserInfoFromFirebase, result.user.uid);
     yield put(signInUserWithGoogleSuccess(userInfo));
@@ -115,9 +116,10 @@ export function* updateHostInfo(hostData) {
     if (!userID) {
       throw new Error("No user ID found");
     }
-
-    const updatedUserInfo = yield call(getUserInfoFromFirebase, userID);
-    yield put(updateUserSuccess(updatedUserInfo));
+    const currentUserInfo = yield call(getUserInfoFromFirebase, userID);
+    const updatedUserInfo = yield call(updateHostProfile, hostData.payload);
+    const updatedHostProfile = { ...currentUserInfo, ...updatedUserInfo };
+    yield put(updateUserSuccess(updatedHostProfile));
   } catch (error) {
     console.log(error);
     yield put(updateHostFailed(error));

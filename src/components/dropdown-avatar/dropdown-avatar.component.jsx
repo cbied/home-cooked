@@ -62,9 +62,15 @@ const DropdownAvatar = () => {
             <a className="links" href="/userProfile" alt="User Profile page">
               <Dropdown.Item>Your profile</Dropdown.Item>
             </a>
-            <a className="links" href="/admin" alt="User Admin page">
-              <Dropdown.Item>Admin</Dropdown.Item>
-            </a>
+            {selectCurrentUser.isHost ? (
+              <a className="links" href="/hostAdmin" alt="User Admin page">
+                <Dropdown.Item>Host Admin</Dropdown.Item>
+              </a>
+            ) : (
+              <a className="links" href="/guestAdmin" alt="User Admin page">
+                <Dropdown.Item>Guest Admin</Dropdown.Item>
+              </a>
+            )}
             <Dropdown.Item>Your friends</Dropdown.Item>
           </div>
         ) : null}
