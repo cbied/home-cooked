@@ -5,7 +5,7 @@ import Navbar from "../../components/navbar/navbar.component";
 
 const UserProfile = () => {
   return (
-    <Container>
+    <Container style={{ height: "auto", overflow: "scroll" }}>
       <Header>
         <Navbar showSearch={false} />
       </Header>
