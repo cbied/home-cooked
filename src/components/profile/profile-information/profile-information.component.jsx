@@ -130,7 +130,7 @@ const ProfileInformation = () => {
   });
 
   return (
-    <Container style={{ height: "auto", overflow: "scroll" }}>
+    <Container>
       {formChange && (
         <div className="flex justify-center">
           <h4> Remember to save! </h4>

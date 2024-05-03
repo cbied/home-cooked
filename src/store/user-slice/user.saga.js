@@ -117,8 +117,8 @@ export function* updateHostInfo(hostData) {
       throw new Error("No user ID found");
     }
     const currentUserInfo = yield call(getUserInfoFromFirebase, userID);
-    const updatedUserInfo = yield call(updateHostProfile, hostData.payload);
-    const updatedHostProfile = { ...currentUserInfo, ...updatedUserInfo };
+    yield call(updateHostProfile, hostData.payload);
+    const updatedHostProfile = { ...currentUserInfo };
     yield put(updateUserSuccess(updatedHostProfile));
   } catch (error) {
     console.log(error);

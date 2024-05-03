@@ -66,6 +66,6 @@ add admin container, add side nav. update root to use 100vh
 
 update admin side nav based on screen width
 
-04/22/2024 - updateHostForm - Done
+05/02/2024 - updateHostForm - Done
 
 bug: fix user saga and redux for host info updating in Redux and Firebase
