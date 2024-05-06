@@ -73,3 +73,7 @@ bug: fix user saga and redux for host info updating in Redux and Firebase
 05/04/2024 - fixButtonStyles - Done
 
 update styles for drawer buttons on small screens
+
+05/06/2024 - addHostFormValidation - Done
+
+add form validation for host signup form
