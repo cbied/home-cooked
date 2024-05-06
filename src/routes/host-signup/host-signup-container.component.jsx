@@ -3,28 +3,22 @@ import { useDispatch } from "react-redux";
 import { updateHostStart } from "../../store/user-slice/user-slice";
 import HostPersonInfo from "../../components/host-signup/host-personal-info.component";
 import HostProfileInfo from "../../components/host-signup/host-profile-info.component";
-import { Steps, ButtonGroup, Button, Panel, Form, ButtonToolbar } from "rsuite";
+import {
+  Steps,
+  ButtonGroup,
+  Button,
+  Panel,
+  Form,
+  ButtonToolbar,
+  Message,
+} from "rsuite";
 import { useNavigate } from "react-router-dom";
-
-let hostPersonalInfoValues = {
-  firstName: "",
-  lastName: "",
-  phoneNumber: "",
-  street: "",
-  city: "",
-  state: "",
-  zipCode: "",
-};
-const hostProfileInfoValues = {
-  foodTypes: [],
-  languages: [],
-  textarea: "",
-};
 
 const HostSignupContainer = () => {
   const [hostPersonalInfo, setHostPersonalInfo] = useState();
   const [hostProfileInfo, setHostProfileInfo] = useState();
   const [step, setStep] = useState(0);
+  const [formError, setFormError] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,7 +34,7 @@ const HostSignupContainer = () => {
     setHostProfileInfo(formValues);
   };
 
-  const saveForm = (formValues) => {
+  const saveForm = () => {
     // dispatch formValues to store
     dispatch(
       updateHostStart({
@@ -57,9 +51,29 @@ const HostSignupContainer = () => {
     onChange(step + 1);
   };
 
-  const onPrevious = () => onChange(step - 1);
+  const onPrevious = () => {
+    setFormError(false);
+    onChange(step - 1);
+  };
 
   const onSubmit = () => {
+    if (
+      !hostPersonalInfo ||
+      !hostPersonalInfo.firstName ||
+      !hostPersonalInfo.lastName ||
+      !hostPersonalInfo.phoneNumber ||
+      !hostPersonalInfo.street ||
+      !hostPersonalInfo.city ||
+      !hostPersonalInfo.state ||
+      !hostPersonalInfo.zipCode ||
+      !hostProfileInfo ||
+      !hostProfileInfo.languages.length ||
+      !hostProfileInfo.foodTypes.length ||
+      !hostProfileInfo.textarea
+    ) {
+      setFormError(true);
+      return;
+    }
     saveForm();
     navigate("/home");
   };
@@ -91,6 +105,13 @@ const HostSignupContainer = () => {
         </Panel>
       </div>
       <div className="h-auto w-full flex flex-col justify-center items-center">
+        {formError ? (
+          <Message type="error">
+            <strong>Looks like were missing some information</strong> Please go
+            back and check all of your information is filled out.
+          </Message>
+        ) : null}
+
         <ButtonGroup
           className="w-full justify-around items-center"
           style={{ display: "flex" }}
