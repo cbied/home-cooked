@@ -69,3 +69,7 @@ update admin side nav based on screen width
 05/02/2024 - updateHostForm - Done
 
 bug: fix user saga and redux for host info updating in Redux and Firebase
+
+05/04/2024 - fixButtonStyles - Done
+
+update styles for drawer buttons on small screens

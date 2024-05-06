@@ -3,7 +3,7 @@ import ExperienceFinder from "../experience-finder/experience-finder.component";
 import DrawerExperienceFinder from "../drawer-experience-finder/drawer-experience-finder.component";
 import HostListContainer from "../host-list-container/host-list-container.component";
 import FilterHostOptions from "../filter-host-options/filter-host-options.component";
-import { Drawer, Button, Modal, ButtonToolbar } from "rsuite";
+import { Drawer, Button, Modal, ButtonToolbar, Grid, Row, Col } from "rsuite";
 import "./drawer-host-list.styles.css";
 
 const DrawerHostList = ({
@@ -53,26 +53,61 @@ const DrawerHostList = ({
         </Drawer.Title>
       </Drawer.Header>
       <Drawer.Body id="host-list" className="flex flex-col host-list-body">
-        <Drawer.Actions className="w-full flex justify-between host-list">
-          <div className="ml-60"></div>
-          <Button
-            onClick={() => setOpen(false)}
-            appearance="primary"
-            className="w-32 h-14 rounded-full mr-60"
-          >
-            Map
-          </Button>
-          <Button
-            size="md"
-            onClick={handleOpen}
-            appearance="primary"
-            className="w-24 h-14 rounded-full"
-          >
-            Filter
-          </Button>
+        <Drawer.Actions
+          className="host-list"
+          style={{ width: "100%", zIndex: "9999" }}
+        >
+          <Grid>
+            <Row style={{ width: "90%" }}>
+              <Col
+                xs={8}
+                style={
+                  screenSize[0] > 550
+                    ? { display: "block" }
+                    : { display: "none" }
+                }
+              ></Col>
+
+              <Col xs={8}>
+                <Button
+                  onClick={() => setOpen(false)}
+                  appearance="primary"
+                  className="w-32 h-14 self-center"
+                  style={
+                    screenSize[0] > 550
+                      ? { borderRadius: "9999px", marginRight: "5rem" }
+                      : { borderRadius: "9999px", marginLeft: "5rem" }
+                  }
+                >
+                  Map
+                </Button>
+              </Col>
+              <Col
+                xs={8}
+                style={
+                  screenSize[0] > 550 ? { float: "left" } : { float: "right" }
+                }
+              >
+                <Button
+                  size="md"
+                  onClick={handleOpen}
+                  appearance="primary"
+                  className="w-24 h-14"
+                  style={
+                    screenSize[0] > 550
+                      ? { borderRadius: "9999px" }
+                      : { borderRadius: "9999px", marginLeft: "2rem" }
+                  }
+                >
+                  Filter
+                </Button>
+              </Col>
+            </Row>
+          </Grid>
         </Drawer.Actions>
 
         <HostListContainer />
+
         <Modal
           size={modalSize}
           open={modalOpen}

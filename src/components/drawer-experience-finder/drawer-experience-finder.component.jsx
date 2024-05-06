@@ -24,13 +24,13 @@ const DrawerExperienceFinder = ({
   return (
     // JSX code goes here
     <div className="w-full flex justify-around self-center">
-      {showLogo && (
+      {showLogo && size > 600 ? (
         <div className="flex h-28 px-10">
           <a className="block self-center" href={"/"}>
             <img className="w-16 h-12" src={logo} alt="home cooked logo" />
           </a>
         </div>
-      )}
+      ) : null}
 
       <div className="h-28 flex items-center rounded-full grow">
         <IconButton
