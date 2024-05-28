@@ -57,7 +57,6 @@ const Map = ({ screenSize, setAutocompletePlace, autocompletePlace }) => {
             }
           }
         });
-      map.panTo(newPoition);
     }
   };
 

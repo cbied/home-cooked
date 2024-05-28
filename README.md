@@ -77,3 +77,7 @@ update styles for drawer buttons on small screens
 05/06/2024 - addHostFormValidation - Done
 
 add form validation for host signup form
+
+05/25/2024 - updateUserExperienceBar - Done
+
+update user experience bar to only update when user clicks search. Before it would update location when user inputs address

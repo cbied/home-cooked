@@ -5,11 +5,7 @@ import {
   setLocation,
   setFormattedAddress,
 } from "../../store/experience-finder-slice/experience-finder-slice";
-import {
-  map,
-  regionCircle,
-  updateHostMakers,
-} from "../../utils/google-maps/google-maps.utils";
+import { updateHostMakers } from "../../utils/google-maps/google-maps.utils";
 import { hostMarkers } from "../../mockData/mockHostMakers";
 /* global google */
 
@@ -40,12 +36,6 @@ const LocationFinder = ({ setAutocompletePlace, autocompletePlace }) => {
       let currentLocation = { lat, lng };
       dispatch(setLocation(currentLocation));
       dispatch(setFormattedAddress(place.formatted_address));
-      if (regionCircle) {
-        regionCircle.setCenter(currentLocation);
-      }
-      if (map) {
-        map.panTo(currentLocation);
-      }
       updateHostMakers(hostMarkers, currentLocation);
     }
   };
