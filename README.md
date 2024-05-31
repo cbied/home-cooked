@@ -32,12 +32,12 @@ Allow user to delete their user profile
 
 ### `Change Log`
 
-03/25/2024 - addLocationLookup -- IN PROGRESS
+03/25/2024 - addLocationLookup -- Done
 
 add location-finder component, update css, update Google map when finder is used, the lat and lng gets updated in Redux, radius circle to only show markers where user is looking
 added more markers in the Asheville area, updated the CSS for the experience finder,
 
-03/26/2024 - addLocationLookup -- IN PROGRESS
+03/26/2024 - addLocationLookup -- Done
 
 convert location-finder to functional component, persist the location address in the bar until updated, update experience-finder-slice to set formattedAddress
 
@@ -81,3 +81,7 @@ add form validation for host signup form
 05/25/2024 - updateUserExperienceBar - Done
 
 update user experience bar to only update when user clicks search. Before it would update location when user inputs address
+
+05/25/2024 - addTestForAdminHost - Done
+
+add tests for admin and host components
