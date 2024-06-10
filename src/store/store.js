@@ -23,12 +23,12 @@ const persistConfig = {
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userReducer,
   experienceFinder: experienceFinderReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,

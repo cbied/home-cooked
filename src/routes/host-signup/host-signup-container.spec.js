@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { useNavigate } from "react-router-dom";
 import HostSignupContainer from "./host-signup-container.component.jsx";
 import configureStore from "redux-mock-store";
 
