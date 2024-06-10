@@ -21,7 +21,7 @@ const AdminContainer = () => {
   }, []);
 
   return (
-    <Container style={{ height: "100%" }}>
+    <Container style={{ height: "100%" }} data-testid="container-element">
       <div className="flex h-screen">
         <SideAdminNav screenSize={screenSize} />
         <Container

@@ -79,7 +79,10 @@ const HostSignupContainer = () => {
   };
 
   return (
-    <div className="h-auto w-full p-24 overflow-scroll">
+    <div
+      className="h-auto w-full p-24 overflow-scroll"
+      data-testid="host-container"
+    >
       <div className="w-auto flex flex-col justify-around items-stretch">
         <Steps current={step}>
           <Steps.Item />
@@ -116,19 +119,27 @@ const HostSignupContainer = () => {
           className="w-full justify-around items-center"
           style={{ display: "flex" }}
         >
-          <Button onClick={onPrevious} disabled={step === 0}>
+          <Button
+            onClick={onPrevious}
+            disabled={step === 0}
+            data-testid="onPrevious"
+          >
             Previous
           </Button>
           {step === 2 ? (
             <Form.Group>
               <ButtonToolbar>
-                <Button appearance="primary" onClick={onSubmit}>
+                <Button
+                  appearance="primary"
+                  onClick={onSubmit}
+                  data-testid="onSubmit"
+                >
                   Submit
                 </Button>
               </ButtonToolbar>
             </Form.Group>
           ) : (
-            <Button onClick={onNext} disabled={step === 3}>
+            <Button onClick={onNext} disabled={step === 3} data-testid="onNext">
               Next
             </Button>
           )}
