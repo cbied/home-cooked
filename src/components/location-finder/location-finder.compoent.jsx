@@ -36,7 +36,6 @@ const LocationFinder = ({ setAutocompletePlace, autocompletePlace }) => {
       let currentLocation = { lat, lng };
       dispatch(setLocation(currentLocation));
       dispatch(setFormattedAddress(place.formatted_address));
-      updateHostMakers(hostMarkers, currentLocation);
     }
   };
 

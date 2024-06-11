@@ -12,7 +12,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 60,
     hostDisplayName: "Arisara",
-    date: "Mar 30 2024",
+    date: "Jun 20 2024",
     time: "5:30 PM",
   },
   {
@@ -28,7 +28,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 75,
     hostDisplayName: "Susie",
-    date: "Apr 01 2024",
+    date: "Jun 13 2024",
     time: "12:00 PM",
   },
   {
@@ -44,7 +44,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 40,
     hostDisplayName: "Emily",
-    date: "Wed May 01 2024 20:30:00 GMT+1300",
+    date: "Jun 15 2024",
     time: "5:00 PM",
   },
   {
@@ -60,7 +60,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 80,
     hostDisplayName: "Chris",
-    date: "Apr 02 2024",
+    date: "Jun 02 2024",
     time: "6:15 PM",
   },
   {
@@ -76,7 +76,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 50,
     hostDisplayName: "P Lot",
-    date: "Mar 25 2024",
+    date: "Jun 25 2024",
     time: "5:45 PM",
   },
   {
@@ -92,7 +92,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 40,
     hostDisplayName: "Jean-Pierre",
-    date: "Mar 22 2024",
+    date: "Jun 22 2024",
     time: "12:30 PM",
   },
   {
@@ -108,7 +108,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 100,
     hostDisplayName: "Linh",
-    date: "Mar 29 2024",
+    date: "Jun 29 2024",
     time: "7:00 PM",
   },
   {
@@ -124,7 +124,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 60,
     hostDisplayName: "Juan",
-    date: "Mar 20 2024",
+    date: "Jun 20 2024",
     time: "7:30 PM",
   },
   {
@@ -140,7 +140,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 70,
     hostDisplayName: "Somsak",
-    date: "Mar 19 2024",
+    date: "Jun 01 2024",
     time: "8:00 PM",
   },
   {
@@ -156,7 +156,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 90,
     hostDisplayName: "Marie",
-    date: "Mar 15 2024",
+    date: "Jun 15 2024",
     time: "6:30 PM",
   },
   {
@@ -172,7 +172,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 70,
     hostDisplayName: "Giovanni",
-    date: "Apr 02 2024",
+    date: "Jun 02 2024",
     time: "7:00 PM",
   },
   {
@@ -188,7 +188,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 50,
     hostDisplayName: "Carlos",
-    date: "Mar 25 2024",
+    date: "Jun 25 2024",
     time: "6:30 PM",
   },
   {
@@ -204,7 +204,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 40,
     hostDisplayName: "Sarah",
-    date: "Mar 22 2024",
+    date: "Jun 22 2024",
     time: "12:00 PM",
   },
   {
@@ -220,7 +220,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 90,
     hostDisplayName: "Yuki",
-    date: "Mar 15 2024",
+    date: "Jun 15 2024",
     time: "7:30 PM",
   },
   {
@@ -236,7 +236,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 80,
     hostDisplayName: "Raj",
-    date: "Mar 19 2024",
+    date: "Jun 19 2024",
     time: "8:00 PM",
   },
   {
@@ -252,7 +252,7 @@ export const hostMarkers = [
     image: require("../assets/thai-pad-kra-pao.jpg"),
     price: 60,
     hostDisplayName: "Arisara",
-    date: "Mar 30 2024",
+    date: "Jun 30 2024",
     time: "5:30 PM",
   },
 ];
