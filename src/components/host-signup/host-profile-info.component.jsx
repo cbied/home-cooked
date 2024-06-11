@@ -8,7 +8,7 @@ const Textarea = forwardRef((props, ref) => (
 ));
 
 const HostProfileInfo = ({ saveForm, formInfo }) => {
-  const [foodData, setFoodData] = useState();
+  const [foodData, setFoodData] = useState(foodTypes);
   let foodTypeData = [];
 
   foodTypes.forEach((foodType) => {

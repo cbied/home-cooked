@@ -1,6 +1,7 @@
 {
   "name": "home-cooked",
   "version": "0.1.0",
+  "testEnvironment": "jsdom",
   "private": true,
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",
@@ -31,6 +32,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test --coverage",
+    "testAll": "npx react-scripts test --env=./src/utils/test/custom-test-env.js --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
