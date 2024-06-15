@@ -3,8 +3,6 @@ import DropdownAvatar from "../dropdown-avatar/dropdown-avatar.component";
 import ExperienceFinder from "../experience-finder/experience-finder.component";
 import DrawerExperienceFinder from "../drawer-experience-finder/drawer-experience-finder.component";
 import logo from "../../assets/logo.png";
-import mockData from "../../mockData/generated.json";
-import { addMockData } from "../../utils/firebase.utils";
 import "./navbar.styles.css";
 
 const Navbar = ({
@@ -25,9 +23,7 @@ const Navbar = ({
         {size[0] > 950 && showSearch ? (
           <div className="flex items-center">
             <Nav className="flex justify-around items-center">
-              <Nav.Item onClick={() => addMockData(mockData)}>
-                Be a Guest
-              </Nav.Item>
+              <Nav.Item href={"/"}>Be a Guest</Nav.Item>
               <Nav.Item href={"/"}>Learn about the experience</Nav.Item>
               <Nav.Item href={"/hostSignup"}>Be a Host</Nav.Item>
             </Nav>
