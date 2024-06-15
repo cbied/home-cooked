@@ -43,6 +43,13 @@ export async function addNewUser(userInfo) {
     .catch((err) => console.error(err));
 }
 
+export async function addMockData(mockDataArray) {
+  for (let i = 0; i < mockDataArray.length; i++) {
+    console.log("added " + i);
+    await setDoc(doc(db, "users", mockDataArray[i].uid), mockDataArray[i]);
+  }
+}
+
 export async function signInUserWithEmail(email, password) {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

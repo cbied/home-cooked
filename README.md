@@ -85,3 +85,7 @@ update user experience bar to only update when user clicks search. Before it wou
 05/25/2024 - addTestForAdminHost - Done
 
 add tests for admin and host components
+
+06/11/2024 - addSearchFunction - Done
+
+add functionality so user can search based on search criteria

@@ -1,5 +1,6 @@
 import { Button } from "rsuite";
 import { renderToString } from "react-dom/server";
+import { store } from "../../store/store";
 // Initialize and add the map
 export let map;
 
@@ -186,9 +187,7 @@ export let markers = [];
 
 export const updateHostMakers = async (hostsInfo, position) => {
   for (let i = 0; i < markers.length; i++) {
-    if (!isMarkerInRegion(markers[i], regionCircle)) {
-      markers[i].setMap(null);
-    }
+    markers[i].setMap(null);
   }
 
   const newMarkers = markers.filter((marker) => marker.map !== null);
@@ -208,7 +207,18 @@ export const updateHostMakers = async (hostsInfo, position) => {
       const markerPosition = { lat: host.lat, lng: host.lng };
       marker.position = markerPosition;
       marker.title = host.foodType;
-      if (isMarkerInRegion(marker, regionCircle)) {
+      const state = store.getState();
+      const dateRangeStart = state.experienceFinder.dateRange[0];
+      const dateRangeEnd = state.experienceFinder.dateRange[1];
+      const hostDate = new Date(host.date);
+      const isBetweenDates =
+        new Date(dateRangeStart) <= hostDate &&
+        hostDate <= new Date(dateRangeEnd);
+      if (
+        isMarkerInRegion(marker, regionCircle) &&
+        state.experienceFinder.foodTypes.includes(marker.title) &&
+        isBetweenDates
+      ) {
         marker[i] = true;
         markers.push(marker);
         marker.setMap(map);

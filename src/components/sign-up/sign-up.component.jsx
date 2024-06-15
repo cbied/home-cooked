@@ -72,7 +72,7 @@ export default function SignUp() {
     if (
       selectUserSlice.currentUser &&
       selectUserSlice.currentUser.displayName &&
-      selectUserSlice.currentUser.isHost.length
+      selectUserSlice.currentUser.isHost
     ) {
       console.log("to /hostSignup");
       navigate("/hostSignup");
@@ -81,7 +81,7 @@ export default function SignUp() {
     if (
       selectUserSlice.currentUser &&
       selectUserSlice.currentUser.displayName &&
-      !selectUserSlice.currentUser.isHost.length
+      !selectUserSlice.currentUser.isHost
     ) {
       console.log("to /home");
       navigate("/home");
