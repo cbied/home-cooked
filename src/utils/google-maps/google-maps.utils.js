@@ -290,3 +290,42 @@ export const getUserLocationInfo = (successFunction, failedFunction) => {
     console.log("Geolocation is not supported by this browser.");
   }
 };
+
+export const getRandomLatitude = (radius) => {
+  // NY, NY center
+  const center = { lat: 40.7128, lng: -74.006 };
+  var y0 = center.lat;
+  // Convert Radius from meters to degrees.
+  var rd = radius / 111300;
+
+  var u = Math.random();
+  var v = Math.random();
+
+  var w = rd * Math.sqrt(u);
+  var t = 2 * Math.PI * v;
+  var y = w * Math.sin(t);
+
+  // Resulting point.
+  return y + y0;
+};
+
+export const getRandomLongitude = (radius) => {
+  // NY, NY center
+  const center = { lat: 40.7128, lng: -74.006 };
+  var x0 = center.lng;
+  var y0 = center.lat;
+  // Convert Radius from meters to degrees.
+  var rd = radius / 111300;
+
+  var u = Math.random();
+  var v = Math.random();
+
+  var w = rd * Math.sqrt(u);
+  var t = 2 * Math.PI * v;
+  var x = w * Math.cos(t);
+
+  var xp = x / Math.cos(y0);
+
+  // Resulting point.
+  return xp + x0;
+};
