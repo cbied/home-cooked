@@ -93,3 +93,7 @@ add functionality so user can search based on search criteria
 06/11/2024 - addMockData - Done
 
 add mock data for host hosting dinners
+
+06/19/2024 - updateManifest - Done
+
+update title and manifest to update icon
